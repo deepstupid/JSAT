@@ -86,7 +86,7 @@ public class ImportanceByUsesTest
             {
                 DataPoint dp = train.getDataPoint(i);
                 Vec n = dp.getNumericalValues();
-                train_noise.addDataPoint(new ConcatenatedVec(n, DenseVector.random(randomFeatures)), train.getDataPointCategory(i));
+                train_noise.addDataPoint(new ConcatenatedVec(n, Vec.random(randomFeatures)), train.getDataPointCategory(i));
             }
 
 
@@ -114,7 +114,7 @@ public class ImportanceByUsesTest
             {
                 DataPoint dp = train.getDataPoint(i);
                 Vec n = dp.getNumericalValues();
-                train_noise.addDataPoint(new ConcatenatedVec(n, DenseVector.random(randomFeatures)), train.getDataPointCategory(i));
+                train_noise.addDataPoint(new ConcatenatedVec(n, Vec.random(randomFeatures)), train.getDataPointCategory(i));
             }
 
             train_noise.applyTransform(new NumericalToHistogram(train_noise));

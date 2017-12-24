@@ -76,7 +76,7 @@ public class RegressionModelEvaluation
      */
     public RegressionModelEvaluation(Regressor regressor, RegressionDataSet dataSet)
     {
-        this(regressor, dataSet, false);
+        this(regressor, dataSet, true);
     }
     
     /**

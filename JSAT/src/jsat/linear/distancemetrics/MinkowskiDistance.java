@@ -111,10 +111,10 @@ public class MinkowskiDistance implements DenseSparseMetric
         double takeOut = 0.0;
         for(IndexValue iv : target)
         {
-            int i = iv.getIndex();
+            int i = iv.index;
             double mainVal = main.get(i);
             takeOut += Math.pow(mainVal, p);
-            addBack += Math.pow(mainVal-iv.getValue(), p);
+            addBack += Math.pow(mainVal- iv.value, p);
         }
         return Math.pow(summaryConst-takeOut+addBack, 1/p);
     }

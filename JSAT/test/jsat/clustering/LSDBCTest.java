@@ -33,8 +33,7 @@ public class LSDBCTest
     static private ExecutorService ex;
 
     @BeforeClass
-    public static void setUpClass() throws Exception
-    {
+    public static void setUpClass() {
         algo = new LSDBC();
         GridDataGenerator gdg = new GridDataGenerator(new Normal(0, 0.10), new Random(12), 2, 5);
         easyData10 = gdg.generateData(40);
@@ -42,8 +41,7 @@ public class LSDBCTest
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception
-    {
+    public static void tearDownClass() {
         ex.shutdown();
     }
     

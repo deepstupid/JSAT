@@ -14,11 +14,9 @@ import jsat.linear.*;
 import jsat.linear.distancemetrics.DistanceMetric;
 import jsat.linear.distancemetrics.EuclideanDistance;
 import jsat.math.OnLineStatistics;
-import jsat.parameters.Parameter;
 import jsat.parameters.Parameter.ParameterHolder;
 import jsat.parameters.Parameterized;
 import jsat.utils.random.RandomUtil;
-import jsat.utils.random.XORWOW;
 
 /**
  * This class implements a method for estimating the number of clusters in a 
@@ -319,7 +317,7 @@ public class GapStatistic extends KClustererBase implements Parameterized
         //dataset object we will reuse
         SimpleDataSet Xp = new SimpleDataSet(new CategoricalData[0], D);
         for(int i = 0; i < N; i++)
-            Xp.add(new DataPoint(new DenseVector(D)));
+            Xp.add(new DataPoint(DenseVector.a(D)));
         
         Random rand = RandomUtil.getRandom();
         
@@ -369,7 +367,7 @@ public class GapStatistic extends KClustererBase implements Parameterized
             {
                 //Finally we back-transform via Z = Z' V^T to give reference data Z
                 //TODO batch as a matrix matrix op would be faster, but use more memory
-                Vec tmp = new DenseVector(D);
+                Vec tmp = DenseVector.a(D);
                 for (int i = 0; i < N; i++)
                 {
                     Vec xp = Xp.getDataPoint(i).getNumericalValues();

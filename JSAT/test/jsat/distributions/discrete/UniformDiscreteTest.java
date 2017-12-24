@@ -32,7 +32,7 @@ import static org.junit.Assert.*;
  */
 public class UniformDiscreteTest
 {
-    static int[] testVals = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    static int[] testVals = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     
     public UniformDiscreteTest()
     {
@@ -64,8 +64,7 @@ public class UniformDiscreteTest
         System.out.println("logPmf");
         UniformDiscrete instance = new UniformDiscrete(2, 9);
         
-        double[] expected_7 = new double[]
-        {
+        double[] expected_7 = {
             -Double.MAX_VALUE,-Double.MAX_VALUE,-2.07944154167984,-2.07944154167984,-2.07944154167984,-2.07944154167984,-2.07944154167984,-2.07944154167984,-2.07944154167984,-2.07944154167984,-Double.MAX_VALUE
         };
         
@@ -82,8 +81,7 @@ public class UniformDiscreteTest
         System.out.println("pmf");
         UniformDiscrete instance = new UniformDiscrete(2, 9);
         
-        double[] expected_7 = new double[]
-        {
+        double[] expected_7 = {
             0,0,0.125000000000000,0.125000000000000,0.125000000000000,0.125000000000000,0.125000000000000,0.125000000000000,0.125000000000000,0.125000000000000,0
         };
         
@@ -99,8 +97,7 @@ public class UniformDiscreteTest
         System.out.println("cdf");
         UniformDiscrete instance = new UniformDiscrete(2, 9);
         
-        double[] expected_7 = new double[]
-        {
+        double[] expected_7 = {
             0,0,0.125000000000000,0.250000000000000,0.375000000000000,0.500000000000000,0.625000000000000,0.750000000000000,0.875000000000000,1.00000000000000,1.00000000000000
         };
         
@@ -111,7 +108,7 @@ public class UniformDiscreteTest
             //its hard to get the right value for the probabilities right on the line, so lets nudge them a little to make sure we map to the right spot
             double val;
             if(i == 0)
-                val = instance.invCdf(expected_7[i]*.99);
+                val = instance.invCdf(expected_7[0]*.99);
             else
                 val = instance.invCdf(expected_7[i-1]+(expected_7[i]-expected_7[i-1])*0.95);
             

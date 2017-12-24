@@ -108,7 +108,7 @@ public class DenseMatrix extends GenericMatrix
         for(int i = 0; i < rows(); i++)
         {
             //The Dense construcure does not clone the matrix, it just takes the refernce -making it fast
-            DenseVector row = new DenseVector(matrix[i]);
+            DenseVector row = DenseVector.a(matrix[i]);
             c.increment(i, row.dot(b)*z);//We use the dot product in this way so that if the incoming matrix is sparce, we can take advantage of save computaitons
         }
     }
@@ -620,7 +620,7 @@ public class DenseMatrix extends GenericMatrix
     @Override
     public Vec getRowView(int r)
     {
-        return new DenseVector(matrix[r]);
+        return DenseVector.a(matrix[r]);
     }
     
     @Override

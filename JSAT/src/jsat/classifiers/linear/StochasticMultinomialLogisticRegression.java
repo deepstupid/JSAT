@@ -2,7 +2,7 @@ package jsat.classifiers.linear;
 
 import static java.lang.Math.*;
 import java.util.*;
-import java.util.concurrent.ExecutorService;
+
 import jsat.SimpleWeightVectorModel;
 import jsat.classifiers.*;
 import jsat.exceptions.FailedToFitException;
@@ -14,7 +14,6 @@ import jsat.linear.Vec;
 import jsat.math.MathTricks;
 import jsat.math.decayrates.DecayRate;
 import jsat.math.decayrates.ExponetialDecay;
-import jsat.parameters.Parameter;
 import jsat.parameters.Parameterized;
 import jsat.utils.IntList;
 import jsat.utils.ListUtils;
@@ -560,7 +559,7 @@ public class StochasticMultinomialLogisticRegression implements Classifier, Para
         B = new Vec[dataSet.getClassSize()-1];
         biases = new double[B.length];
         for(int i = 0; i < B.length; i++)
-            B[i] = new DenseVector(d);
+            B[i] = DenseVector.a(d);
         
         IntList randOrder = new IntList(n);
         ListUtils.addRange(randOrder, 0, n, 1);
@@ -625,7 +624,7 @@ public class StochasticMultinomialLogisticRegression implements Classifier, Para
                     {
                         for (IndexValue iv : x_j)
                         {
-                            int i = iv.getIndex();
+                            int i = iv.index;
                             if(u[i] == 0)
                                 continue;
                             double etaRegScaled = etaReg * (u[i] - q) / N;

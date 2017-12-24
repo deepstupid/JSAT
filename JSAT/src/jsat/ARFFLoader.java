@@ -161,7 +161,7 @@ public class ARFFLoader
                         }
                     }
                         
-                    DenseVector vec = new DenseVector(numReal);
+                    DenseVector vec = DenseVector.a(numReal);
                     
                     int[] cats = new int[numOfVars - numReal];
                     int k = 0;//Keeping track of position in cats

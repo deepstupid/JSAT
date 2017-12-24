@@ -96,8 +96,8 @@ public class AdaDelta implements GradientUpdater
         biasGSqrd *= rho;
         for(IndexValue iv : grad)
         {
-            final int indx = iv.getIndex();
-            final double grad_i = iv.getValue();
+            final int indx = iv.index;
+            final double grad_i = iv.value;
             gSqrd.increment(indx, grad_i*grad_i*(1-rho));//step 4
             final double gSqrd_i = gSqrd.get(indx);
             final double deltaX_i = deltaXSqrt.get(indx);
@@ -128,8 +128,8 @@ public class AdaDelta implements GradientUpdater
     @Override
     public void setup(int d)
     {
-        gSqrd = new ScaledVector(new DenseVector(d));
-        deltaXSqrt = new ScaledVector(new DenseVector(d));
+        gSqrd = new ScaledVector(DenseVector.a(d));
+        deltaXSqrt = new ScaledVector(DenseVector.a(d));
         deltaBiasSqrt = biasGSqrd = 0;
     }
     

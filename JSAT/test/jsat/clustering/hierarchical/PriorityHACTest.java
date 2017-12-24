@@ -47,8 +47,7 @@ public class PriorityHACTest
     }
 
     @BeforeClass
-    public static void setUpClass() throws Exception
-    {
+    public static void setUpClass() {
         priorityHAC = new PriorityHAC(new SingleLinkDissimilarity(new EuclideanDistance()));
         GridDataGenerator gdg = new GridDataGenerator(new Uniform(-0.15, 0.15), new Random(12), 2, 5);
         easyData10 = gdg.generateData(50);
@@ -56,8 +55,7 @@ public class PriorityHACTest
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception
-    {
+    public static void tearDownClass() {
         ex.shutdown();
     }
     

@@ -1,7 +1,7 @@
 package jsat.classifiers.linear.kernelized;
 
 import java.util.List;
-import java.util.concurrent.ExecutorService;
+
 import jsat.DataSet;
 import jsat.classifiers.BaseUpdateableClassifier;
 import jsat.classifiers.CategoricalData;
@@ -24,7 +24,6 @@ import jsat.lossfunctions.LossFunc;
 import jsat.lossfunctions.LossMC;
 import jsat.lossfunctions.LossR;
 import jsat.lossfunctions.SoftmaxLoss;
-import jsat.parameters.Parameter;
 import jsat.parameters.Parameter.ParameterHolder;
 import jsat.parameters.Parameterized;
 import jsat.regression.BaseUpdateableRegressor;
@@ -353,7 +352,7 @@ public class KernelSGD implements UpdateableClassifier, UpdateableRegressor, Par
         else if(kpoints != null)
         {
             kpoints.mutableMultiply(1-eta_t*lambda);
-            Vec pred = new DenseVector(kpoints.dot(x, qi));
+            Vec pred = DenseVector.a(kpoints.dot(x, qi));
             ((LossMC)loss).process(pred, pred);
             ((LossMC)loss).deriv(pred, pred, targetClass);
             pred.mutableMultiply(-eta_t);//should we wrap in a scaledVec? Probably fine unless someone pulls out a 200 class problem
@@ -387,7 +386,7 @@ public class KernelSGD implements UpdateableClassifier, UpdateableRegressor, Par
             return ((LossC)loss).getClassification(kpoint.dot(x, qi));
         else
         {
-            Vec pred = new DenseVector(kpoints.dot(x, qi));
+            Vec pred = DenseVector.a(kpoints.dot(x, qi));
             ((LossMC)loss).process(pred, pred);
             return ((LossMC)loss).getClassification(pred);
         }

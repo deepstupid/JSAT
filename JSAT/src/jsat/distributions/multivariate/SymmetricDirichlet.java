@@ -139,7 +139,7 @@ public class SymmetricDirichlet extends MultivariateDistributionSkeleton
             }
         };
         NelderMead optimize = new NelderMead();
-        Vec guess = new DenseVector(1);
+        Vec guess = DenseVector.a(1);
         List<Vec> guesses = new ArrayList<Vec>();
         guesses.add(guess.add(1.0));
         guesses.add(guess.add(0.1));
@@ -184,7 +184,7 @@ public class SymmetricDirichlet extends MultivariateDistributionSkeleton
             }
         };
         NelderMead optimize = new NelderMead();
-        Vec guess = new DenseVector(1);
+        Vec guess = DenseVector.a(1);
         List<Vec> guesses = new ArrayList<Vec>();
         guesses.add(guess.add(1.0));
         guesses.add(guess.add(0.1));
@@ -201,7 +201,7 @@ public class SymmetricDirichlet extends MultivariateDistributionSkeleton
         int samplePos = 0;
         for(int i = 0; i < count; i++)
         {
-            Vec sample = new DenseVector(dim);
+            Vec sample = DenseVector.a(dim);
             for(int j = 0; j < dim; j++)
                 sample.set(j, gammaSamples[samplePos++]);
             sample.mutableDivide(sample.sum());

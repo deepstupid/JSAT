@@ -168,7 +168,7 @@ public class NormalM extends MultivariateDistributionSkeleton
         Vec origMean = this.mean;
         try
         {
-            Vec newMean = new DenseVector(dataSet.get(0).getNumericalValues().length());
+            Vec newMean = DenseVector.a(dataSet.get(0).getNumericalValues().length());
             double sumOfWeights = 0.0, sumOfSquaredWeights = 0.0;
             for(int i = 0; i < dataSet.size(); i++)
             {
@@ -209,7 +209,7 @@ public class NormalM extends MultivariateDistributionSkeleton
     public List<Vec> sample(int count, Random rand)
     {
         List<Vec> samples = new ArrayList<Vec>(count);
-        Vec Z = new DenseVector(L.rows());
+        Vec Z = DenseVector.a(L.rows());
         
         for(int i = 0; i < count; i++)
         {

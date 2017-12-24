@@ -287,7 +287,7 @@ public class GridSearchTest
         int param1;
         double param2;
         int param3;
-        boolean wasWarmStarted = false;
+        boolean wasWarmStarted;
 
         public void setParam1(int param1)
         {

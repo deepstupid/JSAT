@@ -1,6 +1,5 @@
 package jsat.classifiers.evaluation;
 
-import jsat.classifiers.evaluation.MatthewsCorrelationCoefficient;
 import jsat.classifiers.CategoricalData;
 import jsat.classifiers.CategoricalResults;
 import org.junit.After;

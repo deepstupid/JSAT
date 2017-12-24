@@ -79,7 +79,7 @@ public class SubVector extends Vec
             @Override
             public boolean hasNext()
             {
-                return nextVal.getIndex() < length+startPosition;
+                return nextVal.index < length+startPosition;
             }
 
             @Override
@@ -87,12 +87,12 @@ public class SubVector extends Vec
             {
                 if(!hasNext())
                     throw new NoSuchElementException();
-                curVal.setIndex(nextVal.getIndex()-startPosition);
-                curVal.setValue(nextVal.getValue());
+                curVal.index = nextVal.index -startPosition;
+                curVal.value = nextVal.value;
                 if(origIter.hasNext())
                     nextVal = origIter.next();
                 else
-                    nextVal.setIndex(Integer.MAX_VALUE);
+                    nextVal.index = Integer.MAX_VALUE;
                 
                 return curVal;
             }

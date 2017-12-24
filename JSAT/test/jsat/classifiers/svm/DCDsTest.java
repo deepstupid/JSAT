@@ -123,7 +123,7 @@ public class DCDsTest
         }
     }
     
-    @Test()
+    @Test
     public void testTrainWarmC()
     {
         ClassificationDataSet train = FixedProblems.getHalfCircles(10000, RandomUtil.getRandom(), 0.1, 0.5);
@@ -157,7 +157,7 @@ public class DCDsTest
         assertTrue(warmTime < normTime*0.80);   
     }
     
-    @Test()
+    @Test
     public void testTrainWarR()
     {
         RegressionDataSet train = FixedProblems.getSimpleRegression1(4000, RandomUtil.getRandom());

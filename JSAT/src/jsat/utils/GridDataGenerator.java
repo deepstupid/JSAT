@@ -100,7 +100,7 @@ public class GridDataGenerator
         {
             for(int i = 0; i < samples; i++)
             {
-                DenseVector dv = new DenseVector(dim.length);
+                DenseVector dv = DenseVector.a(dim.length);
                 for(int j = 0; j < dim.length; j++)
                     dv.set(j, dim[j]+noiseSource.invCdf(rand.nextDouble()));
                 dataPoints.add(new DataPoint(dv, new int[]{ curClass[0] }, catDataInfo));

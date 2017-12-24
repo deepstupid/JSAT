@@ -1,7 +1,7 @@
 package jsat.classifiers.linear;
 
 import java.util.Iterator;
-import java.util.List;
+
 import jsat.SingleWeightVectorModel;
 import jsat.classifiers.CategoricalResults;
 import jsat.classifiers.Classifier;
@@ -10,7 +10,6 @@ import jsat.linear.IndexValue;
 import jsat.linear.Vec;
 import jsat.lossfunctions.LogisticLoss;
 import jsat.lossfunctions.SquaredLoss;
-import jsat.parameters.Parameter;
 import jsat.parameters.Parameterized;
 import jsat.regression.Regressor;
 
@@ -357,8 +356,8 @@ public abstract class StochasticSTLinearL1 implements Classifier, Regressor, Par
             {
                 for(IndexValue iv : x)
                 {
-                    int j = iv.getIndex();
-                    double xV = iv.getValue() - obvMin[j];
+                    int j = iv.index;
+                    double xV = iv.value - obvMin[j];
                     xV *= (maxScaled - minScaled) / (obvMax[j] - obvMin[j]);
                     xV += minScaled;
                     a += w.get(j)*xV;
@@ -377,26 +376,26 @@ public abstract class StochasticSTLinearL1 implements Classifier, Regressor, Par
             IndexValue xIV = xIter.next();
             do
             {
-                if (wIV.getIndex() == xIV.getIndex())
+                if (wIV.index == xIV.index)
                 {
-                    int j = xIV.getIndex();
-                    double xV = xIV.getValue() - obvMin[j];
+                    int j = xIV.index;
+                    double xV = xIV.value - obvMin[j];
                     xV *= (maxScaled - minScaled) / (obvMax[j] - obvMin[j]);
                     xV += minScaled;
                     //Scaled, now add to result
-                    a += wIV.getValue() * xV;
+                    a += wIV.value * xV;
 
                     if (!wIter.hasNext() || !xIter.hasNext())
                         break;
                     wIV = wIter.next();
                     xIV = xIter.next();
                 }
-                else if (wIV.getIndex() < xIV.getIndex())
+                else if (wIV.index < xIV.index)
                     if (wIter.hasNext())
                         wIV = wIter.next();
                     else
                         break;
-                else if (wIV.getIndex() > xIV.getIndex())
+                else if (wIV.index > xIV.index)
                     if (xIter.hasNext())
                         xIV = xIter.next();
                     else

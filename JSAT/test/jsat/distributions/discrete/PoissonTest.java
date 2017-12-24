@@ -32,7 +32,7 @@ import static org.junit.Assert.*;
  */
 public class PoissonTest
 {
-    static int[] testVals = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    static int[] testVals = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     
     public PoissonTest()
     {
@@ -66,8 +66,7 @@ public class PoissonTest
         System.out.println("logPmf");
         Poisson instance = new Poisson(7);
         
-        double[] expected_7 = new double[]
-        {
+        double[] expected_7 = {
             -7.00000000000000,-5.05408985094469,-3.80132688244932,-2.95402902206212,-2.39441323412669,-2.05794099750548,-1.90379031767822,-1.90379031767822,-2.03732171030274,-2.28863613858365,-2.64531108252238
         };
         
@@ -84,8 +83,7 @@ public class PoissonTest
         System.out.println("pmf");
         Poisson instance = new Poisson(7);
         
-        double[] expected_7 = new double[]
-        {
+        double[] expected_7 = {
             0.000911881965554516,0.00638317375888161,0.0223411081560856,0.0521292523641998,0.0912261916373497,0.127716668292290,0.149002779674338,0.149002779674338,0.130377432215046,0.101404669500591,0.0709832686504137
         };
         
@@ -101,8 +99,7 @@ public class PoissonTest
         System.out.println("cdf");
         Poisson instance = new Poisson(7);
         
-        double[] expected_7 = new double[]
-        {
+        double[] expected_7 = {
             0.000911881965554516,0.00729505572443613,0.0296361638805218,0.0817654162447216,0.172991607882071,0.300708276174361,0.449711055848699,0.598713835523037,0.729091267738082,0.830495937238673,0.901479205889087
         };
         
@@ -113,7 +110,7 @@ public class PoissonTest
             //its hard to get the right value for the probabilities right on the line, so lets nudge them a little to make sure we map to the right spot
             double val;
             if(i == 0)
-                val = instance.invCdf(expected_7[i]*.99);
+                val = instance.invCdf(expected_7[0]*.99);
             else
                 val = instance.invCdf(expected_7[i-1]+(expected_7[i]-expected_7[i-1])*0.95);
             

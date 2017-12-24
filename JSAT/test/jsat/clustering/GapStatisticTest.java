@@ -35,7 +35,7 @@ public class GapStatisticTest
 {
     static private SimpleDataSet easyData10;
     static private ExecutorService ex;
-    static private int K = 2*2;
+    static private final int K = 2*2;
     
     public GapStatisticTest()
     {

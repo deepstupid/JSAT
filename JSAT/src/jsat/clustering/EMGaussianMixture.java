@@ -1,6 +1,5 @@
 package jsat.clustering;
 
-import jsat.clustering.kmeans.ElkanKMeans;
 import static java.lang.Math.log;
 
 import java.util.*;
@@ -16,12 +15,10 @@ import jsat.clustering.SeedSelectionMethods.SeedSelection;
 import jsat.distributions.multivariate.MultivariateDistribution;
 import jsat.distributions.multivariate.NormalM;
 import jsat.linear.*;
-import jsat.linear.distancemetrics.DistanceMetric;
 import jsat.linear.distancemetrics.EuclideanDistance;
 import jsat.utils.ListUtils;
 import static jsat.utils.SystemInfo.LogicalCores;
 import jsat.utils.random.RandomUtil;
-import jsat.utils.random.XORWOW;
 
 /**
  * An implementation of Gaussian Mixture models that learns the specified number of Gaussians using Expectation Maximization algorithm. 
@@ -155,7 +152,7 @@ public class EMGaussianMixture extends KClustererBase implements MultivariateDis
         double sum = dataSet.getSampleSize();
         
         //Compute inital Covariances
-        Vec scratch = new DenseVector(dimension);
+        Vec scratch = DenseVector.a(dimension);
         List<Vec> X = dataSet.getDataVectors();
         for(int i = 0; i < dataSet.getSampleSize(); i++)
         {
@@ -289,7 +286,7 @@ public class EMGaussianMixture extends KClustererBase implements MultivariateDis
                 execServ.submit(() -> {
                     Vec[] partialMean = new Vec[means.size()];
                     for(int i = 0; i < partialMean.length; i++)
-                        partialMean[i] = new DenseVector(means.get(i).length());
+                        partialMean[i] = DenseVector.a(means.get(i).length());
                     double[] partial_a_k = new double[a_k.length];
 
                     for(int i = Start; i < to; i++)
@@ -333,7 +330,7 @@ public class EMGaussianMixture extends KClustererBase implements MultivariateDis
             {
                 Matrix covariance = covs.get(k);
                 Vec mean = means.get(k);
-                Vec scratch = new DenseVector(mean.length());
+                Vec scratch = DenseVector.a(mean.length());
                 for(int i = 0; i < dataPoints.size(); i++)
                 {
                     DataPoint dp = dataPoints.get(i);
@@ -365,7 +362,7 @@ public class EMGaussianMixture extends KClustererBase implements MultivariateDis
                     {
                         DataPoint dp = dataPoints.get(i);
                         Vec x = dp.getNumericalValues();
-                        Vec scratch = new DenseVector(x.length());
+                        Vec scratch = DenseVector.a(x.length());
 
                         for(int k = 0; k < K; k++)
                         {

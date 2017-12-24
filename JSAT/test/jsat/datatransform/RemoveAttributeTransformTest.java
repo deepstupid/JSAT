@@ -59,11 +59,10 @@ public class RemoveAttributeTransformTest
     public void testConsolidate()
     {
         System.out.println("consolidate");
-        CategoricalData[] catIndo = new CategoricalData[]
-        {
+        CategoricalData[] catIndo = {
             new CategoricalData(2), new CategoricalData(3), new CategoricalData(4)
         };
-        int[] catVals = new int[] {0, 1, 2};
+        int[] catVals = {0, 1, 2};
         Vec numVals = DenseVector.toDenseVec(0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0);
         
         DataPoint dp = new DataPoint(numVals, catVals, catIndo);
@@ -115,11 +114,10 @@ public class RemoveAttributeTransformTest
     public void testTransform()
     {
         System.out.println("transform");
-        CategoricalData[] catIndo = new CategoricalData[]
-        {
+        CategoricalData[] catIndo = {
             new CategoricalData(2), new CategoricalData(3), new CategoricalData(4)
         };
-        int[] catVals = new int[] {0, 1, 2};
+        int[] catVals = {0, 1, 2};
         Vec numVals = DenseVector.toDenseVec(0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0);
         
         DataPoint dp = new DataPoint(numVals, catVals, catIndo);
@@ -154,11 +152,10 @@ public class RemoveAttributeTransformTest
     public void testClone()
     {
         System.out.println("clone");
-        CategoricalData[] catIndo = new CategoricalData[]
-        {
+        CategoricalData[] catIndo = {
             new CategoricalData(2), new CategoricalData(3), new CategoricalData(4)
         };
-        int[] catVals = new int[] {0, 1, 2};
+        int[] catVals = {0, 1, 2};
         Vec numVals = DenseVector.toDenseVec(0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0);
         
         DataPoint dp = new DataPoint(numVals, catVals, catIndo);

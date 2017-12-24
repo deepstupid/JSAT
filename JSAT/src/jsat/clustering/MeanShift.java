@@ -170,7 +170,7 @@ public class MeanShift extends ClustererBase
                 mkde.setUsingData(dataSet, threadpool);
             mkde.scaleBandwidth(scaleBandwidthFactor);
             
-            Vec scratch = new DenseVector(dataSet.getNumNumericalVars());
+            Vec scratch = DenseVector.a(dataSet.getNumNumericalVars());
             Vec[] xit = new Vec[converged.length];
             for(int i = 0; i < xit.length; i++)
                 xit[i] = dataSet.getDataPoint(i).getNumericalValues().clone();
@@ -256,7 +256,7 @@ public class MeanShift extends ClustererBase
         
         final BlockingQueue<Runnable> jobs = new ArrayBlockingQueue<Runnable>(LogicalCores*2);
         
-        final ThreadLocal<Vec> localScratch = ThreadLocal.withInitial(() -> new DenseVector(xit[0].length()));
+        final ThreadLocal<Vec> localScratch = ThreadLocal.withInitial(() -> DenseVector.a(xit[0].length()));
         
         while(progress && count++ < maxIterations)
         {

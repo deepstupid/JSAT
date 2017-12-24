@@ -1,7 +1,6 @@
 
 package jsat.regression;
 
-import java.util.concurrent.ExecutorService;
 import jsat.SingleWeightVectorModel;
 import jsat.classifiers.DataPoint;
 import jsat.classifiers.DataPointPair;
@@ -10,7 +9,6 @@ import jsat.linear.DenseVector;
 import jsat.linear.Matrix;
 import jsat.linear.QRDecomposition;
 import jsat.linear.Vec;
-import jsat.utils.FakeExecutor;
 import jsat.utils.concurrent.ParallelUtils;
 
 /**
@@ -54,7 +52,7 @@ public class MultipleLinearRegression implements Regressor, SingleWeightVectorMo
             throw new RuntimeException("Multiple Linear Regression only works with numerical values");
         int sda = dataSet.getSampleSize();
         DenseMatrix X = new DenseMatrix(dataSet.getSampleSize(), dataSet.getNumNumericalVars()+1);
-        DenseVector Y = new DenseVector(dataSet.getSampleSize());
+        DenseVector Y = DenseVector.a(dataSet.getSampleSize());
         
         
         //Construct matrix and vector, Y = X * B, we will solve for B or its least squares solution
@@ -72,7 +70,7 @@ public class MultipleLinearRegression implements Regressor, SingleWeightVectorMo
         if(useWeights)
         {
             //The sqrt(weight) vector can be applied to X and Y, and then QR can procede as normal 
-            Vec weights = new DenseVector(dataSet.getSampleSize());
+            Vec weights = DenseVector.a(dataSet.getSampleSize());
             for(int i = 0; i < dataSet.getSampleSize(); i++)
                 weights.set(i, Math.sqrt(dataSet.getDataPoint(i).getWeight()));
             
@@ -86,7 +84,7 @@ public class MultipleLinearRegression implements Regressor, SingleWeightVectorMo
         
         Vec tmp = qrDecomp.solve(Y);
         a = tmp.get(0);
-        B = new DenseVector(dataSet.getNumNumericalVars());
+        B = DenseVector.a(dataSet.getNumNumericalVars());
         for(int i = 1; i < tmp.length(); i++)
             B.set(i-1, tmp.get(i));
         

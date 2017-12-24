@@ -38,10 +38,10 @@ public class Poly2VecTest
     @Before
     public void setUp()
     {
-        baseVec = new DenseVector(new double[]{2.0, 0.0, 3.0, 5.0, 0.0, 0.0, 7.0, 0.0});
-        denseBase = new DenseVector(new double[]{2.0, 3.0, 5.0, 7.0});
-        truePolyVec = new DenseVector(45);
-        truePolyDense = new DenseVector(15);
+        baseVec = DenseVector.a(new double[]{2.0, 0.0, 3.0, 5.0, 0.0, 0.0, 7.0, 0.0});
+        denseBase = DenseVector.a(new double[]{2.0, 3.0, 5.0, 7.0});
+        truePolyVec = DenseVector.a(45);
+        truePolyDense = DenseVector.a(15);
         truePolyDense.set(0, 1.0);
         truePolyVec.set(0, 1.0);
         for(int i = 0; i < baseVec.length(); i++)
@@ -201,9 +201,9 @@ public class Poly2VecTest
                 assertTrue(trueIter.hasNext() == polyIter.hasNext());
                 IndexValue trueIV = trueIter.next();
                 IndexValue polyIV = polyIter.next();
-                
-                assertEquals(trueIV.getIndex(), polyIV.getIndex());
-                assertEquals(trueIV.getValue(), polyIV.getValue(), 0.0);
+
+                assertEquals(trueIV.index, polyIV.index);
+                assertEquals(trueIV.value, polyIV.value, 0.0);
                 
                 assertTrue(trueIter.hasNext() == polyIter.hasNext());
             }
@@ -224,9 +224,9 @@ public class Poly2VecTest
                 assertTrue(trueIter.hasNext() == polyIter.hasNext());
                 IndexValue trueIV = trueIter.next();
                 IndexValue polyIV = polyIter.next();
-                
-                assertEquals(trueIV.getIndex(), polyIV.getIndex());
-                assertEquals(trueIV.getValue(), polyIV.getValue(), 0.0);
+
+                assertEquals(trueIV.index, polyIV.index);
+                assertEquals(trueIV.value, polyIV.value, 0.0);
                 
                 assertTrue(trueIter.hasNext() == polyIter.hasNext());
             }

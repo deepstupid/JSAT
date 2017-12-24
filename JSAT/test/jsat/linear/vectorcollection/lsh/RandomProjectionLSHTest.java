@@ -63,7 +63,7 @@ public class RandomProjectionLSHTest
         
         for(int i = 0; i < 100; i++)
         {
-            DenseVector dv = new DenseVector(20);
+            DenseVector dv = DenseVector.a(20);
             for(int j = 0; j < dv.length(); j++)
                 dv.set(j, rand.nextGaussian());
             dv.normalize();
@@ -112,7 +112,7 @@ public class RandomProjectionLSHTest
         
         for(int i = 0; i < 100; i++)
         {
-            DenseVector dv = new DenseVector(20);
+            DenseVector dv = DenseVector.a(20);
             for(int j = 0; j < dv.length(); j++)
                 dv.set(j, rand.nextGaussian());
             dv.normalize();

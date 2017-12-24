@@ -27,7 +27,7 @@ public class KernelDensityEstimatorTest {
 
 	private static final int vecSize = 1000;
 	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
+	public static void setUpBeforeClass() {
 		Random r1 = new Random(5079392926462355615L);
 		Random r2 = new Random(7628304882101574242L);
 		double[] vec1 = new double[vecSize];
@@ -39,36 +39,36 @@ public class KernelDensityEstimatorTest {
 			vec2[i]=r2.nextDouble();
 			vec3[i]=temp;
 		}
-		d1 = new KernelDensityEstimator(new DenseVector(vec1));
-		d2 = new KernelDensityEstimator(new DenseVector(vec3));
+		d1 = new KernelDensityEstimator(DenseVector.a(vec1));
+		d2 = new KernelDensityEstimator(DenseVector.a(vec3));
 		
-		d3 = new KernelDensityEstimator(new DenseVector(vec1), GaussKF.getInstance(), 2, vec1);
-		d4 = new KernelDensityEstimator(new DenseVector(vec1), GaussKF.getInstance(), 2, vec1);
+		d3 = new KernelDensityEstimator(DenseVector.a(vec1), GaussKF.getInstance(), 2, vec1);
+		d4 = new KernelDensityEstimator(DenseVector.a(vec1), GaussKF.getInstance(), 2, vec1);
 		
 		unequal.add(d1);
 		unequal.add(d3);
-		unequal.add(new KernelDensityEstimator(new DenseVector(vec2)));
-		unequal.add(new KernelDensityEstimator(new DenseVector(vec1), GaussKF.getInstance(), 1, vec1));
-		unequal.add(new KernelDensityEstimator(new DenseVector(vec1), UniformKF.getInstance(), 2, vec1));
-		unequal.add(new KernelDensityEstimator(new DenseVector(vec1), GaussKF.getInstance(), 2, vec2));
-		unequal.add(new KernelDensityEstimator(new DenseVector(vec2), GaussKF.getInstance(), 2, vec1));
-		unequal.add(new KernelDensityEstimator(new DenseVector(new double[]{1,3,5})));
-		unequal.add(new KernelDensityEstimator(new DenseVector(new double[]{0,3,6})));
-		unequal.add(new KernelDensityEstimator(new DenseVector(new double[]{1,1,1})));
-		unequal.add(new KernelDensityEstimator(new DenseVector(new double[]{1,1,1,1,1})));
-		unequal.add(new KernelDensityEstimator(new DenseVector(new double[]{2,2,2,2,3,4,4,4,4})));
+		unequal.add(new KernelDensityEstimator(DenseVector.a(vec2)));
+		unequal.add(new KernelDensityEstimator(DenseVector.a(vec1), GaussKF.getInstance(), 1, vec1));
+		unequal.add(new KernelDensityEstimator(DenseVector.a(vec1), UniformKF.getInstance(), 2, vec1));
+		unequal.add(new KernelDensityEstimator(DenseVector.a(vec1), GaussKF.getInstance(), 2, vec2));
+		unequal.add(new KernelDensityEstimator(DenseVector.a(vec2), GaussKF.getInstance(), 2, vec1));
+		unequal.add(new KernelDensityEstimator(DenseVector.a(new double[]{1,3,5})));
+		unequal.add(new KernelDensityEstimator(DenseVector.a(new double[]{0,3,6})));
+		unequal.add(new KernelDensityEstimator(DenseVector.a(new double[]{1,1,1})));
+		unequal.add(new KernelDensityEstimator(DenseVector.a(new double[]{1,1,1,1,1})));
+		unequal.add(new KernelDensityEstimator(DenseVector.a(new double[]{2,2,2,2,3,4,4,4,4})));
 	}
 
 	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
+	public static void tearDownAfterClass() {
 	}
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 	}
 
 	@After
-	public void tearDown() throws Exception {
+	public void tearDown() {
 	}
 
     @Test

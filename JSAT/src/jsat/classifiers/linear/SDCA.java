@@ -18,9 +18,8 @@ package jsat.classifiers.linear;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ExecutorService;
+
 import jsat.DataSet;
 import jsat.SimpleWeightVectorModel;
 import jsat.classifiers.CategoricalResults;
@@ -291,7 +290,7 @@ public class SDCA implements Classifier, Regressor, Parameterized, SimpleWeightV
             return ((LossC)loss).getClassification(ws[0].dot(x)+bs[0]);
         else
         {
-            Vec pred = new DenseVector(ws.length);
+            Vec pred = DenseVector.a(ws.length);
             for(int i = 0; i < ws.length; i++)
                 pred.set(i, ws[i].dot(x)+bs[i]);
             ((LossMC)loss).process(pred, pred);
@@ -384,8 +383,8 @@ public class SDCA implements Classifier, Regressor, Parameterized, SimpleWeightV
         final int N = dataSet.getSampleSize();
         final int D = dataSet.getNumNumericalVars();
         
-        ws = new Vec[]{new DenseVector(D)};
-        DenseVector v = new DenseVector(D);
+        ws = new Vec[]{DenseVector.a(D)};
+        DenseVector v = DenseVector.a(D);
         bs = new double[1];
         
         final double[] x_norms = new double[N];
@@ -445,7 +444,7 @@ public class SDCA implements Classifier, Regressor, Parameterized, SimpleWeightV
         {
             //We need a lazily updated w to keep our work sparse! 
             w_lazy_backing = new double[D];
-            w_lazy = new DenseVector(w_lazy_backing);
+            w_lazy = DenseVector.a(w_lazy_backing);
         }
         else//alpha = 0, we can just re-use v! 
         {
@@ -498,7 +497,7 @@ public class SDCA implements Classifier, Regressor, Parameterized, SimpleWeightV
                 if(alpha > 0)//lets lazily determine what w should look like! 
                     for(IndexValue iv : x)
                     {
-                        final int j = iv.getIndex();
+                        final int j = iv.index;
                         final double v_j = v.get(j);
                         final double v_j_sign = Math.signum(v_j);
                         final double v_j_abs = Math.abs(v_j);

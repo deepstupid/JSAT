@@ -43,8 +43,7 @@ public class NNChainHACTest
     }
 
     @BeforeClass
-    public static void setUpClass() throws Exception
-    {
+    public static void setUpClass() {
         hac = new NNChainHAC(new SingleLinkDissimilarity());
         GridDataGenerator gdg = new GridDataGenerator(new Uniform(-0.15, 0.15), new Random(12), 2, 5);
         easyData10 = gdg.generateData(50);
@@ -52,8 +51,7 @@ public class NNChainHACTest
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception
-    {
+    public static void tearDownClass() {
         ex.shutdown();
     }
     

@@ -168,7 +168,7 @@ public class DBSCAN extends ClustererBase
             queue.add(dataSet.getDataPoint(i));
         //Posion stop
         for(int i = 0; i < SystemInfo.LogicalCores; i++)
-            queue.add(new DataPoint(new DenseVector(0), new int[0], new CategoricalData[0]));
+            queue.add(new DataPoint(DenseVector.a(0), new int[0], new CategoricalData[0]));
         
         for( Future<OnLineStatistics> future : futures)
         {
@@ -269,7 +269,7 @@ public class DBSCAN extends ClustererBase
         try
         {
             for (int i = 0; i < SystemInfo.LogicalCores; i++)
-                sourceQ.put(new DenseVector(0));
+                sourceQ.put(DenseVector.a(0));
         }
         catch (InterruptedException interruptedException)
         {

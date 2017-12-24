@@ -86,7 +86,7 @@ public class MDITest
             {
                 DataPoint dp = train.getDataPoint(i);
                 Vec n = dp.getNumericalValues();
-                train_noise.addDataPoint(new ConcatenatedVec(n, DenseVector.random(randomFeatures)), train.getDataPointCategory(i));
+                train_noise.addDataPoint(new ConcatenatedVec(n, Vec.random(randomFeatures)), train.getDataPointCategory(i));
             }
 
 
@@ -112,8 +112,8 @@ public class MDITest
             for(int i = 0; i < train.getSampleSize(); i++)
             {
                 DataPoint dp = train.getDataPoint(i);
-                Vec n = dp.getNumericalValues().add(DenseVector.random(good_featres).multiply(0.3));
-                train_noise.addDataPoint(new ConcatenatedVec(n, DenseVector.random(randomFeatures)), train.getDataPointCategory(i));
+                Vec n = dp.getNumericalValues().add(Vec.random(good_featres).multiply(0.3));
+                train_noise.addDataPoint(new ConcatenatedVec(n, Vec.random(randomFeatures)), train.getDataPointCategory(i));
             }
 
             train_noise.applyTransform(new NumericalToHistogram(train_noise));

@@ -46,8 +46,7 @@ public class DBSCANTest
     }
 
     @BeforeClass
-    public static void setUpClass() throws Exception
-    {
+    public static void setUpClass() {
         dbscan = new DBSCAN(new EuclideanDistance(), new VectorArrayFactory<VecPaired<Vec, Integer>>());
         GridDataGenerator gdg = new GridDataGenerator(new Uniform(-0.15, 0.15), new Random(12), 2, 5);
         easyData10 = gdg.generateData(40);
@@ -55,8 +54,7 @@ public class DBSCANTest
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception
-    {
+    public static void tearDownClass() {
         ex.shutdown();
     }
     

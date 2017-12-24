@@ -32,7 +32,6 @@ import jsat.linear.distancemetrics.EuclideanDistance;
 import jsat.utils.FakeExecutor;
 import jsat.utils.SystemInfo;
 import jsat.utils.random.RandomUtil;
-import jsat.utils.random.XORWOW;
 
 /**
  * LargeViz is an algorithm for creating low dimensional embeddings for
@@ -290,9 +289,9 @@ public class LargeViz implements VisualizationTransform
         
         final double eta_0 = 1.0;
         final long iterations = 1000L*N;
-        final ThreadLocal<Vec> local_grad_i = ThreadLocal.withInitial(() -> new DenseVector(dt));
-        final ThreadLocal<Vec> local_grad_j = ThreadLocal.withInitial(() -> new DenseVector(dt));
-        final ThreadLocal<Vec> local_grad_k = ThreadLocal.withInitial(() -> new DenseVector(dt));
+        final ThreadLocal<Vec> local_grad_i = ThreadLocal.withInitial(() -> DenseVector.a(dt));
+        final ThreadLocal<Vec> local_grad_j = ThreadLocal.withInitial(() -> DenseVector.a(dt));
+        final ThreadLocal<Vec> local_grad_k = ThreadLocal.withInitial(() -> DenseVector.a(dt));
         
         
         for(int id = 0; id < threads_to_use; id++)

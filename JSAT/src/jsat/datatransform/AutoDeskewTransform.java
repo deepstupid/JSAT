@@ -163,8 +163,8 @@ public class AutoDeskewTransform implements InPlaceTransform
                 containsSparseVecs = true;
             for (IndexValue iv : x)
             {
-                final int indx = iv.getIndex();
-                final double val = iv.getValue();
+                final int indx = iv.index;
+                final double val = iv.value;
 
                 mins[indx] = Math.min(val, mins[indx]);
             }
@@ -182,8 +182,8 @@ public class AutoDeskewTransform implements InPlaceTransform
             int lastIndx = -1;
             for (IndexValue iv : x)
             {
-                int indx = iv.getIndex();
-                double val = iv.getValue();
+                int indx = iv.index;
+                double val = iv.value;
                 updateStats(lambdas, stats, indx, val, mins, weight);
 
                 if (!ignorZeros)//we have to do this here instead of bulk insert at the end b/c of different weight value combinations

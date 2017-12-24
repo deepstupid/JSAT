@@ -193,8 +193,8 @@ public class MutualInfoFS extends RemoveAttributeTransform
                 
                 for(IndexValue iv : numeric)
                 {
-                    featPriors[iv.getIndex()+numCatVars][0] += weight;
-                    jointProb[iv.getIndex()+numCatVars][0][trueClass] += weight;
+                    featPriors[iv.index +numCatVars][0] += weight;
+                    jointProb[iv.index +numCatVars][0][trueClass] += weight;
                 }
             }
         }

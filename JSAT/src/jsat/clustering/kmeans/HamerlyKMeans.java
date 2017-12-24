@@ -143,7 +143,7 @@ public class HamerlyKMeans extends KMeans
         final Vec[] tmpVecs = new Vec[k];
         final Vec[] tmpVecs2 = new Vec[k];
         for(int i = 0; i < tmpVecs2.length; i++)
-            tmpVecs2[i] = new DenseVector(oldMeans[0].length());
+            tmpVecs2[i] = DenseVector.a(oldMeans[0].length());
         /**
          * weighted number of points assigned to cluster j,<br>
          * denoted q(j)
@@ -178,7 +178,7 @@ public class HamerlyKMeans extends KMeans
         final ThreadLocal<Vec[]> localDeltas = ThreadLocal.withInitial(() -> {
             Vec[] toRet = new Vec[means.size()];
             for(int i = 0; i < k; i++)
-                toRet[i] = new DenseVector(D);
+                toRet[i] = DenseVector.a(D);
             return toRet;
         });
         
@@ -480,7 +480,7 @@ public class HamerlyKMeans extends KMeans
         for(int j = 0; j < means.size(); j++)
         {
             //q would already be initalized to zero on creation by java
-            cP[j] = new DenseVector(means.get(0).length());
+            cP[j] = DenseVector.a(means.get(0).length());
             tmp[j] = cP[j].clone();
             
             //set up Quer Info for means

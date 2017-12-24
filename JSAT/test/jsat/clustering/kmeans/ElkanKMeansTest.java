@@ -13,6 +13,7 @@ import java.util.concurrent.Executors;
 
 import jsat.SimpleDataSet;
 import jsat.classifiers.DataPoint;
+import jsat.clustering.ClustererBase;
 import jsat.clustering.KClustererBase;
 import jsat.distributions.Uniform;
 import jsat.linear.ConstantVector;
@@ -48,16 +49,14 @@ public class ElkanKMeansTest
     }
 
     @BeforeClass
-    public static void setUpClass() throws Exception
-    {
+    public static void setUpClass() {
         GridDataGenerator gdg = new GridDataGenerator(new Uniform(-0.15, 0.15), new XORWOW(1238962356), 2, 5);
         easyData10 = gdg.generateData(110);
         ex = Executors.newFixedThreadPool(SystemInfo.LogicalCores);
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception
-    {
+    public static void tearDownClass() {
         ex.shutdown();
     }
     
@@ -84,7 +83,7 @@ public class ElkanKMeansTest
         ElkanKMeans kMeans = new ElkanKMeans(new EuclideanDistance());
         int[] assignment = new int[easyData10.getSampleSize()];
         kMeans.cluster(easyData10, null, 10, seeds, assignment, true, null, true, null);
-        List<List<DataPoint>> clusters = KClustererBase.createClusterListFromAssignmentArray(assignment, easyData10);
+        List<List<DataPoint>> clusters = ClustererBase.createClusterListFromAssignmentArray(assignment, easyData10);
         assertEquals(10, clusters.size());
         Set<Integer> seenBefore = new IntSet();
         for(List<DataPoint> cluster :  clusters)
@@ -107,7 +106,7 @@ public class ElkanKMeansTest
         ElkanKMeans kMeans = new ElkanKMeans(new EuclideanDistance());
         int[] assignment = new int[easyData10.getSampleSize()];
         kMeans.cluster(easyData10, null, 10, seeds, assignment, true, ex, true, null);
-        List<List<DataPoint>> clusters = KClustererBase.createClusterListFromAssignmentArray(assignment, easyData10);
+        List<List<DataPoint>> clusters = ClustererBase.createClusterListFromAssignmentArray(assignment, easyData10);
         assertEquals(10, clusters.size());
         Set<Integer> seenBefore = new IntSet();
         for(List<DataPoint> cluster :  clusters)

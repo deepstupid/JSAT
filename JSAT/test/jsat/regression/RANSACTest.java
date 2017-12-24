@@ -23,6 +23,7 @@ import jsat.FixedProblems;
 import jsat.datatransform.LinearTransform;
 import jsat.distributions.kernels.LinearKernel;
 import jsat.linear.DenseVector;
+import jsat.linear.Vec;
 import jsat.utils.SystemInfo;
 import jsat.utils.random.RandomUtil;
 import jsat.utils.random.XORWOW;
@@ -73,7 +74,7 @@ public class RANSACTest
 
         RegressionDataSet train = FixedProblems.getLinearRegression(500, RandomUtil.getRandom());
         for(int i = 0; i < 20; i++)
-            train.addDataPoint(DenseVector.random(train.getNumNumericalVars()), train.getTargetValues().mean());
+            train.addDataPoint(Vec.random(train.getNumNumericalVars()), train.getTargetValues().mean());
         RegressionDataSet test = FixedProblems.getLinearRegression(100, RandomUtil.getRandom());
 
         RegressionModelEvaluation rme = new RegressionModelEvaluation(instance, train);
@@ -92,7 +93,7 @@ public class RANSACTest
 
         RegressionDataSet train = FixedProblems.getLinearRegression(500, RandomUtil.getRandom());
         for(int i = 0; i < 20; i++)
-            train.addDataPoint(DenseVector.random(train.getNumNumericalVars()), train.getTargetValues().mean());
+            train.addDataPoint(Vec.random(train.getNumNumericalVars()), train.getTargetValues().mean());
         RegressionDataSet test = FixedProblems.getLinearRegression(100, RandomUtil.getRandom());
 
         RegressionModelEvaluation rme = new RegressionModelEvaluation(instance, train, true);
@@ -110,7 +111,7 @@ public class RANSACTest
 
         RegressionDataSet t1 = FixedProblems.getLinearRegression(500, RandomUtil.getRandom());
         for(int i = 0; i < 20; i++)
-            t1.addDataPoint(DenseVector.random(t1.getNumNumericalVars()), t1.getTargetValues().mean());
+            t1.addDataPoint(Vec.random(t1.getNumNumericalVars()), t1.getTargetValues().mean());
         RegressionDataSet t2 = FixedProblems.getLinearRegression(100, RandomUtil.getRandom());
         t2.applyTransform(new LinearTransform(t2, 1, 10));
 

@@ -285,7 +285,7 @@ public abstract class Matrix implements Cloneable, Serializable
      */
     public Vec multiply(Vec b)
     {
-        DenseVector result = new  DenseVector(rows());
+        DenseVector result = DenseVector.a(rows());
         multiply(b, 1.0, result);
         return result;
     }
@@ -518,7 +518,7 @@ public abstract class Matrix implements Cloneable, Serializable
      */
     public Vec transposeMultiply(double c, Vec b)
     {
-        DenseVector toReturns = new DenseVector(this.cols());
+        DenseVector toReturns = DenseVector.a(this.cols());
         this.transposeMultiply(c, b, toReturns);
         return toReturns;
     }
@@ -611,7 +611,7 @@ public abstract class Matrix implements Cloneable, Serializable
     {
         if(j < 0 || j >= cols())
             throw new ArithmeticException("Column was not a valid value " + j + " not in [0," + (cols()-1) + "]");
-        DenseVector c = new DenseVector(rows());
+        DenseVector c = DenseVector.a(rows());
         for(int i =0; i < rows(); i++)
             c.set(i, get(i, j));
         return c;
@@ -680,7 +680,7 @@ public abstract class Matrix implements Cloneable, Serializable
     {
         if(r < 0 || r >= rows())
             throw new ArithmeticException("Row was not a valid value " + r + " not in [0," + (rows()-1) + "]");
-        DenseVector c = new DenseVector(cols());
+        DenseVector c = DenseVector.a(cols());
         for(int j =0; j < cols(); j++)
             c.set(j, get(r, j));
         return c;
@@ -862,7 +862,7 @@ public abstract class Matrix implements Cloneable, Serializable
             throw new ArithmeticException("vector is not of the same column length");
         if (b.isSparse())
             for (IndexValue iv : b)
-                this.increment(i, iv.getIndex(), c * iv.getValue());
+                this.increment(i, iv.index, c * iv.value);
         else
             for (int j = 0; j < b.length(); j++)
                 this.increment(i, j, c * b.get(j));
@@ -885,7 +885,7 @@ public abstract class Matrix implements Cloneable, Serializable
             throw new ArithmeticException("Matrix dimensions do not agree with outer product");
         if (x.isSparse())
             for (IndexValue iv : x)
-                A.updateRow(iv.getIndex(), iv.getValue() * c, y);
+                A.updateRow(iv.index, iv.value * c, y);
         else
             for (int i = 0; i < x.length(); i++)
             {
@@ -916,7 +916,7 @@ public abstract class Matrix implements Cloneable, Serializable
             {
                 mcdl.countUp();
                 threadpool.submit(() -> {
-                    A.updateRow(iv.getIndex(), iv.getValue() * c, y);
+                    A.updateRow(iv.index, iv.value * c, y);
                     mcdl.countDown();
                 });
             }
@@ -1001,7 +1001,7 @@ public abstract class Matrix implements Cloneable, Serializable
         for(Iterator<IndexValue> iter = a.getNonZeroIterator(); iter.hasNext();)
         {
             IndexValue iv = iter.next();
-            A.set(iv.getIndex(), iv.getIndex(), iv.getValue());
+            A.set(iv.index, iv.index, iv.value);
         }
             
         return A;

@@ -139,7 +139,7 @@ public class LUPDecomposition implements Cloneable, Serializable
         if(b.length() != L.rows())
             throw new ArithmeticException("Vector and matrix sizes do not agree");
         
-        Vec y = b instanceof SparseVector ? new SparseVector(b.length()) : new DenseVector(b.length());
+        Vec y = b instanceof SparseVector ? new SparseVector(b.length()) : DenseVector.a(b.length());
         
         for(int i = 0; i < b.length(); i++)
         {
@@ -252,7 +252,7 @@ public class LUPDecomposition implements Cloneable, Serializable
         if (y.length() != U.rows())
             throw new ArithmeticException("Vector and matrix sizes do not agree");
 
-        Vec x = y instanceof SparseVector ? new SparseVector(U.cols()) : new DenseVector(U.cols());
+        Vec x = y instanceof SparseVector ? new SparseVector(U.cols()) : DenseVector.a(U.cols());
         
         final int start = Math.min(U.rows(), U.cols())-1;
 

@@ -24,7 +24,6 @@ import jsat.distributions.multivariate.NormalM;
 import jsat.linear.*;
 import jsat.utils.SystemInfo;
 import jsat.utils.random.RandomUtil;
-import jsat.utils.random.XORWOW;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -76,15 +75,15 @@ public class MahalanobisDistanceTest
                 trueCov.set(i, j, rand.nextDouble());
         trueCov = trueCov.multiplyTranspose(trueCov);//guaranteed Positive Semi Definite now
         
-        zero = new DenseVector(5);
+        zero = DenseVector.a(5);
         
-        ones = new DenseVector(5);
+        ones = DenseVector.a(5);
         ones.mutableAdd(1.0);
         
-        half = new DenseVector(5);
+        half = DenseVector.a(5);
         half.mutableAdd(0.5);
         
-        inc = new DenseVector(5);
+        inc = DenseVector.a(5);
         for(int i = 0; i < inc.length(); i++)
             inc.set(i, i);
         
@@ -135,7 +134,7 @@ public class MahalanobisDistanceTest
         
         try
         {
-            dist.dist(half, new DenseVector(half.length()+1));
+            dist.dist(half, DenseVector.a(half.length()+1));
             fail("Distance between vecs should have erred");
         }
         catch (Exception ex)
@@ -180,7 +179,7 @@ public class MahalanobisDistanceTest
         
         try
         {
-            dist.dist(half, new DenseVector(half.length()+1));
+            dist.dist(half, DenseVector.a(half.length()+1));
             fail("Distance between vecs should have erred");
         }
         catch (Exception ex)

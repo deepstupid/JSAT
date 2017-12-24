@@ -69,7 +69,7 @@ public class SGDMomentumTest
         for(boolean b : new boolean[]{true, false})
         {
             Random rand = RandomUtil.getRandom();
-            Vec x0 = new DenseVector(10);
+            Vec x0 = DenseVector.a(10);
             for(int i = 0; i < x0.length(); i++)
                 x0.set(i, rand.nextDouble());
 
@@ -97,7 +97,7 @@ public class SGDMomentumTest
         for(boolean b : new boolean[]{true, false})
         {
             Random rand = RandomUtil.getRandom();
-            Vec xWithBias = new DenseVector(21);
+            Vec xWithBias = DenseVector.a(21);
             for(int i = 0; i < xWithBias.length(); i++)
                 xWithBias.set(i, rand.nextDouble());
 

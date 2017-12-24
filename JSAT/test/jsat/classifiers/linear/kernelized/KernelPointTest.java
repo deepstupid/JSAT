@@ -42,7 +42,7 @@ public class KernelPointTest
     @Before
     public void setUp()
     {
-        Vec mean = new DenseVector(new double[]{2.0, -1.0, 3.0});
+        Vec mean = DenseVector.a(new double[]{2.0, -1.0, 3.0});
         
         Matrix cov = new DenseMatrix(new double[][]
         {

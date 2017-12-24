@@ -143,14 +143,14 @@ public class NaiveKMeans extends KMeans
         final List<Vec> meanSum = new ArrayList<Vec>(means.size());
         final AtomicDoubleArray meanCounts = new AtomicDoubleArray(means.size());
         for(int i = 0; i < k; i++)
-            meanSum.add(new DenseVector(means.get(0).length()));
+            meanSum.add(DenseVector.a(means.get(0).length()));
         final AtomicInteger changes = new AtomicInteger();
         
         //used to store local changes to the means and accumulated at the end
         final ThreadLocal<Vec[]> localMeanDeltas = ThreadLocal.withInitial(() -> {
             Vec[] deltas = new Vec[k];
             for(int i = 0; i < k; i++)
-                deltas[i] = new DenseVector(means.get(0).length());
+                deltas[i] = DenseVector.a(means.get(0).length());
             return deltas;
         });
         

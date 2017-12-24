@@ -78,7 +78,7 @@ public class VPTreeMVTest
         
         VectorArray<Vec> vecCol = new VectorArray<Vec>(new EuclideanDistance());
         for(int i = 0; i < 250; i++)
-            vecCol.add(DenseVector.random(3, rand));
+            vecCol.add(Vec.random(3, rand));
         
         
 
@@ -132,7 +132,7 @@ public class VPTreeMVTest
         
         VectorArray<Vec> vecCol = new VectorArray<Vec>(new EuclideanDistance());
         for(int i = 0; i < 250; i++)
-            vecCol.add(DenseVector.random(3, rand));
+            vecCol.add(Vec.random(3, rand));
         
         for(VectorCollectionFactory<Vec> factory : collectionFactories)
         {
@@ -185,7 +185,7 @@ public class VPTreeMVTest
         
         VectorArray<Vec> vecCol = new VectorArray<Vec>(new EuclideanDistance());
         for(int i = 0; i < 1000; i++)
-            vecCol.add(DenseVector.random(3, rand));
+            vecCol.add(Vec.random(3, rand));
         
         
         IncrementalCollection<Vec> collection0 = new VPTreeMV<Vec>(new EuclideanDistance());

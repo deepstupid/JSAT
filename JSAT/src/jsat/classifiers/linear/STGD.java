@@ -1,7 +1,7 @@
 package jsat.classifiers.linear;
 
 import java.util.*;
-import java.util.concurrent.ExecutorService;
+
 import jsat.SingleWeightVectorModel;
 import jsat.classifiers.*;
 import jsat.classifiers.calibration.BinaryScoreClassifier;
@@ -9,7 +9,6 @@ import jsat.exceptions.FailedToFitException;
 import jsat.linear.DenseVector;
 import jsat.linear.IndexValue;
 import jsat.linear.Vec;
-import jsat.parameters.Parameter;
 import jsat.parameters.Parameterized;
 import jsat.regression.BaseUpdateableRegressor;
 import jsat.regression.RegressionDataSet;
@@ -221,7 +220,7 @@ public class STGD extends BaseUpdateableClassifier implements UpdateableRegresso
     {
         if(numericAttributes < 1)
             throw new FailedToFitException("STGD requires numeric features");
-        w = new DenseVector(numericAttributes);
+        w = DenseVector.a(numericAttributes);
         t = new int[numericAttributes];
     }
     
@@ -278,9 +277,9 @@ public class STGD extends BaseUpdateableClassifier implements UpdateableRegresso
     {
         for(IndexValue iv : x)
         {
-            final int j = iv.getIndex();
-            w.set(j, 
-                    T(w.get(j)+2*learningRate*(y-yHat)*iv.getValue(), 
+            final int j = iv.index;
+            w.set(j,
+                    T(w.get(j)+2*learningRate*(y-yHat)* iv.value,
                     ((time-t[j])/K)*gravity*learningRate,
                     threshold));
             

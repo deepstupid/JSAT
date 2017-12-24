@@ -361,9 +361,9 @@ public class KernelPoints
         switch (budgetStrategy) {
             case PROJECTION:
                 for (IndexValue iv : cs) {
-                    int k = iv.getIndex();
+                    int k = iv.index;
                     KernelPoint kp_k = points.get(k);
-                    double c = iv.getValue();
+                    double c = iv.value;
                     if (kp_k.getBasisSize() == 0)//Special case, init people
                     {
                         kp_k.mutableAdd(c, x_t, qi);
@@ -402,12 +402,12 @@ public class KernelPoints
                 Iterator<IndexValue> cIter = cs.getNonZeroIterator();
                 if (getBasisSize() < maxBudget) {
                     IndexValue firstIndx = cIter.next();
-                    KernelPoint kp_k = points.get(firstIndx.getIndex());
-                    kp_k.mutableAdd(firstIndx.getValue(), x_t, qi);
+                    KernelPoint kp_k = points.get(firstIndx.index);
+                    kp_k.mutableAdd(firstIndx.value, x_t, qi);
                     //fill in the non zeros
                     while (cIter.hasNext()) {
                         IndexValue iv = cIter.next();
-                        points.get(iv.getIndex()).alpha.add(iv.getValue());
+                        points.get(iv.index).alpha.add(iv.value);
                     }
                     addMissingZeros();
                 } else//we are going to exceed the budget
@@ -419,7 +419,7 @@ public class KernelPoints
                     if (kp_k.kernelAccel != null)
                         kp_k.kernelAccel.addAll(qi);
                     for (IndexValue iv : cs)
-                        points.get(iv.getIndex()).alpha.add(iv.getValue());
+                        points.get(iv.index).alpha.add(iv.value);
                     addMissingZeros();
 
                     //now go through and merge
@@ -527,7 +527,7 @@ public class KernelPoints
                     if (this.points.get(0).kernelAccel != null)
                         this.points.get(0).kernelAccel.addAll(qi);
                     for (IndexValue iv : cs)
-                        this.points.get(iv.getIndex()).alpha.add(iv.getValue());
+                        this.points.get(iv.index).alpha.add(iv.value);
                     addMissingZeros();
                 }
                 break;
@@ -544,7 +544,7 @@ public class KernelPoints
                 if (this.points.get(0).kernelAccel != null)
                     this.points.get(0).kernelAccel.addAll(qi);
                 for (IndexValue iv : cs)
-                    this.points.get(iv.getIndex()).alpha.add(iv.getValue());
+                    this.points.get(iv.index).alpha.add(iv.value);
                 addMissingZeros();
                 break;
             default:

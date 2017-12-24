@@ -35,7 +35,7 @@ public class VecWithNormTest
     public void setUp()
     {
         Random rand = new Random(546);
-        x = DenseVector.random(20, rand);
+        x = Vec.random(20, rand);
         xNrmd = new VecWithNorm(x.clone());
         
         a = new SparseVector(x.length());

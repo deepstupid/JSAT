@@ -52,8 +52,7 @@ public class MutualInfoFSTest
         
         CategoricalData predicting = new CategoricalData(3);
         
-        CategoricalData[] catAtrs = new CategoricalData[]
-        {
+        CategoricalData[] catAtrs = {
             new CategoricalData(3),
             new CategoricalData(3),
             new CategoricalData(2),//Info

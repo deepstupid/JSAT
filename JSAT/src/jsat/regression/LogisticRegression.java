@@ -110,7 +110,7 @@ public class LogisticRegression implements Classifier, Regressor, SingleWeightVe
         for(int i = 0; i < dataSet.getSampleSize(); i++)
             inputs.add(dataSet.getDataPoint(i).getNumericalValues());
         
-        coefficents = new DenseVector(dataSet.getNumNumericalVars()+1);
+        coefficents = DenseVector.a(dataSet.getNumNumericalVars()+1);
         Vec targetValues = dataSet.getTargetValues();
         double minTarget = targetValues.min();
         double maxTarget = targetValues.max();

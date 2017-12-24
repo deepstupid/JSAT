@@ -56,13 +56,11 @@ public class MeanAbsoluteErrorTest
         assertFalse(scorer.equals(""));
         assertFalse(scorer.hashCode() == "".hashCode());
         
-        double[] pred = new double[]
-        {
+        double[] pred = {
             0, 2, 4, 6, 8, 9
         };
         
-        double[] truth = new double[]
-        {
+        double[] truth = {
             0.5, 2, 3, 1, 8.5, 10
         };
         

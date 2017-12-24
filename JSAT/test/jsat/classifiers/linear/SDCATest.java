@@ -1,8 +1,7 @@
 package jsat.classifiers.linear;
 
 import java.util.Random;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+
 import jsat.FixedProblems;
 import jsat.classifiers.*;
 import jsat.datatransform.LinearTransform;
@@ -11,7 +10,6 @@ import jsat.linear.*;
 import jsat.lossfunctions.*;
 import jsat.math.OnLineStatistics;
 import jsat.regression.RegressionDataSet;
-import jsat.utils.SystemInfo;
 import jsat.utils.random.RandomUtil;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -89,9 +87,9 @@ public class SDCATest
                     avgRelError.add(relErr);
                 }
                 if(loss instanceof AbsoluteLoss || loss instanceof EpsilonInsensitiveLoss)//sensative to small errors make it a little off at time
-                    assertEquals("Loss: " + loss.toString() + " alpha: " + alpha, 0.0, avgRelError.getMean(), 0.2);
+                    assertEquals("Loss: " + loss + " alpha: " + alpha, 0.0, avgRelError.getMean(), 0.2);
                 else
-                    assertEquals("Loss: " + loss.toString() + " alpha: " + alpha, 0.0, avgRelError.getMean(), 0.01);
+                    assertEquals("Loss: " + loss + " alpha: " + alpha, 0.0, avgRelError.getMean(), 0.01);
             }
     }
     
@@ -182,112 +180,110 @@ public class SDCATest
     {
         System.out.println("train");
 //        for (int round = 0; round < 100; round++)
+        for (int attempts = 5; attempts >= 0; attempts--)
         {
-            for (int attempts = 5; attempts >= 0; attempts--)
+            Random rand = RandomUtil.getRandom();
+            ClassificationDataSet data = new ClassificationDataSet(6, new CategoricalData[0], new CategoricalData(2));
+            /**
+             * B/c of the what SDCA works, it has trouble picking just 1 of
+             * perfectly correlated features. So we will make a 2nd version
+             * of the dataset which has 1 pure strong feature, 2 weak
+             * features with noise, and 3 weak features.
+             */
+            ClassificationDataSet dataN = new ClassificationDataSet(6, new CategoricalData[0], new CategoricalData(2));
+
+            for (int i = 0; i < 500; i++)
             {
-                Random rand = RandomUtil.getRandom();
-                ClassificationDataSet data = new ClassificationDataSet(6, new CategoricalData[0], new CategoricalData(2));
-                /**
-                 * B/c of the what SDCA works, it has trouble picking just 1 of
-                 * perfectly correlated features. So we will make a 2nd version
-                 * of the dataset which has 1 pure strong feature, 2 weak
-                 * features with noise, and 3 weak features.
-                 */
-                ClassificationDataSet dataN = new ClassificationDataSet(6, new CategoricalData[0], new CategoricalData(2));
+                double Z1 = rand.nextDouble() * 20 - 10;
+                double Z2 = rand.nextDouble() * 20 - 10;
+                Vec v = DenseVector.toDenseVec(Z1, -Z1, Z1, Z2, -Z2, Z2);
+                data.addDataPoint(v, (int) (Math.signum(Z1 + 0.1 * Z2) + 1) / 2);
 
-                for (int i = 0; i < 500; i++)
-                {
-                    double Z1 = rand.nextDouble() * 20 - 10;
-                    double Z2 = rand.nextDouble() * 20 - 10;
-                    Vec v = DenseVector.toDenseVec(Z1, -Z1, Z1, Z2, -Z2, Z2);
-                    data.addDataPoint(v, (int) (Math.signum(Z1 + 0.1 * Z2) + 1) / 2);
-                    
-                    double eps_1 = rand.nextGaussian()*10;
-                    double eps_2 = rand.nextGaussian()*10;
-                    v = DenseVector.toDenseVec(Z1, -Z1/10 + eps_1, Z1/10+ eps_2, Z2, -Z2, Z2);
-                    dataN.addDataPoint(v, (int) (Math.signum(Z1 + 0.1 * Z2) + 1) / 2);
-                }
-                data.applyTransform(new PNormNormalization());
-                dataN.applyTransform(new PNormNormalization());
+                double eps_1 = rand.nextGaussian()*10;
+                double eps_2 = rand.nextGaussian()*10;
+                v = DenseVector.toDenseVec(Z1, -Z1/10 + eps_1, Z1/10+ eps_2, Z2, -Z2, Z2);
+                dataN.addDataPoint(v, (int) (Math.signum(Z1 + 0.1 * Z2) + 1) / 2);
+            }
+            data.applyTransform(new PNormNormalization());
+            dataN.applyTransform(new PNormNormalization());
 
-                for (LossC loss : new LossC[]{new LogisticLoss(), new HingeLoss()})
-                {
-                    Vec w = new ConstantVector(1.0, 6);
-                    SDCA sdca = new SDCA();
-                    sdca.setLoss(loss);
+            for (LossC loss : new LossC[]{new LogisticLoss(), new HingeLoss()})
+            {
+                Vec w = new ConstantVector(1.0, 6);
+                SDCA sdca = new SDCA();
+                sdca.setLoss(loss);
 
-                    double maxLam = LinearTools.maxLambdaLogisticL1(data);
+                double maxLam = LinearTools.maxLambdaLogisticL1(data);
 
-                    sdca.setMaxIters(100);
-                    sdca.setUseBias(false);
-                    
-                    sdca.setAlpha(1.0);
-                    
-                    sdca.setLambda(maxLam);
-                    double search_const = 0.025;
-                    while(w.nnz() != 1)// I should be able to find a value of lambda that results in only 1 feature
-                    {//SDCA requires a bit more searching b/c it behaved differently than normal coordinate descent solvers when selecting features
-                        do
-                        {
-                            sdca.setLambda(sdca.getLambda() * (1+search_const));
-                            sdca.train(dataN);
-                            w = sdca.getRawWeight(0);
-                        }
-                        while (w.nnz() > 1);
+                sdca.setMaxIters(100);
+                sdca.setUseBias(false);
 
-                        //did we go too far?
-                        while (w.nnz() == 0)
-                        {
-                            sdca.setLambda(sdca.getLambda()/ (1+search_const/3));
-                            sdca.train(dataN);
-                            w = sdca.getRawWeight(0);
-                        }
-                        search_const *= 0.95;
-                    }
-                    
-                    assertEquals(1, w.nnz());
-                    int nonZeroIndex = w.getNonZeroIterator().next().getIndex();
-                    assertTrue(nonZeroIndex == 0);//should be one of the more important weights
-                    assertEquals(1, (int)Math.signum(w.get(nonZeroIndex)));
-                    
-                    //elastic case
-                    sdca.setLambda(maxLam / 10);
-                    sdca.setAlpha(0.5);//now we should get the top 3 on
+                sdca.setAlpha(1.0);
+
+                sdca.setLambda(maxLam);
+                double search_const = 0.025;
+                while(w.nnz() != 1)// I should be able to find a value of lambda that results in only 1 feature
+                {//SDCA requires a bit more searching b/c it behaved differently than normal coordinate descent solvers when selecting features
                     do
                     {
-                        sdca.setLambda(sdca.getLambda() * 1.05);
-                        sdca.train(data, sdca);
+                        sdca.setLambda(sdca.getLambda() * (1+search_const));
+                        sdca.train(dataN);
                         w = sdca.getRawWeight(0);
                     }
-                    while (w.nnz() > 3);//we should be able to find this pretty easily
-                    assertEquals(3, w.nnz());
-                    assertEquals(1, (int) Math.signum(w.get(0)));
-                    assertEquals(-1, (int) Math.signum(w.get(1)));
-                    assertEquals(1, (int) Math.signum(w.get(2)));
-                    //also want to make sure that they are all about equal in size
-                    assertTrue(Math.abs((w.get(0) + w.get(1) * 2 + w.get(2)) / 3) < 0.4);
+                    while (w.nnz() > 1);
 
-                    //Lets increase reg but switch to L2, we should see all features turn on!
-                    sdca.setLambda(sdca.getLambda() * 3);
-                    sdca.setAlpha(0.0);//now everyone should turn on
-
-                    sdca.train(data);
-                    w = sdca.getRawWeight(0);
-                    if ((int) Math.signum(w.get(3)) != 1 && attempts > 0)//model probablly still right, but got a bad epsilon solution... try again please!
+                    //did we go too far?
+                    while (w.nnz() == 0)
                     {
-                        continue;
+                        sdca.setLambda(sdca.getLambda()/ (1+search_const/3));
+                        sdca.train(dataN);
+                        w = sdca.getRawWeight(0);
                     }
-                    assertEquals(6, w.nnz());
-                    assertEquals(1, (int) Math.signum(w.get(0)));
-                    assertEquals(-1, (int) Math.signum(w.get(1)));
-                    assertEquals(1, (int) Math.signum(w.get(2)));
-                    assertEquals(1, (int) Math.signum(w.get(3)));
-                    assertEquals(-1, (int) Math.signum(w.get(4)));
-                    assertEquals(1, (int) Math.signum(w.get(5)));
+                    search_const *= 0.95;
                 }
-                break;//made it throgh the test no problemo!
 
+                assertEquals(1, w.nnz());
+                int nonZeroIndex = w.getNonZeroIterator().next().index;
+                assertTrue(nonZeroIndex == 0);//should be one of the more important weights
+                assertEquals(1, (int)Math.signum(w.get(nonZeroIndex)));
+
+                //elastic case
+                sdca.setLambda(maxLam / 10);
+                sdca.setAlpha(0.5);//now we should get the top 3 on
+                do
+                {
+                    sdca.setLambda(sdca.getLambda() * 1.05);
+                    sdca.train(data, sdca);
+                    w = sdca.getRawWeight(0);
+                }
+                while (w.nnz() > 3);//we should be able to find this pretty easily
+                assertEquals(3, w.nnz());
+                assertEquals(1, (int) Math.signum(w.get(0)));
+                assertEquals(-1, (int) Math.signum(w.get(1)));
+                assertEquals(1, (int) Math.signum(w.get(2)));
+                //also want to make sure that they are all about equal in size
+                assertTrue(Math.abs((w.get(0) + w.get(1) * 2 + w.get(2)) / 3) < 0.4);
+
+                //Lets increase reg but switch to L2, we should see all features turn on!
+                sdca.setLambda(sdca.getLambda() * 3);
+                sdca.setAlpha(0.0);//now everyone should turn on
+
+                sdca.train(data);
+                w = sdca.getRawWeight(0);
+                if ((int) Math.signum(w.get(3)) != 1 && attempts > 0)//model probablly still right, but got a bad epsilon solution... try again please!
+                {
+                    continue;
+                }
+                assertEquals(6, w.nnz());
+                assertEquals(1, (int) Math.signum(w.get(0)));
+                assertEquals(-1, (int) Math.signum(w.get(1)));
+                assertEquals(1, (int) Math.signum(w.get(2)));
+                assertEquals(1, (int) Math.signum(w.get(3)));
+                assertEquals(-1, (int) Math.signum(w.get(4)));
+                assertEquals(1, (int) Math.signum(w.get(5)));
             }
+            break;//made it throgh the test no problemo!
+
         }
     }
     
@@ -303,7 +299,7 @@ public class SDCATest
             double Z1 = rand.nextDouble()*20-10;
             double Z2 = rand.nextDouble()*20-10;
             
-            Vec v = new DenseVector(train.getNumNumericalVars());
+            Vec v = DenseVector.a(train.getNumNumericalVars());
             for(int j = 0; j < v.length(); j++)
             {
                 if (j > 500)

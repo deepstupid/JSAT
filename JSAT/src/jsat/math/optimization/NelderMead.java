@@ -124,7 +124,7 @@ public class NelderMead implements Optimizer
         while(simplex.size() < N+1)
         {
             //Better simplex geneartion?
-            DenseVector newSimplex = new DenseVector(N);
+            DenseVector newSimplex = DenseVector.a(N);
             for(int i = 0; i < newSimplex.length(); i++)
                 if(init.get(i) != 0)
                     newSimplex.set(i, init.get(i)*rand.nextGaussian());
@@ -140,13 +140,13 @@ public class NelderMead implements Optimizer
             simplex.remove(simplex.size()-1);
         
         //Center of gravity point
-        Vec x0 = new DenseVector(N);
+        Vec x0 = DenseVector.a(N);
         //reflection point
-        Vec xr = new DenseVector(N);
+        Vec xr = DenseVector.a(N);
         //Extension point, also used for contraction
-        Vec xec = new DenseVector(N);
+        Vec xec = DenseVector.a(N);
         //Temp space for compuations
-        Vec tmp = new DenseVector(N);
+        Vec tmp = DenseVector.a(N);
         
         final int lastIndex = simplex.size()-1;
         for(int iterationCount = 0; iterationCount < iterationLimit; iterationCount++)

@@ -270,8 +270,8 @@ public class RTree<V extends Vec> implements VectorCollection<V>
         
         public Rectangle(int dimensions, double distance, Vec center)
         {
-            uB = new DenseVector(dimensions);
-            lB = new DenseVector(dimensions);
+            uB = DenseVector.a(dimensions);
+            lB = DenseVector.a(dimensions);
             
             for(int i = 0; i < dimensions; i++)
             {
@@ -282,8 +282,8 @@ public class RTree<V extends Vec> implements VectorCollection<V>
         @SuppressWarnings("unused")
         public Rectangle(int dimensions)
         {
-            uB = new DenseVector(dimensions);
-            lB = new DenseVector(dimensions);
+            uB = DenseVector.a(dimensions);
+            lB = DenseVector.a(dimensions);
         }
         
         public Rectangle(Vec point)
@@ -303,8 +303,8 @@ public class RTree<V extends Vec> implements VectorCollection<V>
          */
         public Rectangle(List<Vec> points)
         {
-            uB = new DenseVector(points.get(0).length());
-            lB = new DenseVector(uB.length());
+            uB = DenseVector.a(points.get(0).length());
+            lB = DenseVector.a(uB.length());
             
             for(int i = 0; i < uB.length(); i++)
             {
@@ -326,8 +326,8 @@ public class RTree<V extends Vec> implements VectorCollection<V>
          */
         public Rectangle(Rectangle... recs)
         {
-            uB = new DenseVector(recs[0].uB.length());
-            lB = new DenseVector(uB.length());
+            uB = DenseVector.a(recs[0].uB.length());
+            lB = DenseVector.a(uB.length());
             
             for(int i = 0; i < uB.length(); i++)
             {
@@ -445,8 +445,8 @@ public class RTree<V extends Vec> implements VectorCollection<V>
         
         static <V extends Vec> Rectangle contains(List<V> points)
         {
-            DenseVector uB = new DenseVector(points.get(0).length());
-            DenseVector lB = new DenseVector(uB.length());
+            DenseVector uB = DenseVector.a(points.get(0).length());
+            DenseVector lB = DenseVector.a(uB.length());
             
             for(int i = 0; i < uB.length(); i++)
             {
@@ -512,7 +512,7 @@ public class RTree<V extends Vec> implements VectorCollection<V>
         this.M = max;
         this.m = min;
         this.dim = dimensions;
-        this.dcScratch = new DenseVector(dim);
+        this.dcScratch = DenseVector.a(dim);
         this.dm = dm;
     }
 

@@ -171,7 +171,7 @@ public class GMeans extends KMeans
         int[] subS = new int[designations.length];
         int[] subC = new int[designations.length];
         
-        Vec v = new DenseVector(dataSet.getNumNumericalVars());
+        Vec v = DenseVector.a(dataSet.getNumNumericalVars());
         double[] xp = new double[N];
         //tract if we should stop testing a mean or not
         List<Boolean> dontRedo = new ArrayList<Boolean>(Collections.nCopies(means.size(), false));

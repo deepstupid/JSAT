@@ -202,7 +202,7 @@ public class PlattSMO extends SupportVectorLearner implements BinaryScoreClassif
         final int N = dataSet.getSampleSize();
         vecs = new ArrayList<Vec>(N);
         label = new double[N];
-        weights = new DenseVector(N);
+        weights = DenseVector.a(N);
         b = 0;
         i_up = i_low = -1;//giberish for init
         I0 = new boolean[N];
@@ -1244,7 +1244,7 @@ public class PlattSMO extends SupportVectorLearner implements BinaryScoreClassif
         label = new double[N];
         fcache = new double[N];
         b = 0;
-        weights = new DenseVector(N);
+        weights = DenseVector.a(N);
         boolean allWeightsAreOne = true;
         for(int i = 0; i < N; i++)
         {

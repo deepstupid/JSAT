@@ -79,7 +79,7 @@ public class KDTreeTest
         
         VectorArray<Vec> vecCol = new VectorArray<Vec>(new EuclideanDistance());
         for(int i = 0; i < 2050; i++)
-            vecCol.add(DenseVector.random(3, rand));
+            vecCol.add(Vec.random(3, rand));
         
         ExecutorService ex = Executors.newFixedThreadPool(SystemInfo.LogicalCores);
 
@@ -133,7 +133,7 @@ public class KDTreeTest
         
         VectorArray<Vec> vecCol = new VectorArray<Vec>(new EuclideanDistance());
         for(int i = 0; i < 2050; i++)
-            vecCol.add(DenseVector.random(3, rand));
+            vecCol.add(Vec.random(3, rand));
         
         for(VectorCollectionFactory<Vec> factory : collectionFactories)
         {

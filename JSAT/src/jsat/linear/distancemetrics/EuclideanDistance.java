@@ -89,10 +89,10 @@ public class EuclideanDistance implements DenseSparseMetric
         double takeOut = 0.0;
         for(IndexValue iv : target)
         {
-            int i = iv.getIndex();
+            int i = iv.index;
             double mainVal = main.get(i);
             takeOut += Math.pow(main.get(i), 2);
-            addBack += Math.pow(main.get(i)-iv.getValue(), 2.0);
+            addBack += Math.pow(main.get(i)- iv.value, 2.0);
         }
         return Math.sqrt(Math.max(summaryConst-takeOut+addBack, 0));//Max incase of numerical issues
     }

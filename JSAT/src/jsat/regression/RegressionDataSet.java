@@ -8,8 +8,6 @@ import jsat.linear.DenseVector;
 import jsat.linear.IndexValue;
 import jsat.linear.SparseVector;
 import jsat.linear.Vec;
-import jsat.utils.IntList;
-import jsat.utils.ListUtils;
 
 /**
  * A RegressionDataSet is a data set specifically for the task of performing regression. 
@@ -72,15 +70,15 @@ public class RegressionDataSet extends DataSet<RegressionDataSet>
             if (origV.isSparse())
                 newVec = new SparseVector(origV.length() - 1, origV.nnz());
             else
-                newVec = new DenseVector(origV.length() - 1);
+                newVec = DenseVector.a(origV.length() - 1);
 
             for (IndexValue iv : origV)
-                if (iv.getIndex() < predicting)
-                    newVec.set(iv.getIndex(), iv.getValue());
-                else if (iv.getIndex() == predicting)
-                    target = iv.getValue();
+                if (iv.index < predicting)
+                    newVec.set(iv.index, iv.value);
+                else if (iv.index == predicting)
+                    target = iv.value;
                 else//iv.getIndex() > index
-                    newVec.set(iv.getIndex() - 1, iv.getValue());
+                    newVec.set(iv.index - 1, iv.value);
 
             DataPoint newDp = new DataPoint(newVec, dp.getCategoricalValues(), categories, dp.getWeight());
             DataPointPair<Double> dpp = new DataPointPair<Double>(newDp, target);
@@ -289,7 +287,7 @@ public class RegressionDataSet extends DataSet<RegressionDataSet>
      */
     public Vec getTargetValues()
     {
-        DenseVector vals = new DenseVector(getSampleSize());
+        DenseVector vals = DenseVector.a(getSampleSize());
         
         for(int i = 0; i < getSampleSize(); i++)
             vals.set(i, dataPoints.get(i).getPair());

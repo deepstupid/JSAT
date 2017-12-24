@@ -3,7 +3,6 @@ package jsat.classifiers;
 
 import java.util.*;
 import jsat.DataSet;
-import jsat.SimpleDataSet;
 import jsat.linear.DenseVector;
 import jsat.linear.Vec;
 import jsat.utils.IntList;
@@ -131,10 +130,11 @@ public class ClassificationDataSet extends DataSet<ClassificationDataSet>
 
     private void generateGenericNumericNames()
     {
-        if(getNumNumericalVars() > 100)
-            return;
-        this.numericalVariableNames = new ArrayList<String>(getNumNumericalVars());
-        for(int i = 0; i < getNumNumericalVars(); i++)
+//        if(getNumNumericalVars() > 100)
+//            return;
+        int n = getNumNumericalVars();
+        this.numericalVariableNames = new ArrayList<String>(n);
+        for(int i = 0; i < n; i++)
             this.numericalVariableNames.add("Numeric Input " + (i+1));
     }
     
@@ -218,11 +218,11 @@ public class ClassificationDataSet extends DataSet<ClassificationDataSet>
      */
     public int getDataPointCategory(int i)
     {
-        if(i >= getSampleSize())
-            throw new IndexOutOfBoundsException("There are not that many samples in the data set: " + i);
-        else if(i < 0)
-            throw new IndexOutOfBoundsException("Can not specify negative index " + i);
-        
+//        if(i >= getSampleSize())
+//            throw new IndexOutOfBoundsException("There are not that many samples in the data set: " + i);
+//        else if(i < 0)
+//            throw new IndexOutOfBoundsException("Can not specify negative index " + i);
+
         return category.get(i);
     }
     
@@ -379,7 +379,7 @@ public class ClassificationDataSet extends DataSet<ClassificationDataSet>
     public Vec getSampleVariableVector(int category, int n)
     {
         List<DataPoint> categoryList = getSamples(category);
-        DenseVector vec = new DenseVector(categoryList.size());
+        DenseVector vec = DenseVector.a(categoryList.size());
         
         for(int i = 0; i < vec.length(); i++)
             vec.set(i, categoryList.get(i).getNumericalValues().get(n));

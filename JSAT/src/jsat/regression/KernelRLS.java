@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
+
 import jsat.classifiers.CategoricalData;
 import jsat.classifiers.DataPoint;
 import jsat.distributions.kernels.KernelTrick;
 import jsat.linear.*;
-import jsat.parameters.Parameter;
 import jsat.parameters.Parameter.ParameterHolder;
 import jsat.parameters.Parameterized;
 import jsat.utils.DoubleList;
@@ -228,7 +227,7 @@ public class KernelRLS implements UpdateableRegressor, Parameterized
         
         
         //Normal case
-        DenseVector kxt = new DenseVector(K.rows());
+        DenseVector kxt = DenseVector.a(K.rows());
 
         for (int i = 0; i < kxt.length(); i++)
             kxt.set(i, k.eval(i, x_t, qi, vecs, kernelAccel));

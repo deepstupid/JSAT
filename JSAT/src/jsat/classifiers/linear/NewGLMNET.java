@@ -1,7 +1,7 @@
 package jsat.classifiers.linear;
 
 import java.util.List;
-import java.util.concurrent.ExecutorService;
+
 import jsat.classifiers.*;
 import jsat.linear.DenseVector;
 import jsat.linear.Vec;
@@ -18,7 +18,6 @@ import jsat.distributions.Uniform;
 import jsat.exceptions.FailedToFitException;
 import jsat.linear.*;
 import jsat.lossfunctions.LogisticLoss;
-import jsat.parameters.Parameter;
 import jsat.parameters.Parameter.WarmParameter;
 import jsat.parameters.Parameterized;
 
@@ -328,7 +327,7 @@ public class NewGLMNET implements WarmClassifier, Parameterized, SingleWeightVec
         }
         else
         {
-            w = new DenseVector(n);
+            w = DenseVector.a(n);
             b = 0;
         }
         List<Vec> X = dataSet.getDataVectors();
@@ -406,8 +405,8 @@ public class NewGLMNET implements WarmClassifier, Parameterized, SingleWeightVec
         {
             Vec vec = columnsOfX.get(j);
             for(IndexValue iv : vec)
-                if(y[iv.getIndex()] == -1)
-                    col_neg_class_sum[j] += iv.getValue();
+                if(y[iv.index] == -1)
+                    col_neg_class_sum[j] += iv.value;
         }
         
         /**
@@ -439,7 +438,7 @@ public class NewGLMNET implements WarmClassifier, Parameterized, SingleWeightVec
         //Let M^out ← ∞
         double M_out = Double.POSITIVE_INFINITY;
         
-        Vec d = new DenseVector(n);
+        Vec d = DenseVector.a(n);
         double d_bias = 0;
         boolean prevLineSearchFail = false;
         for(int k = 0; k < maxOuterIters; k++)//For k = 1, 2, 3, . . .
@@ -462,8 +461,8 @@ public class NewGLMNET implements WarmClassifier, Parameterized, SingleWeightVec
                 
                 for(IndexValue x_i : columnsOfX.get(j))
                 {
-                    int i = x_i.getIndex();
-                    double val = x_i.getValue();
+                    int i = x_i.index;
+                    double val = x_i.value;
                     
                     delta_j_L += -val*D_part[i];
                     //eq(44) from LIBLINEAR paper , re-factored to avoid a division by using D_part
@@ -573,8 +572,8 @@ public class NewGLMNET implements WarmClassifier, Parameterized, SingleWeightVec
                     //see after algo 2 before eq (17)
                     for(IndexValue iv : columnsOfX.get(j))
                     {
-                        int i = iv.getIndex();
-                        delta_qBar_j += iv.getValue()*D[i]*d_dot_x[i];
+                        int i = iv.index;
+                        delta_qBar_j += iv.value *D[i]*d_dot_x[i];
                     }
                     delta_qBar_j *= C;
                     
@@ -634,7 +633,7 @@ public class NewGLMNET implements WarmClassifier, Parameterized, SingleWeightVec
                         
                         //book keeping, see eq(17)
                         for(IndexValue iv : columnsOfX.get(j))
-                            d_dot_x[iv.getIndex()] += z*iv.getValue();
+                            d_dot_x[iv.index] += z* iv.value;
                     }
                 }
                 
@@ -735,9 +734,9 @@ public class NewGLMNET implements WarmClassifier, Parameterized, SingleWeightVec
             
             for(IndexValue iv: d)
             {
-                final int j = iv.getIndex();
+                final int j = iv.index;
                 final double w_j = w.get(j);
-                final double d_j = iv.getValue();
+                final double d_j = iv.value;
                 wPd_norm_1 -= abs(w_j);
                 wPd_norm_1 += abs(w_j+d_j);
                 wPd_norm_2 -= w_j*w_j;
@@ -780,8 +779,8 @@ public class NewGLMNET implements WarmClassifier, Parameterized, SingleWeightVec
                 wPlambda_d_norm_2 = w_norm_2;
                 for(IndexValue iv: d)
                 {
-                    final double w_j = w.get(iv.getIndex());
-                    final double lambda_d_j = lambda*iv.getValue();
+                    final double w_j = w.get(iv.index);
+                    final double lambda_d_j = lambda* iv.value;
                     wPlambda_d_norm_1 -= abs(w_j);
                     wPlambda_d_norm_1 += abs(w_j+lambda_d_j);
                     wPlambda_d_norm_2 -= w_j*w_j;

@@ -175,7 +175,7 @@ public class ALMA2 extends BaseUpdateableClassifier implements BinaryScoreClassi
             throw new FailedToFitException("ALMA2 requires numeric features");
         if(predicting.getNumOfCategories() != 2)
             throw new FailedToFitException("ALMA2 works only for binary classification");
-        w = new DenseVector(numericAttributes);
+        w = DenseVector.a(numericAttributes);
         k = 1;
     }
 

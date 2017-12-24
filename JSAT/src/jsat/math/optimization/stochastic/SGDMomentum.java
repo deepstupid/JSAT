@@ -125,7 +125,7 @@ public class SGDMomentum implements GradientUpdater
     @Override
     public void setup(int d)
     {
-        velocity = new ScaledVector(new DenseVector(d));
+        velocity = new ScaledVector(DenseVector.a(d));
         biasVelocity = 0;
     }
     

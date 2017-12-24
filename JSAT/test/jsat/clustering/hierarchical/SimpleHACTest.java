@@ -4,8 +4,6 @@
  */
 package jsat.clustering.hierarchical;
 
-import jsat.clustering.hierarchical.SimpleHAC;
-
 import java.util.Set;
 import java.util.List;
 import java.util.Random;
@@ -48,8 +46,7 @@ public class SimpleHACTest
     }
 
     @BeforeClass
-    public static void setUpClass() throws Exception
-    {
+    public static void setUpClass() {
         simpleHAC = new SimpleHAC(new SingleLinkDissimilarity(new EuclideanDistance()));
         GridDataGenerator gdg = new GridDataGenerator(new Uniform(-0.15, 0.15), new Random(12), 2, 5);
         easyData10 = gdg.generateData(30);//HAC is O(n^3), so we make the data set a good deal smaller
@@ -57,8 +54,7 @@ public class SimpleHACTest
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception
-    {
+    public static void tearDownClass() {
         ex.shutdown();
     }
     

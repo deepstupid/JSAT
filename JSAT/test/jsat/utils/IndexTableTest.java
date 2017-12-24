@@ -20,8 +20,8 @@ import static org.junit.Assert.*;
  */
 public class IndexTableTest
 {
-    static final double[] array = new double[] {9.0, 4.0, 3.0, 2.0, 1.0, 10.0, 11.0 };
-    static final Double[] arrayD = new Double[] {9.0, 4.0, 3.0, 2.0, 1.0, 10.0, 11.0 };
+    static final double[] array = {9.0, 4.0, 3.0, 2.0, 1.0, 10.0, 11.0 };
+    static final Double[] arrayD = {9.0, 4.0, 3.0, 2.0, 1.0, 10.0, 11.0 };
     static final List<Double> list = Arrays.asList(arrayD);
     
     public IndexTableTest()
@@ -29,13 +29,11 @@ public class IndexTableTest
     }
 
     @BeforeClass
-    public static void setUpClass() throws Exception
-    {
+    public static void setUpClass() {
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception
-    {
+    public static void tearDownClass() {
     }
     
     @Before

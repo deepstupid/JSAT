@@ -117,7 +117,7 @@ public class LIBSVMLoaderTest
         expectedVec.add(DenseVector.toDenseVec( 0.0, 3.0, 3.0, 0.0, 1.0));
         
         
-        String[] newLines = new String[]{"\n", "\n\r", "\r\n", "\n\r\n"};
+        String[] newLines = {"\n", "\n\r", "\r\n", "\n\r\n"};
 
         for (boolean endInNewLines : new boolean[]{true, false })
             for (String newLine : newLines)

@@ -2,7 +2,6 @@
 package jsat.classifiers.svm;
 
 import java.util.*;
-import java.util.concurrent.ExecutorService;
 
 import jsat.SingleWeightVectorModel;
 import jsat.classifiers.CategoricalResults;
@@ -14,7 +13,6 @@ import jsat.exceptions.FailedToFitException;
 import jsat.exceptions.UntrainedModelException;
 import jsat.linear.DenseVector;
 import jsat.linear.Vec;
-import jsat.parameters.Parameter;
 import jsat.parameters.Parameterized;
 import jsat.regression.RegressionDataSet;
 import jsat.regression.Regressor;
@@ -313,7 +311,7 @@ public class DCD implements BinaryScoreClassifier, Regressor, Parameterized, Sin
             if(useBias)
                 Qhs[i] += 1.0;
         }
-        w = new DenseVector(vecs[0].length());
+        w = DenseVector.a(vecs[0].length());
         
         List<Integer> A = new IntList(vecs.length);
         ListUtils.addRange(A, 0, vecs.length, 1);
@@ -402,7 +400,7 @@ public class DCD implements BinaryScoreClassifier, Regressor, Parameterized, Sin
                 Qhs[i] += 1.0;
             v_0 += Math.abs(eq24(0, -y[i]-eps, -y[i]+eps, U));
         }
-        w = new DenseVector(vecs[0].length());
+        w = DenseVector.a(vecs[0].length());
         
         IntList activeSet = new IntList(vecs.length);
         ListUtils.addRange(activeSet, 0, vecs.length, 1);

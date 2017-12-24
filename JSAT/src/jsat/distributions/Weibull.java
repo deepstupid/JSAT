@@ -154,7 +154,7 @@ public class Weibull extends ContinuousDistribution
          */
         
         Vec sData = data.sortedCopy();
-        DenseVector ranks = new DenseVector(sData.length());
+        DenseVector ranks = DenseVector.a(sData.length());
         for(int i = 0; i < sData.length(); i++)
         {
             //Get the median rank

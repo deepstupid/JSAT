@@ -18,7 +18,6 @@ import jsat.utils.IntList;
 import jsat.utils.ListUtils;
 import jsat.utils.SystemInfo;
 import jsat.utils.random.RandomUtil;
-import jsat.utils.random.XORWOW;
 
 /**
  * This is the base class for representing a data set. A data set contains multiple samples,
@@ -65,10 +64,12 @@ public abstract class DataSet<Type extends DataSet>
     public boolean setNumericName(String name, int i)
     {
         name = name.toLowerCase();
-        
-        if(numericalVariableNames.contains(name))
-            return false;
-        else if(i < getNumNumericalVars() && i >= 0)
+
+
+        if(numericalVariableNames.contains(name)) {
+            throw new UnsupportedOperationException("duplicate");
+            //return false;
+        }else if(i < getNumNumericalVars() && i >= 0)
             numericalVariableNames.set(i, name);
         else
             return false;
@@ -284,10 +285,10 @@ public abstract class DataSet<Type extends DataSet>
 
             Vec v = dp.getNumericalValues();
             for (IndexValue iv : v)
-                if (Double.isNaN(iv.getValue()))//count it so we can fast count zeros right later
-                    nanWeight[iv.getIndex()] += weight;
+                if (Double.isNaN(iv.value))//count it so we can fast count zeros right later
+                    nanWeight[iv.index] += weight;
                 else
-                    stats[iv.getIndex()].add(iv.getValue(), weight);
+                    stats[iv.index].add(iv.value, weight);
         }
         
         double expected = totalSoW;
@@ -328,8 +329,8 @@ public abstract class DataSet<Type extends DataSet>
         final int d = getNumNumericalVars();
         Vec[] vecs = new Vec[] 
         {
-            new DenseVector(d),
-            new DenseVector(d)
+                DenseVector.a(d),
+                DenseVector.a(d)
         };
         
         Vec means = vecs[0];
@@ -577,7 +578,7 @@ public abstract class DataSet<Type extends DataSet>
                 return v;
         }
         //no cache, so make it
-        DenseVector dv = new DenseVector(getSampleSize());
+        DenseVector dv = DenseVector.a(getSampleSize());
         for (int j = 0; j < getSampleSize(); j++)
             dv.set(j, getDataPoint(j).getNumericalValues().get(i));
         Vec toRet;
@@ -668,10 +669,10 @@ public abstract class DataSet<Type extends DataSet>
                         dontSet[i] = true;
                     }
                     else
-                        columnVecCache.put(i, new SoftReference<Vec>(cols[i] = sparse ? new SparseVector(getSampleSize()) : new DenseVector(getSampleSize())));
+                        columnVecCache.put(i, new SoftReference<Vec>(cols[i] = sparse ? new SparseVector(getSampleSize()) : DenseVector.a(getSampleSize())));
                 }
                 else
-                    columnVecCache.put(i, new SoftReference<Vec>(cols[i] = sparse ? new SparseVector(getSampleSize()) : new DenseVector(getSampleSize())));
+                    columnVecCache.put(i, new SoftReference<Vec>(cols[i] = sparse ? new SparseVector(getSampleSize()) : DenseVector.a(getSampleSize())));
             }
         for(int i = 0; i < getSampleSize(); i++)
         {
@@ -679,9 +680,9 @@ public abstract class DataSet<Type extends DataSet>
             
             for(IndexValue iv : v)
             {
-                int col = iv.getIndex();
+                int col = iv.index;
                 if(cols[col] != null && !dontSet[col])
-                    cols[col].set(i, iv.getValue());
+                    cols[col].set(i, iv.value);
             }
         }
             
@@ -813,7 +814,7 @@ public abstract class DataSet<Type extends DataSet>
     {
         final int N = this.getSampleSize();
         if(N == 0)
-            return new DenseVector(0);
+            return DenseVector.a(0);
         //assume everyone has the same weight until proven otherwise.
         double weight = getDataPoint(0).getWeight();
         double[] weights = null;
@@ -835,6 +836,6 @@ public abstract class DataSet<Type extends DataSet>
         if(weights == null)
             return new ConstantVector(weight, getSampleSize());
         else
-            return new DenseVector(weights);
+            return DenseVector.a(weights);
     }
 }

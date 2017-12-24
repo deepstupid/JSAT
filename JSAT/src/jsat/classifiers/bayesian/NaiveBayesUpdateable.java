@@ -127,7 +127,7 @@ public class NaiveBayesUpdateable extends BaseUpdateableClassifier
         Vec x = dataPoint.getNumericalValues();
         if (sparseInput)
             for (IndexValue iv : x)
-                valueStats[targetClass][iv.getIndex()].add(iv.getValue(), weight);
+                valueStats[targetClass][iv.index].add(iv.value, weight);
         else
             for (int j = 0; j < x.length(); j++)
                 valueStats[targetClass][j].add(x.get(j), weight);
@@ -157,10 +157,10 @@ public class NaiveBayesUpdateable extends BaseUpdateableClassifier
             {
                 for(IndexValue iv : numVals)
                 {
-                    int indx = iv.getIndex();
+                    int indx = iv.index;
                     double mean = valueStats[i][indx].getMean();
                     double stndDev = valueStats[i][indx].getStandardDeviation();
-                    double logPDF = Normal.logPdf(iv.getValue(), mean, stndDev);
+                    double logPDF = Normal.logPdf(iv.value, mean, stndDev);
                     if(Double.isNaN(logPDF))
                         logProb += Math.log(1e-16);
                     else if(Double.isInfinite(logPDF))//Avoid propigation -infinty when the probability is zero

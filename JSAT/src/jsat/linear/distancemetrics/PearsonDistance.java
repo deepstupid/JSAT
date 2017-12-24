@@ -150,15 +150,15 @@ public class PearsonDistance implements DistanceMetric
                     newB = false;
                 }
 
-                if (aCur.getIndex() == bCur.getIndex())
+                if (aCur.index == bCur.index)
                 {
                     //accumulate skipped positions where both are zero
                     if(!bothNonZero)
-                        r += aMean * bMean * (aCur.getIndex()-lastObservedIndex - 1);
-                    lastObservedIndex = aCur.getIndex();
+                        r += aMean * bMean * (aCur.index -lastObservedIndex - 1);
+                    lastObservedIndex = aCur.index;
 
-                    double aVal = aCur.getValue() - aMean;
-                    double bVal = bCur.getValue() - bMean;
+                    double aVal = aCur.value - aMean;
+                    double bVal = bCur.value - bMean;
                     r += aVal * bVal;
 
                     aSqrd += aVal * aVal;
@@ -166,29 +166,29 @@ public class PearsonDistance implements DistanceMetric
 
                     newA = newB = true;
                 }
-                else if (aCur.getIndex() > bCur.getIndex())
+                else if (aCur.index > bCur.index)
                 {
                     if (!bothNonZero)
                     {
                         //accumulate skipped positions where both are zero
-                        r += aMean * bMean * (bCur.getIndex()-lastObservedIndex - 1);
-                        lastObservedIndex = bCur.getIndex();
+                        r += aMean * bMean * (bCur.index -lastObservedIndex - 1);
+                        lastObservedIndex = bCur.index;
 
-                        double bVal = bCur.getValue() - bMean;
+                        double bVal = bCur.value - bMean;
                         r += -aMean * bVal;
                         bSqrd += bVal * bVal;
                     }
                     newB = true;
                 }
-                else if (aCur.getIndex() < bCur.getIndex())
+                else if (aCur.index < bCur.index)
                 {
                     if (!bothNonZero)
                     {
                         //accumulate skipped positions where both are zero
-                        r += aMean * bMean * (aCur.getIndex()-lastObservedIndex - 1);
-                        lastObservedIndex = aCur.getIndex();
-                    
-                        double aVal = aCur.getValue() - aMean;
+                        r += aMean * bMean * (aCur.index -lastObservedIndex - 1);
+                        lastObservedIndex = aCur.index;
+
+                        double aVal = aCur.value - aMean;
                         r += aVal * -bMean;
                         aSqrd += aVal * aVal;
                     }
@@ -205,10 +205,10 @@ public class PearsonDistance implements DistanceMetric
                     if(newA)
                         aCur = aIter.next();
                     //accumulate skipped positions where both are zero
-                    r += aMean * bMean * (aCur.getIndex()-lastObservedIndex - 1);
-                    lastObservedIndex = aCur.getIndex();
+                    r += aMean * bMean * (aCur.index -lastObservedIndex - 1);
+                    lastObservedIndex = aCur.index;
 
-                    double aVal = aCur.getValue() - aMean;
+                    double aVal = aCur.value - aMean;
                     r += aVal * -bMean;
                     aSqrd += aVal * aVal;
                     newA = true;
@@ -219,10 +219,10 @@ public class PearsonDistance implements DistanceMetric
                     if(newB)
                         bCur = bIter.next();
                     //accumulate skipped positions where both are zero
-                    r += aMean * bMean * (bCur.getIndex()-lastObservedIndex - 1);
-                    lastObservedIndex = bCur.getIndex();
+                    r += aMean * bMean * (bCur.index -lastObservedIndex - 1);
+                    lastObservedIndex = bCur.index;
 
-                    double bVal = bCur.getValue() - bMean;
+                    double bVal = bCur.value - bMean;
                     r += -aMean * bVal;
                     bSqrd += bVal * bVal;
                     newB = true;

@@ -32,6 +32,7 @@ public class HessenbergFormTest
      */
     static ExecutorService threadpool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors()+1, new ThreadFactory() {
 
+        @Override
         public Thread newThread(Runnable r)
         {
             Thread thread = new Thread(r);
@@ -46,8 +47,7 @@ public class HessenbergFormTest
     }
 
     @BeforeClass
-    public static void setUpClass() throws Exception
-    {
+    public static void setUpClass() {
         A = new DenseMatrix(new double[][] 
         {
             {1, 5, 4, 8, 9},
@@ -75,8 +75,7 @@ public class HessenbergFormTest
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception
-    {
+    public static void tearDownClass() {
     }
     
     @Before

@@ -5,7 +5,6 @@
 package jsat.math.rootfinding;
 
 import jsat.linear.Vec;
-import jsat.math.rootfinding.Bisection;
 import jsat.math.Function1D;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -35,13 +34,11 @@ public class BisectionTest
     }
 
     @BeforeClass
-    public static void setUpClass() throws Exception
-    {
+    public static void setUpClass() {
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception
-    {
+    public static void tearDownClass() {
     }
     
     @Before

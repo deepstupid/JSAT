@@ -38,6 +38,7 @@ public class DenseMatrixTest
      */
     static ExecutorService threadpool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors()+1, new ThreadFactory() {
 
+        @Override
         public Thread newThread(Runnable r)
         {
             Thread thread = new Thread(r);
@@ -51,8 +52,7 @@ public class DenseMatrixTest
     }
 
     @BeforeClass
-    public static void setUpClass() throws Exception
-    {
+    public static void setUpClass() {
         A = new DenseMatrix(new double[][] 
         {
             {1, 5, 4, 8, 9},
@@ -111,8 +111,7 @@ public class DenseMatrixTest
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception
-    {
+    public static void tearDownClass() {
     }
 
     /**
@@ -388,7 +387,7 @@ public class DenseMatrixTest
         DenseVector store = b.deepCopy();
         
         A.multiply(b, 3.0, store);
-        assertEquals(new DenseVector(new double[]{ 448, 335, 311, 288, 454}), store);
+        assertEquals(DenseVector.a(new double[]{ 448, 335, 311, 288, 454}), store);
         
         DenseVector Cz = new DenseVector(Arrays.asList(62.0, 100.0, 88.0, 74.0, 68.0));
         
@@ -828,21 +827,21 @@ public class DenseMatrixTest
         
         qr = A.clone().qr();
         assertTrue(A.equals(qr[0].multiply(qr[1]), 1e-14));
-        assertTrue(DenseMatrix.eye(A.rows()).equals(qr[0].multiply(qr[0].transpose()), 1e-14));
+        assertTrue(Matrix.eye(A.rows()).equals(qr[0].multiply(qr[0].transpose()), 1e-14));
         
         
         qr = B.clone().qr();
         assertTrue(B.equals(qr[0].multiply(qr[1]), 1e-14));
-        assertTrue(DenseMatrix.eye(B.rows()).equals(qr[0].multiply(qr[0].transpose()), 1e-14));
+        assertTrue(Matrix.eye(B.rows()).equals(qr[0].multiply(qr[0].transpose()), 1e-14));
         
         
         qr = C.clone().qr();
         assertTrue(C.equals(qr[0].multiply(qr[1]), 1e-14));
-        assertTrue(DenseMatrix.eye(C.rows()).equals(qr[0].multiply(qr[0].transpose()), 1e-14));
+        assertTrue(Matrix.eye(C.rows()).equals(qr[0].multiply(qr[0].transpose()), 1e-14));
         
         qr = C.transpose().qr();
         assertTrue(C.transpose().equals(qr[0].multiply(qr[1]), 1e-14));
-        assertTrue(DenseMatrix.eye(C.transpose().rows()).equals(qr[0].multiply(qr[0].transpose()), 1e-14));
+        assertTrue(Matrix.eye(C.transpose().rows()).equals(qr[0].multiply(qr[0].transpose()), 1e-14));
     }
 
     /**
@@ -862,21 +861,21 @@ public class DenseMatrixTest
         
         qr = A.clone().qr(threadpool);
         assertTrue(A.equals(qr[0].multiply(qr[1]), 1e-14));
-        assertTrue(DenseMatrix.eye(A.rows()).equals(qr[0].multiply(qr[0].transpose()), 1e-14));
+        assertTrue(Matrix.eye(A.rows()).equals(qr[0].multiply(qr[0].transpose()), 1e-14));
         
         
         qr = B.clone().qr(threadpool);
         assertTrue(B.equals(qr[0].multiply(qr[1]), 1e-14));
-        assertTrue(DenseMatrix.eye(B.rows()).equals(qr[0].multiply(qr[0].transpose()), 1e-14));
+        assertTrue(Matrix.eye(B.rows()).equals(qr[0].multiply(qr[0].transpose()), 1e-14));
         
         
         qr = C.clone().qr(threadpool);
         assertTrue(C.equals(qr[0].multiply(qr[1]), 1e-14));
-        assertTrue(DenseMatrix.eye(C.rows()).equals(qr[0].multiply(qr[0].transpose()), 1e-14));
+        assertTrue(Matrix.eye(C.rows()).equals(qr[0].multiply(qr[0].transpose()), 1e-14));
         
         qr = C.transpose().qr(threadpool);
         assertTrue(C.transpose().equals(qr[0].multiply(qr[1]), 1e-14));
-        assertTrue(DenseMatrix.eye(C.transpose().rows()).equals(qr[0].multiply(qr[0].transpose()), 1e-14));
+        assertTrue(Matrix.eye(C.transpose().rows()).equals(qr[0].multiply(qr[0].transpose()), 1e-14));
     }
     
     

@@ -11,7 +11,7 @@ import jsat.linear.IndexValue;
 import jsat.linear.Matrix;
 import jsat.linear.Vec;
 import static java.lang.Math.*;
-import java.util.List;
+
 import jsat.DataSet;
 import jsat.SingleWeightVectorModel;
 import jsat.classifiers.calibration.BinaryScoreClassifier;
@@ -19,7 +19,6 @@ import jsat.distributions.Distribution;
 import jsat.distributions.LogUniform;
 import jsat.distributions.Uniform;
 import jsat.exceptions.UntrainedModelException;
-import jsat.parameters.Parameter;
 import jsat.parameters.Parameterized;
 
 /**
@@ -88,7 +87,7 @@ public class SCW extends BaseUpdateableClassifier implements BinaryScoreClassifi
         //Zero out temp store
        if(diagonalOnly && x_t.isSparse())//only these values will be non zero 
            for(IndexValue iv : x_t)
-               Sigma_xt.set(iv.getIndex(), 0.0);
+               Sigma_xt.set(iv.index, 0.0);
        else
            Sigma_xt.zeroOut();
     }
@@ -310,11 +309,11 @@ public class SCW extends BaseUpdateableClassifier implements BinaryScoreClassifi
             throw new FailedToFitException("SCW requires numeric attributes to perform classification");
         else if(predicting.getNumOfCategories() != 2)
             throw new FailedToFitException("SCW is a binary classifier");
-        w = new DenseVector(numericAttributes);
-        Sigma_xt = new DenseVector(numericAttributes);
+        w = DenseVector.a(numericAttributes);
+        Sigma_xt = DenseVector.a(numericAttributes);
         if(diagonalOnly)
         {
-            sigmaV = new DenseVector(numericAttributes);
+            sigmaV = DenseVector.a(numericAttributes);
             sigmaV.mutableAdd(1);
         }
         else
@@ -334,8 +333,8 @@ public class SCW extends BaseUpdateableClassifier implements BinaryScoreClassifi
             //Faster to set only the needed final values
             for (IndexValue iv : x_t)
             {
-                double x_t_i = iv.getValue();
-                v_t += x_t_i * x_t_i * sigmaV.get(iv.getIndex());
+                double x_t_i = iv.value;
+                v_t += x_t_i * x_t_i * sigmaV.get(iv.index);
             }
 
         }
@@ -395,9 +394,9 @@ public class SCW extends BaseUpdateableClassifier implements BinaryScoreClassifi
         {
             for (IndexValue iv : x_t)
             {
-                double x_t_i = iv.getValue();
-                double tmp = x_t_i * sigmaV.get(iv.getIndex());
-                w.increment(iv.getIndex(), alpha_t * y_t * tmp);
+                double x_t_i = iv.value;
+                double tmp = x_t_i * sigmaV.get(iv.index);
+                w.increment(iv.index, alpha_t * y_t * tmp);
             }
         }
         else
@@ -409,9 +408,9 @@ public class SCW extends BaseUpdateableClassifier implements BinaryScoreClassifi
             final double coef = alpha_t*phi*pow(u_t, -0.5);
             for(IndexValue iv : x_t)
             {
-                int idx = iv.getIndex();
+                int idx = iv.index;
                 double S_rr = sigmaV.get(idx);
-                sigmaV.set(idx, 1/(1/S_rr+coef*pow(iv.getValue(), 2)));
+                sigmaV.set(idx, 1/(1/S_rr+coef*pow(iv.value, 2)));
             }
         }
         else

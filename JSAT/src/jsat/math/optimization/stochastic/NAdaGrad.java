@@ -91,8 +91,8 @@ public class NAdaGrad implements GradientUpdater
             for(IndexValue iv : x)
             {
 
-                final int indx = iv.getIndex();
-                final double abs_x_i = Math.abs(iv.getValue());
+                final int indx = iv.index;
+                final double abs_x_i = Math.abs(iv.value);
                 
                 if(abs_x_i > S[indx])//(a)
                 {
@@ -107,8 +107,8 @@ public class NAdaGrad implements GradientUpdater
             double eta_roled = -eta*Math.sqrt(t/(N+1e-6));
             for(IndexValue iv : grad)
             {
-                final int indx = iv.getIndex();
-                final double grad_i = iv.getValue();
+                final int indx = iv.index;
+                final double grad_i = iv.value;
                 G[indx] += grad_i*grad_i;
                 final double g_ii = G[indx];
                 w.increment(indx, eta_roled*grad_i/(S[indx]*Math.sqrt(g_ii)));
@@ -124,8 +124,8 @@ public class NAdaGrad implements GradientUpdater
             double eta_roled = -eta*Math.sqrt((t+1)/Math.max(N, t+1));
             for(IndexValue iv : grad)
             {
-                final int indx = iv.getIndex();
-                final double grad_i = iv.getValue();
+                final int indx = iv.index;
+                final double grad_i = iv.value;
                 G[indx] += grad_i*grad_i;
                 final double g_ii = G[indx];
                 w.increment(indx, eta_roled*grad_i/(Math.max(S[indx], 1.0)*Math.sqrt(g_ii)));

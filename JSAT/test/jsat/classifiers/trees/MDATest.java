@@ -76,7 +76,7 @@ public class MDATest
             
             double score = 10*x*y + x*x-y*y;
   
-            Vec n = DenseVector.random(20);
+            Vec n = Vec.random(20);
             n.set(0, x);
             n.set(1, y);
             
@@ -96,7 +96,7 @@ public class MDATest
             
             double score = 10*x*y + x*x-y*y;
   
-            Vec n = DenseVector.random(20);
+            Vec n = Vec.random(20);
             n.set(0, x);
             n.set(1, y);
             

@@ -49,8 +49,7 @@ public class PAMTest
     }
 
     @BeforeClass
-    public static void setUpClass() throws Exception
-    {
+    public static void setUpClass() {
         pam = new PAM(new EuclideanDistance(), RandomUtil.getRandom(), SeedSelection.KPP);
         pam.setMaxIterations(1000);
         GridDataGenerator gdg = new GridDataGenerator(new Uniform(-0.05, 0.05), RandomUtil.getRandom(), 2, 5);
@@ -59,8 +58,7 @@ public class PAMTest
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception
-    {
+    public static void tearDownClass() {
         ex.shutdown();
     }
     

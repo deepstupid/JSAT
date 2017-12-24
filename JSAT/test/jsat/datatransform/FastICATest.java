@@ -60,7 +60,7 @@ public class FastICATest
             {0.5, 0}
         });
         
-        DenseVector time = new DenseVector(200);
+        DenseVector time = DenseVector.a(200);
         for(int i = 0; i < time.length(); i++)
         {
             double t = i/(time.length()+0.0);
@@ -160,7 +160,7 @@ public class FastICATest
             {0.5, 1}
         });
         
-        DenseVector time = new DenseVector(200);
+        DenseVector time = DenseVector.a(200);
         for(int i = 0; i < time.length(); i++)
         {
             double t = i/(time.length()+0.0);
@@ -264,7 +264,7 @@ public class FastICATest
             {-0.5, 1, 2},
         });
         
-        DenseVector time = new DenseVector(200);
+        DenseVector time = DenseVector.a(200);
         for(int i = 0; i < time.length(); i++)
         {
             double t = i/(time.length()+0.0);

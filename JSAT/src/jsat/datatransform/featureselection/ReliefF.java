@@ -313,7 +313,7 @@ public class ReliefF extends RemoveAttributeTransform
      */
     public Vec getWeights()
     {
-        return new DenseVector(w);
+        return DenseVector.a(w);
     }
 
     private static double diff(int i, Vec xj, Vec xk, double[] normalzer)

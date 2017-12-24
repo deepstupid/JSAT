@@ -78,7 +78,7 @@ public class ConjugateGradient
     
     public static Vec solve(Matrix A, Vec b)
     {
-        DenseVector x = new DenseVector(b.length());
+        DenseVector x = DenseVector.a(b.length());
         return solve(1e-10, A, x, b);
     }
     
@@ -181,7 +181,7 @@ public class ConjugateGradient
     
     public static Vec solveCGNR(Matrix A, Vec b)
     {
-        DenseVector x = new DenseVector(A.cols());
+        DenseVector x = DenseVector.a(A.cols());
         return solveCGNR(1e-10, A, x, b);
     }
 }

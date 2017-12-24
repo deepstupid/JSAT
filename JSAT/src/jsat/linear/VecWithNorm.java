@@ -112,8 +112,8 @@ public class VecWithNorm extends Vec
     {
         for(IndexValue iv : b)
         {
-            double old = base.get(iv.getIndex());
-            double toAdd = c*iv.getValue();
+            double old = base.get(iv.index);
+            double toAdd = c* iv.value;
             normSqrd += toAdd*(toAdd+2*old);
         }
         base.mutableAdd(c, b);

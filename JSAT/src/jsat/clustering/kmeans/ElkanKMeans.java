@@ -183,7 +183,7 @@ public class ElkanKMeans extends KMeans
                     meanQIs.add(dm.getQueryInfo(means.get(i)));
                 else
                     meanQIs.add(Collections.<Double>emptyList());//Avoid null pointers
-                meanSums[i] = new DenseVector(D);
+                meanSums[i] = DenseVector.a(D);
             }
             
             if(dm instanceof DenseSparseMetric && useDenseSparse)
@@ -197,7 +197,7 @@ public class ElkanKMeans extends KMeans
             final ThreadLocal<Vec[]> localDeltas = ThreadLocal.withInitial(() -> {
                 Vec[] toRet = new Vec[k];
                 for(int i = 0; i < toRet.length; i++)
-                    toRet[i] = new DenseVector(D);
+                    toRet[i] = DenseVector.a(D);
                 return toRet;
             });
             

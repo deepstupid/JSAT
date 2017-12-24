@@ -207,7 +207,7 @@ public class Poly2Vec extends Vec
                  * value. If this has happened, we know that y should be set to 
                  * x's value
                  */
-                int nextXIndex = candidateOuterIter.hasNext() ? base.getNonZeroIterator(x).next().getIndex() : -1;
+                int nextXIndex = candidateOuterIter.hasNext() ? base.getNonZeroIterator(x).next().index : -1;
                 if(candidateOuterIter.hasNext() && nextXIndex > x)//x is at a zero, so we need to inner iter to go back to the "begining"
                     candidateInerIter = base.getNonZeroIterator(nextXIndex);//next variable starts at val^2
                 else
@@ -278,16 +278,16 @@ public class Poly2Vec extends Vec
                             curOuterVal = outerIter.next();
                             inerIter = base.getNonZeroIterator();
                         }
-                        toReturn.setIndex(1 + iv.getIndex());
-                        toReturn.setValue(iv.getValue());
+                        toReturn.index = 1 + iv.index;
+                        toReturn.value = iv.value;
                         return toReturn;
                     case 2:
                         IndexValue innerVal = inerIter.next();
-                        int x = curOuterVal.getIndex();
-                        int y = innerVal.getIndex();
+                        int x = curOuterVal.index;
+                        int y = innerVal.index;
                         int N = base.length();
-                        toReturn.setIndex(1 + N + x * N + y - x * (x + 1) / 2);
-                        toReturn.setValue(curOuterVal.getValue() * innerVal.getValue());
+                        toReturn.index = 1 + N + x * N + y - x * (x + 1) / 2;
+                        toReturn.value = curOuterVal.value * innerVal.value;
 
                         if (!inerIter.hasNext()) {
                             if (!outerIter.hasNext())//we are out!
@@ -298,7 +298,7 @@ public class Poly2Vec extends Vec
                             {
                                 curOuterVal = outerIter.next();
                                 //new inner itter starts at idx^2
-                                inerIter = base.getNonZeroIterator(curOuterVal.getIndex());
+                                inerIter = base.getNonZeroIterator(curOuterVal.index);
                             }
                         }
 

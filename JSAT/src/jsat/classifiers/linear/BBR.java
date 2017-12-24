@@ -1,7 +1,7 @@
 package jsat.classifiers.linear;
 
 import java.util.Arrays;
-import java.util.concurrent.ExecutorService;
+
 import jsat.classifiers.CategoricalResults;
 import jsat.classifiers.ClassificationDataSet;
 import jsat.classifiers.Classifier;
@@ -9,12 +9,11 @@ import jsat.classifiers.DataPoint;
 import jsat.exceptions.FailedToFitException;
 import jsat.linear.Vec;
 import static java.lang.Math.*;
-import java.util.List;
+
 import jsat.SingleWeightVectorModel;
 import jsat.linear.DenseVector;
 import jsat.linear.IndexValue;
 import jsat.lossfunctions.LogisticLoss;
-import jsat.parameters.Parameter;
 import jsat.parameters.Parameterized;
 
 /**
@@ -338,7 +337,7 @@ public class BBR implements Classifier, Parameterized, SingleWeightVectorModel
             throw new FailedToFitException("Data set contains no numeric features");
 
         final Vec[] columnMajor = dataSet.getNumericColumns();
-        w = new DenseVector(D);
+        w = DenseVector.a(D);
 
         double[] delta = new double[useBias ? D + 1 : D];
         Arrays.fill(delta, 1.0);
@@ -406,8 +405,8 @@ public class BBR implements Classifier, Parameterized, SingleWeightVectorModel
                 double delta_wj = min(max(delta_vj, -delta[j]), delta[j]);//(limit step to trust region)
                 for (IndexValue iv : columnMajor[j])
                 {
-                    final int i = iv.getIndex();
-                    final double change = delta_wj * iv.getValue() * y[i];
+                    final int i = iv.index;
+                    final double change = delta_wj * iv.value * y[i];
                     r[i] += change;
                     r_change[i] += change;
                 }
@@ -522,8 +521,8 @@ public class BBR implements Classifier, Parameterized, SingleWeightVectorModel
                 return 0;
             for (IndexValue iv : col_j)
             {
-                final double x_ij = iv.getValue();
-                final int i = iv.getIndex();
+                final double x_ij = iv.value;
+                final int i = iv.index;
                 numer += x_ij * y[i] / (1 + exp(r[i]));
                 denom += x_ij * x_ij * F(r[i], delta[j] * abs(x_ij));
                 if (prior == Prior.LAPLACE)

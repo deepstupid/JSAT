@@ -8,7 +8,6 @@ import jsat.classifiers.*;
 import jsat.distributions.Distribution;
 import jsat.linear.DenseVector;
 import jsat.linear.Vec;
-import jsat.parameters.Parameter;
 import jsat.parameters.Parameterized;
 import jsat.utils.IndexTable;
 
@@ -172,7 +171,7 @@ public class SPA extends BaseUpdateableClassifier implements Parameterized, Simp
     {
         w = new Vec[predicting.getNumOfCategories()];
         for(int i = 0; i < w.length; i++)
-            w[i] = new DenseVector(numericAttributes);
+            w[i] = DenseVector.a(numericAttributes);
         bias = new double[w.length];
         loss = new double[w.length];
         it = new IndexTable(w.length);

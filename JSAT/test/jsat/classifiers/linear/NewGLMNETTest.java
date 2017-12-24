@@ -1,7 +1,7 @@
 package jsat.classifiers.linear;
 
 import java.util.Random;
-import java.util.concurrent.ExecutorService;
+
 import jsat.SimpleWeightVectorModel;
 import jsat.classifiers.*;
 import jsat.linear.*;
@@ -85,10 +85,10 @@ public class NewGLMNETTest
         while (w.nnz() > 1);//we should be able to find this pretty easily
         
         assertEquals(1, w.nnz());
-        int nonZeroIndex = w.getNonZeroIterator().next().getIndex();
+        int nonZeroIndex = w.getNonZeroIterator().next().index;
         assertTrue(nonZeroIndex < 3);//should be one of the more important weights
         if(nonZeroIndex == 1) //check the sign is correct
-            assertEquals(-1, (int)Math.signum(w.get(nonZeroIndex)));
+            assertEquals(-1, (int)Math.signum(w.get(1)));
         else
             assertEquals(1, (int)Math.signum(w.get(nonZeroIndex)));
         
@@ -191,7 +191,7 @@ public class NewGLMNETTest
             double Z1 = rand.nextDouble()*20-10;
             double Z2 = rand.nextDouble()*20-10;
             
-            Vec v = new DenseVector(train.getNumNumericalVars());
+            Vec v = DenseVector.a(train.getNumNumericalVars());
             for(int j = 0; j < v.length(); j++)
             {
                 if (j > 500)
@@ -214,7 +214,7 @@ public class NewGLMNETTest
         
         
         DumbWeightHolder dumb = new DumbWeightHolder();
-        dumb.w = DenseVector.random(train.getNumNumericalVars()).normalized();
+        dumb.w = Vec.random(train.getNumNumericalVars()).normalized();
         dumb.b = rand.nextDouble();
         
         

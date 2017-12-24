@@ -43,7 +43,7 @@ public class JLTransformTest
         
         for(int i = 0; i < 100; i++)
         {
-            Vec v = DenseVector.random(2000, rand);
+            Vec v = Vec.random(2000, rand);
             dps.add(new DataPoint(v, new int[0], new CategoricalData[0]));
         }
         

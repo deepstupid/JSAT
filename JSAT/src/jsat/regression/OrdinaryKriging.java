@@ -1,16 +1,11 @@
 package jsat.regression;
 
 import static java.lang.Math.pow;
-import java.util.*;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import jsat.classifiers.DataPoint;
 import static jsat.linear.DenseVector.toDenseVec;
 import jsat.linear.*;
 import jsat.parameters.*;
-import jsat.utils.SystemInfo;
 import jsat.utils.concurrent.ParallelUtils;
 
 /**
@@ -108,7 +103,7 @@ public class OrdinaryKriging implements Regressor, Parameterized
         /**
          * Stores the target values
          */
-        Vec Y = new DenseVector(N+1);
+        Vec Y = DenseVector.a(N+1);
         
         Matrix V = new DenseMatrix(N+1, N+1);
         

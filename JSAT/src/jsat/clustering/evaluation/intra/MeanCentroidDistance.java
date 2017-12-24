@@ -47,7 +47,7 @@ public class MeanCentroidDistance implements IntraClusterEvaluation
     @Override
     public double evaluate(int[] designations, DataSet dataSet, int clusterID)
     {
-        Vec mean = new DenseVector(dataSet.getNumNumericalVars());
+        Vec mean = DenseVector.a(dataSet.getNumNumericalVars());
         
         int clusterSize = 0;
         for(int i = 0; i < dataSet.getSampleSize(); i++)

@@ -240,7 +240,7 @@ public class DANN implements Classifier, Parameterized
         Matrix W = new DenseMatrix(n, n);
         Vec query = data.getNumericalValues();
         
-        Vec scratch0 = new DenseVector(n);
+        Vec scratch0 = DenseVector.a(n);
         
         
         
@@ -249,10 +249,10 @@ public class DANN implements Classifier, Parameterized
         double[] priors = new double[predicting.getNumOfCategories()];
         int[] classCount = new int[priors.length];
         double sumOfWeights;
-        Vec mean = new DenseVector(sigma.rows());
+        Vec mean = DenseVector.a(sigma.rows());
         Vec[] classMeans = new Vec[predicting.getNumOfCategories()];
         for(int i = 0; i < classMeans.length; i++)
-            classMeans[i] = new DenseVector(mean.length());
+            classMeans[i] = DenseVector.a(mean.length());
         
         for(int iter = 0; iter < maxIterations; iter++)
         {
@@ -400,8 +400,8 @@ public class DANN implements Classifier, Parameterized
 
     private List<? extends VecPaired<VecPaired<Vec, Integer>, Double>> brute(Vec query, Matrix sigma, int num)
     {
-        Vec scartch0 = new DenseVector(query.length());
-        Vec scartch1 = new DenseVector(query.length());
+        Vec scartch0 = DenseVector.a(query.length());
+        Vec scartch1 = DenseVector.a(query.length());
         BoundedSortedList<VecPairedComparable<VecPaired<Vec, Integer>, Double>> 
                 knn = new BoundedSortedList<VecPairedComparable<VecPaired<Vec, Integer>, Double>>(num, num);
         

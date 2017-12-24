@@ -3,7 +3,7 @@ package jsat.classifiers.linear;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
+
 import jsat.DataSet;
 import jsat.SingleWeightVectorModel;
 import jsat.classifiers.*;
@@ -13,7 +13,6 @@ import jsat.exceptions.FailedToFitException;
 import jsat.linear.DenseVector;
 import jsat.linear.Vec;
 import jsat.lossfunctions.LogisticLoss;
-import jsat.parameters.Parameter;
 import jsat.parameters.Parameterized;
 import jsat.utils.IntList;
 import jsat.utils.ListUtils;
@@ -219,7 +218,7 @@ public class LogisticRegressionDCD implements Classifier, Parameterized, SingleW
          */
         Arrays.fill(alpha, Math.min(eps_1*C, eps_2));
         Arrays.fill(alphaPrime, C-alpha[0]);
-        w = new DenseVector(dataSet.getNumNumericalVars());
+        w = DenseVector.a(dataSet.getNumNumericalVars());
         bias = 0;
         
         for(int i = 0; i < N; i++)

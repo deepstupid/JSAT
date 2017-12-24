@@ -129,11 +129,11 @@ public class Imputer implements InPlaceTransform
             {
 
                 for (IndexValue iv : numeric)
-                    if (!Double.isNaN(iv.getValue()))
+                    if (!Double.isNaN(iv.value))
                     {
-                        columnCounts.get(iv.getIndex()).add(iv.getValue());
-                        columnWeights.get(iv.getIndex()).add(weights);
-                        colSoW[iv.getIndex()] += weights;
+                        columnCounts.get(iv.index).add(iv.value);
+                        columnWeights.get(iv.index).add(weights);
+                        colSoW[iv.index] += weights;
                     }
             }
         }
@@ -180,8 +180,8 @@ public class Imputer implements InPlaceTransform
     {
         Vec vec = dp.getNumericalValues();
         for(IndexValue iv : vec)
-            if(Double.isNaN(iv.getValue()))
-                vec.set(iv.getIndex(), numeric_imputs[iv.getIndex()]);
+            if(Double.isNaN(iv.value))
+                vec.set(iv.index, numeric_imputs[iv.index]);
         int[] cats = dp.getCategoricalValues();
         for(int i = 0; i < cats.length; i++)
             if(cats[i] < 0)

@@ -42,7 +42,7 @@ public class DecisionStumpTest
     static private RegressionDataSet easyNumAtTest_R;
     static private RegressionDataSet easyCatAtTrain_R;
     static private RegressionDataSet easyCatAtTest_R;
-    static private boolean parallel = true;
+    static private final boolean parallel = true;
     static private DecisionStump stump;
     
     public DecisionStumpTest()
@@ -50,13 +50,11 @@ public class DecisionStumpTest
     }
 
     @BeforeClass
-    public static void setUpClass() throws Exception
-    {
+    public static void setUpClass() {
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception
-    {
+    public static void tearDownClass() {
     }
     
     @Before
@@ -82,8 +80,7 @@ public class DecisionStumpTest
     }
 
     @After
-    public void tearDown() throws Exception
-    {
+    public void tearDown() {
     }
 
     /**

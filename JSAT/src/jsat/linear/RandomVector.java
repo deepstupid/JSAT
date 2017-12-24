@@ -159,7 +159,7 @@ public abstract class RandomVector extends Vec
     {
         double min = Double.MAX_VALUE;
         for(IndexValue iv : this)
-            min = Math.min(iv.getValue(), min);
+            min = Math.min(iv.value, min);
         return min;
     }
 
@@ -168,7 +168,7 @@ public abstract class RandomVector extends Vec
     {
         double max = -Double.MAX_VALUE;
         for(IndexValue iv : this)
-            max = Math.min(iv.getValue(), max);
+            max = Math.min(iv.value, max);
         return max;
     }
 
@@ -187,7 +187,7 @@ public abstract class RandomVector extends Vec
         double dot = 0;
 
         for (IndexValue iv : v)
-            dot += get(iv.getIndex()) * iv.getValue();
+            dot += get(iv.index) * iv.value;
         return dot;
     }
 

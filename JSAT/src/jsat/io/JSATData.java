@@ -219,7 +219,7 @@ public class JSATData
                     DataPoint dp = data.getDataPoint(i);
                     for (IndexValue iv : dp.getNumericalValues())
                     {
-                        storageCandidates.removeIf(floatStorageMethod -> !floatStorageMethod.noLoss(iv.getValue()));
+                        storageCandidates.removeIf(floatStorageMethod -> !floatStorageMethod.noLoss(iv.value));
                         if (storageCandidates.size() == 1)
                             break;
                     }
@@ -233,7 +233,7 @@ public class JSATData
                 {
                     for(IndexValue iv : ((RegressionDataSet)data).getTargetValues())
                     {
-                        storageCandidates.removeIf(floatStorageMethod -> !floatStorageMethod.noLoss(iv.getValue()));
+                        storageCandidates.removeIf(floatStorageMethod -> !floatStorageMethod.noLoss(iv.value));
                         if (storageCandidates.size() == 1)
                             break;
                     }
@@ -430,8 +430,8 @@ public class JSATData
                         
                         for(IndexValue iv : numericVals)
                         {
-                            data_out.writeInt(iv.getIndex());
-                            fpStore.writeFP(iv.getValue(), data_out);
+                            data_out.writeInt(iv.index);
+                            fpStore.writeFP(iv.value, data_out);
                         }
                     }
                     else
@@ -651,7 +651,7 @@ public class JSATData
                 }
                 else
                 {
-                    numericVals = new DenseVector(numNumeric);
+                    numericVals = DenseVector.a(numNumeric);
                     for(int j = 0; j < numNumeric; j++)
                         numericVals.set(j, fpStore.readFP(in));
                 }

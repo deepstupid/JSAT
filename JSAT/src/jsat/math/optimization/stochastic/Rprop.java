@@ -87,8 +87,8 @@ public class Rprop implements GradientUpdater
     {
         for(IndexValue iv : grad)
         {
-            final int i = iv.getIndex();
-            final double g_i = iv.getValue();
+            final int i = iv.index;
+            final double g_i = iv.value;
             final double g_prev = prev_grad[i];
             final double w_i = w.get(i);
             prev_grad[i] = g_i;

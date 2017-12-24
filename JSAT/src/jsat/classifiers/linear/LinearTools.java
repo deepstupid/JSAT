@@ -47,7 +47,7 @@ public class LinearTools
          */
         final double D_part_i = 0.5;
         final int n = cds.getNumNumericalVars();
-        Vec delta_L = new DenseVector(n);
+        Vec delta_L = DenseVector.a(n);
         List<Vec> X = cds.getDataVectors();
         for (int i = 0; i < X.size(); i++)
         {

@@ -6,6 +6,7 @@ import jsat.FixedProblems;
 import jsat.datatransform.DenseSparceTransform;
 import jsat.datatransform.LinearTransform;
 import jsat.linear.DenseVector;
+import jsat.linear.Vec;
 import jsat.math.decayrates.LinearDecay;
 import jsat.utils.SystemInfo;
 import jsat.utils.random.RandomUtil;
@@ -62,7 +63,7 @@ public class StochasticRidgeRegressionTest
             LinearTransform lt = new LinearTransform(train);
             train.applyTransform(lt);
             for(int i = 0; i < 20; i++)
-                train.addDataPoint(DenseVector.random(train.getNumNumericalVars()), train.getTargetValues().mean());
+                train.addDataPoint(Vec.random(train.getNumNumericalVars()), train.getTargetValues().mean());
             if(batchSize == 10)
                 train.applyTransform(new DenseSparceTransform(1));
             RegressionDataSet test = FixedProblems.getLinearRegression(100, RandomUtil.getRandom());
@@ -91,7 +92,7 @@ public class StochasticRidgeRegressionTest
             train.applyTransform(lt);
             
             for(int i = 0; i < 20; i++)
-                train.addDataPoint(DenseVector.random(train.getNumNumericalVars()), train.getTargetValues().mean());
+                train.addDataPoint(Vec.random(train.getNumNumericalVars()), train.getTargetValues().mean());
             if(batchSize == 10)
                 train.applyTransform(new DenseSparceTransform(1));
             RegressionDataSet test = FixedProblems.getLinearRegression(100, RandomUtil.getRandom());
@@ -116,7 +117,7 @@ public class StochasticRidgeRegressionTest
 
             RegressionDataSet t1 = FixedProblems.getLinearRegression(5000, RandomUtil.getRandom());
             for(int i = 0; i < 20; i++)
-                t1.addDataPoint(DenseVector.random(t1.getNumNumericalVars()), t1.getTargetValues().mean());
+                t1.addDataPoint(Vec.random(t1.getNumNumericalVars()), t1.getTargetValues().mean());
             RegressionDataSet t2 = FixedProblems.getLinearRegression(1000, RandomUtil.getRandom());
             t2.applyTransform(new LinearTransform(t2, -1, 1));
             

@@ -80,7 +80,7 @@ public class SumOfSqrdPairwiseDistances implements IntraClusterEvaluation
 
         if (dm instanceof EuclideanDistance)//special case, can compute in O(N) isntead
         {
-            Vec mean = new DenseVector(X.get(0).length());
+            Vec mean = DenseVector.a(X.get(0).length());
             for (int i = 0; i < dataSet.getSampleSize(); i++)
             {
                 if (designations[i] != clusterID)

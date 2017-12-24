@@ -68,7 +68,7 @@ public class LinearBatchTest
         }
     }
     
-    @Test()
+    @Test
     public void testTrainWarmCFast()
     {
         ClassificationDataSet train = FixedProblems.get2ClassLinear(10000, RandomUtil.getRandom());
@@ -140,7 +140,7 @@ public class LinearBatchTest
         }
     }
     
-    @Test()
+    @Test
     public void testTrainWarmCMultieFast()
     {
         System.out.println("testTrainWarmCMultieFast");
@@ -240,7 +240,7 @@ public class LinearBatchTest
         }
     }
 
-    @Test()
+    @Test
     public void testTrainWarmRFast()
     {
         RegressionDataSet train = FixedProblems.getLinearRegression(100000, RandomUtil.getRandom());

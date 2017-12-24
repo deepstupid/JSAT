@@ -70,7 +70,7 @@ public class ClassificationModelEvaluation
      */
     public ClassificationModelEvaluation(Classifier classifier, ClassificationDataSet dataSet)
     {
-        this(classifier, dataSet, false);
+        this(classifier, dataSet, true);
     }
     
     /**

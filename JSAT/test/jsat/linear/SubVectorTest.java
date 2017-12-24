@@ -187,20 +187,20 @@ public class SubVectorTest
         int lastSeen = -1;
         
         SubVector subX = new SubVector(2, 13, x);
-        
-        firstSeen = subX.getNonZeroIterator(2).next().getIndex();
+
+        firstSeen = subX.getNonZeroIterator(2).next().index;
         for(IndexValue iv : subX)
-            lastSeen = iv.getIndex();
+            lastSeen = iv.index;
         assertEquals(6-2, firstSeen);
         assertEquals(12-2, lastSeen);
         
         firstSeen = -1;
         lastSeen = -1;
         SubVector subY = new SubVector(2, 13, y);
-        
-        firstSeen = subY.getNonZeroIterator(2).next().getIndex();
+
+        firstSeen = subY.getNonZeroIterator(2).next().index;
         for(IndexValue iv : subY)
-            lastSeen = iv.getIndex();
+            lastSeen = iv.index;
         assertEquals(6-2, firstSeen);
         assertEquals(12-2, lastSeen);
     }

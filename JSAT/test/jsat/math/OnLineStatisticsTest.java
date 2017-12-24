@@ -16,8 +16,7 @@ import static org.junit.Assert.*;
  */
 public class OnLineStatisticsTest
 {
-    private final double[] data = new double[]
-    {
+    private final double[] data = {
         1.43725, 3.57142, 1.02601, 0.962941, 2.35466, 2.28253, 1.71812,
         2.92907, 0.707891, 0.0136063, 2.9936, 2.06371, 0.274257, 0.23791,
         0.0649932, 0.454671, 5.0087, 1.08846, 3.67667, 3.03826
@@ -34,13 +33,11 @@ public class OnLineStatisticsTest
     }
 
     @BeforeClass
-    public static void setUpClass() throws Exception
-    {
+    public static void setUpClass() {
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception
-    {
+    public static void tearDownClass() {
     }
     
     @Before

@@ -32,6 +32,7 @@ public class LUPDecompositionTest
     
     static ExecutorService threadpool = Executors.newFixedThreadPool(SystemInfo.LogicalCores+1, new ThreadFactory() {
 
+        @Override
         public Thread newThread(Runnable r)
         {
             Thread thread = new Thread(r);
@@ -45,8 +46,7 @@ public class LUPDecompositionTest
     }
 
     @BeforeClass
-    public static void setUpClass() throws Exception
-    {
+    public static void setUpClass() {
         A = new DenseMatrix(new double[][] 
         {
             {1, 5, 4, 8, 9},
@@ -78,8 +78,7 @@ public class LUPDecompositionTest
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception
-    {
+    public static void tearDownClass() {
     }
     
     @Before

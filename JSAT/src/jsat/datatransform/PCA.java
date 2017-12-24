@@ -147,7 +147,7 @@ public class PCA implements DataTransform
         
         
         double tauOld = t.dot(t);
-        Vec p = new DenseVector(E.cols());
+        Vec p = DenseVector.a(E.cols());
         for(int i = 1; i <= PCs; i++)
         {
             for(int iter = 0; iter < 100; iter++)

@@ -123,8 +123,8 @@ public class Adam implements GradientUpdater
         vBias = (1-beta_2)*vBias + beta_2 *biasGrad *biasGrad;
         for(final IndexValue iv : grad)
         {
-            final double g_i = iv.getValue();
-            v.increment(iv.getIndex(), beta_2*(g_i*g_i));
+            final double g_i = iv.value;
+            v.increment(iv.index, beta_2*(g_i*g_i));
         }
         /*
          * "Note that the efficiency of algorithm 1 can, at the expense of 
@@ -151,8 +151,8 @@ public class Adam implements GradientUpdater
     public void setup(int d)
     {
         t = 0;
-        m = new ScaledVector(new DenseVector(d));
-        v = new ScaledVector(new DenseVector(d));
+        m = new ScaledVector(DenseVector.a(d));
+        v = new ScaledVector(DenseVector.a(d));
         vBias = mBias = 0;
     }
     

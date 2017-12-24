@@ -51,8 +51,8 @@ public class AdaGrad implements GradientUpdater
     {
         for(IndexValue iv : grad)
         {
-            final int indx = iv.getIndex();
-            final double grad_i = iv.getValue();
+            final int indx = iv.index;
+            final double grad_i = iv.value;
             final double g_ii = daigG.get(indx);
             x.increment(indx, -eta*grad_i/Math.sqrt(g_ii));
             daigG.increment(indx, grad_i*grad_i);

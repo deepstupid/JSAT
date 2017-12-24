@@ -165,8 +165,8 @@ public class SparseMatrix extends Matrix
 
             for(IndexValue iv : Arowi)
             {
-                final int k = iv.getIndex();
-                double a = iv.getValue();
+                final int k = iv.index;
+                double a = iv.value;
                 Vec Browk = B.getRowView(k);
                 Crowi.mutableAdd(a, Browk);
             }
@@ -190,8 +190,8 @@ public class SparseMatrix extends Matrix
             threadPool.submit(() -> {
                 for (IndexValue iv : Arowi)
                 {
-                    final int k = iv.getIndex();
-                    double a = iv.getValue();
+                    final int k = iv.index;
+                    double a = iv.value;
                     Vec Browk = B.getRowView(k);
                     Crowi.mutableAdd(a, Browk);
                 }
@@ -282,7 +282,7 @@ public class SparseMatrix extends Matrix
         C.zeroOut();
         for(int row = 0; row < rows.length; row++)
             for(IndexValue iv : rows[row])
-                C.set(iv.getIndex(), row, iv.getValue());
+                C.set(iv.index, row, iv.value);
     }
 
     @Override
@@ -305,8 +305,8 @@ public class SparseMatrix extends Matrix
             for (IndexValue iv : aRow_k)//iterating over "i"
             {
 
-                Vec cRow_i = C.getRowView(iv.getIndex());
-                double a = iv.getValue();//A.get(k, i);
+                Vec cRow_i = C.getRowView(iv.index);
+                double a = iv.value;//A.get(k, i);
 
                 cRow_i.mutableAdd(a, bRow_k);
             }
@@ -328,7 +328,7 @@ public class SparseMatrix extends Matrix
             throw new ArithmeticException("Matrix dimensions do not agree with target vector");
         
         for(IndexValue b_iv : b)
-            x.mutableAdd(c*b_iv.getValue(), rows[b_iv.getIndex()]);
+            x.mutableAdd(c* b_iv.value, rows[b_iv.index]);
     }
 
     @Override
@@ -446,7 +446,7 @@ public class SparseMatrix extends Matrix
                 if(!B_j.isSparse())//B is dense, lets do this the easy way
                 {
                     for (IndexValue iv : A_i)
-                        C_ij += iv.getValue() * B_j.get(iv.getIndex());
+                        C_ij += iv.value * B_j.get(iv.index);
                     C.increment(i, j, C_ij);
                     continue;//Skip early, we did it!
                 }
@@ -461,9 +461,9 @@ public class SparseMatrix extends Matrix
                 
                 while(A_val != null && B_val != null)//go add everything together!
                 {
-                    if(A_val.getIndex() == B_val.getIndex())//inc and bump both
+                    if(A_val.index == B_val.index)//inc and bump both
                     {
-                        C_ij += A_val.getValue()*B_val.getValue();
+                        C_ij += A_val.value * B_val.value;
                         if(A_iter.hasNext())
                             A_val = A_iter.next();
                         else
@@ -473,7 +473,7 @@ public class SparseMatrix extends Matrix
                         else
                             B_val = null;
                     }
-                    else if(A_val.getIndex() < B_val.getIndex())//A is behind, bump it
+                    else if(A_val.index < B_val.index)//A is behind, bump it
                     {
                         if(A_iter.hasNext())
                             A_val = A_iter.next();
@@ -520,7 +520,7 @@ public class SparseMatrix extends Matrix
                         if(!B_j.isSparse())//B is dense, lets do this the easy way
                         {
                             for (IndexValue iv : A_i)
-                                C_ij += iv.getValue() * B_j.get(iv.getIndex());
+                                C_ij += iv.value * B_j.get(iv.index);
                             C.increment(i, j, C_ij);
                             continue;//Skip early, we did it!
                         }
@@ -535,9 +535,9 @@ public class SparseMatrix extends Matrix
 
                         while(A_val != null && B_val != null)//go add everything together!
                         {
-                            if(A_val.getIndex() == B_val.getIndex())//inc and bump both
+                            if(A_val.index == B_val.index)//inc and bump both
                             {
-                                C_ij += A_val.getValue()*B_val.getValue();
+                                C_ij += A_val.value * B_val.value;
                                 if(A_iter.hasNext())
                                     A_val = A_iter.next();
                                 else
@@ -547,7 +547,7 @@ public class SparseMatrix extends Matrix
                                 else
                                     B_val = null;
                             }
-                            else if(A_val.getIndex() < B_val.getIndex())//A is behind, bump it
+                            else if(A_val.index < B_val.index)//A is behind, bump it
                             {
                                 if(A_iter.hasNext())
                                     A_val = A_iter.next();

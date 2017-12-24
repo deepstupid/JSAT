@@ -83,8 +83,8 @@ public class RMSProp implements GradientUpdater
         daigG.mutableMultiply(rho);
         for(IndexValue iv : grad)
         {
-            final int indx = iv.getIndex();
-            final double grad_i = iv.getValue();
+            final int indx = iv.index;
+            final double grad_i = iv.value;
             daigG.increment(indx, (1-rho)*grad_i*grad_i);
             double g_iiRoot = Math.max(Math.sqrt(daigG.get(indx)), Math.abs(grad_i));//tiny grad sqrd could result in zero
             x.increment(indx, -eta*grad_i/g_iiRoot);
@@ -105,7 +105,7 @@ public class RMSProp implements GradientUpdater
     @Override
     public void setup(int d)
     {
-        daigG = new ScaledVector(new DenseVector(d));
+        daigG = new ScaledVector(DenseVector.a(d));
         biasG = 0;
     }
     

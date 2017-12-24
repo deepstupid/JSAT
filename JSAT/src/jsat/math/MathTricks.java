@@ -160,5 +160,12 @@ public class MathTricks
             result = result*x + coef[i];
         return result;
     }
-    
+
+    public static double sqr(double v) {
+        return v*v;
+    }
+
+    public static double cube(double v) {
+        return v*v*v;
+    }
 }

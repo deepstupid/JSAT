@@ -3,15 +3,13 @@ package jsat.classifiers.bayesian;
 
 import static java.lang.Math.exp;
 import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.ExecutorService;
+
 import jsat.classifiers.*;
 import jsat.exceptions.FailedToFitException;
 import jsat.exceptions.UntrainedModelException;
 import jsat.linear.IndexValue;
 import jsat.linear.Vec;
 import jsat.math.MathTricks;
-import jsat.parameters.Parameter;
 import jsat.parameters.Parameterized;
 
 /**
@@ -246,10 +244,10 @@ public class MultinomialNaiveBayes extends BaseUpdateableClassifier implements P
         double localCountsAdded = 0;
         for(IndexValue iv : x)
         {
-            final double v = iv.getValue();
+            final double v = iv.value;
             if(v < 0)
                 continue;
-            wordCounts[targetClass][iv.getIndex()] += v*weight;
+            wordCounts[targetClass][iv.index] += v*weight;
             localCountsAdded += v*weight;
         }
         totalWords[targetClass] += localCountsAdded;
@@ -277,7 +275,7 @@ public class MultinomialNaiveBayes extends BaseUpdateableClassifier implements P
                 for (IndexValue iv : numVals)
                 {
                     //(n/N)^obv
-                    logProb += iv.getValue() * counts[iv.getIndex()];
+                    logProb += iv.value * counts[iv.index];
                 }
 
                 for (int j = 0; j < apriori[c].length; j++)
@@ -302,7 +300,7 @@ public class MultinomialNaiveBayes extends BaseUpdateableClassifier implements P
                 for (IndexValue iv : numVals)
                 {
                     //(n/N)^obv
-                    logProb += iv.getValue() * (Math.log(counts[iv.getIndex()]+smoothing) - logTotalCounts);
+                    logProb += iv.value * (Math.log(counts[iv.index]+smoothing) - logTotalCounts);
                 }
 
                 for (int j = 0; j < apriori[c].length; j++)

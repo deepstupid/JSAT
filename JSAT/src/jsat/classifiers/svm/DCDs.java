@@ -3,9 +3,8 @@ package jsat.classifiers.svm;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
-import java.util.concurrent.ExecutorService;
+
 import jsat.SingleWeightVectorModel;
 import jsat.classifiers.*;
 import jsat.classifiers.calibration.BinaryScoreClassifier;
@@ -13,16 +12,14 @@ import jsat.exceptions.FailedToFitException;
 import jsat.exceptions.UntrainedModelException;
 import jsat.linear.DenseVector;
 import jsat.linear.Vec;
-import jsat.parameters.Parameter;
 import jsat.parameters.Parameterized;
 import jsat.regression.*;
 import jsat.utils.IntList;
 import jsat.utils.ListUtils;
-import jsat.utils.random.XORWOW;
+
 import java.util.*;
 import jsat.DataSet;
 import jsat.distributions.Distribution;
-import jsat.distributions.Exponential;
 import jsat.utils.random.RandomUtil;
 
 /**
@@ -332,7 +329,7 @@ public class DCDs implements BinaryScoreClassifier, Regressor, Parameterized, Si
             if(useBias)//+1 for implicit bias term
                 Qhs[i]++;
         }
-        w = new DenseVector(vecs[0].length());
+        w = DenseVector.a(vecs[0].length());
         
         List<Integer> A = new IntList(vecs.length);
         ListUtils.addRange(A, 0, vecs.length, 1);
@@ -539,7 +536,7 @@ public class DCDs implements BinaryScoreClassifier, Regressor, Parameterized, Si
                 Qhs[i] += 1.0;
             v_0 += Math.abs(eq24(0, -y[i]-eps, -y[i]+eps, U[i]));
         }
-        w = new DenseVector(vecs[0].length());
+        w = DenseVector.a(vecs[0].length());
         
         IntList activeSet = new IntList(2*vecs.length);
         ListUtils.addRange(activeSet, 0, vecs.length, 1);

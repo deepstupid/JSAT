@@ -18,7 +18,6 @@ import jsat.linear.DenseVector;
 import jsat.linear.Matrix;
 import jsat.linear.SubMatrix;
 import jsat.linear.Vec;
-import jsat.parameters.Parameter;
 import jsat.parameters.Parameter.ParameterHolder;
 import jsat.parameters.Parameterized;
 import jsat.utils.DoubleList;
@@ -265,7 +264,7 @@ public class Projectron extends BaseUpdateableClassifier implements BinaryScoreC
                 }
                 //Now back to normal
                 InvK = new SubMatrix(InvKExpanded, 0, 0, S.size() + 1, S.size() + 1);
-                Vec dExp = new DenseVector(S.size() + 1);
+                Vec dExp = DenseVector.a(S.size() + 1);
                 for (int i = 0; i < d.length(); i++)
                     dExp.set(i, d.get(i));
                 dExp.set(S.size(), -1);

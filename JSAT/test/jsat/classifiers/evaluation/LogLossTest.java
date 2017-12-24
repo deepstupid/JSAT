@@ -1,6 +1,5 @@
 package jsat.classifiers.evaluation;
 
-import jsat.classifiers.evaluation.LogLoss;
 import jsat.classifiers.CategoricalData;
 import jsat.classifiers.CategoricalResults;
 import org.junit.After;

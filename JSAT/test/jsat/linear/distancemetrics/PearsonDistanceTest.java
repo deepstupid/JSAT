@@ -39,11 +39,11 @@ public class PearsonDistanceTest
     @Before
     public void setUp()
     {
-        x1 = new DenseVector(new double[]{43, 21, 25, 42, 57, 59});
-        x2 = new DenseVector(new double[]{99, 65, 79, 75, 87, 81});
-        x3 = new DenseVector(new double[]{ 0, 12,  0, 38, 19,  0});
-        x4 = new DenseVector(new double[]{ 0, 60, 27,  0, 13,  9});
-        x5 = new DenseVector(new double[]{ 0,  0, 25, 42,  0,  0});
+        x1 = DenseVector.a(new double[]{43, 21, 25, 42, 57, 59});
+        x2 = DenseVector.a(new double[]{99, 65, 79, 75, 87, 81});
+        x3 = DenseVector.a(new double[]{ 0, 12,  0, 38, 19,  0});
+        x4 = DenseVector.a(new double[]{ 0, 60, 27,  0, 13,  9});
+        x5 = DenseVector.a(new double[]{ 0,  0, 25, 42,  0,  0});
     }
     
     @After
@@ -59,8 +59,7 @@ public class PearsonDistanceTest
     {
         System.out.println("correlation");
         
-        Vec[][] pairs = new Vec[][]
-        {
+        Vec[][] pairs = {
             {x1, x2},
             {x2, x1},
             {x2, x2},
@@ -71,8 +70,7 @@ public class PearsonDistanceTest
             {x4, x5},
         };
         
-        double[] expectedVals = new double[]
-        {
+        double[] expectedVals = {
             0.5298089018901744,
             0.5298089018901744,
             1.0, 
@@ -108,8 +106,7 @@ public class PearsonDistanceTest
     {
         System.out.println("correlation");
         
-        Vec[][] pairs = new Vec[][]
-        {
+        Vec[][] pairs = {
             {x1, x2},
             {x2, x1},
             {x2, x2},
@@ -120,8 +117,7 @@ public class PearsonDistanceTest
             {x4, x5},
         };
         
-        double[] expectedVals = new double[]
-        {
+        double[] expectedVals = {
             0.5298089018901744,
             0.5298089018901744,
             1.0, 

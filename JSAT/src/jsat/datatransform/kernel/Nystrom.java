@@ -200,7 +200,7 @@ public class Nystrom extends DataTransformBase
         EigenValueDecomposition eig = new EigenValueDecomposition(K);
 
         double[] eigenVals = eig.getRealEigenvalues();
-        DenseVector eigNorm = new DenseVector(eigenVals.length);
+        DenseVector eigNorm = DenseVector.a(eigenVals.length);
         for (int i = 0; i < eigenVals.length; i++)
             eigNorm.set(i, 1.0 / Math.sqrt(Math.max(1e-7, eigenVals[i]+ridge)));
 
@@ -268,7 +268,7 @@ public class Nystrom extends DataTransformBase
                 double[] norms = new double[N];
                 List<Vec> gramVecs = new ArrayList<Vec>();
                 for (int i = 0; i < N; i++)
-                    gramVecs.add(new DenseVector(N));
+                    gramVecs.add(DenseVector.a(N));
 
                 List<Double> tmpCache = k.getAccelerationCache(X);
                 for (int i = 0; i < N; i++)
@@ -351,7 +351,7 @@ public class Nystrom extends DataTransformBase
     {
         Vec x = dp.getNumericalValues();
         List<Double> qi = k.getQueryInfo(x);
-        Vec kVec = new DenseVector(basisVecs.size());
+        Vec kVec = DenseVector.a(basisVecs.size());
         for(int i = 0; i < basisVecs.size(); i++)
             kVec.set(i, k.eval(i, x, qi, basisVecs, accelCache));
         return new DataPoint(kVec.multiply(transform), dp.getCategoricalValues(), dp.getCategoricalData(), dp.getWeight());

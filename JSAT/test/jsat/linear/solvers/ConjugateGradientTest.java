@@ -27,13 +27,11 @@ public class ConjugateGradientTest
     }
 
     @BeforeClass
-    public static void setUpClass() throws Exception
-    {
+    public static void setUpClass() {
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception
-    {
+    public static void tearDownClass() {
     }
     
     @Before
@@ -59,7 +57,7 @@ public class ConjugateGradientTest
         
         DenseVector b = DenseVector.toDenseVec(1, 2);
         
-        Vec x = new DenseVector(2);
+        Vec x = DenseVector.a(2);
         
         x = ConjugateGradient.solve(1e-13, A, x, b);
         
@@ -77,7 +75,7 @@ public class ConjugateGradientTest
         
         b = DenseVector.toDenseVec(1, 4, 3, 5, 2);
         
-        x = new DenseVector(5);
+        x = DenseVector.a(5);
         
         x = ConjugateGradient.solve(1e-13, A, x, b);
         
@@ -96,7 +94,7 @@ public class ConjugateGradientTest
         
         DenseVector b = DenseVector.toDenseVec(1, 2);
         
-        Vec x = new DenseVector(2);
+        Vec x = DenseVector.a(2);
         
         x = ConjugateGradient.solve(A, b);
         
@@ -114,7 +112,7 @@ public class ConjugateGradientTest
         
         b = DenseVector.toDenseVec(1, 4, 3, 5, 2);
         
-        x = new DenseVector(5);
+        x = DenseVector.a(5);
         
         x = ConjugateGradient.solve(A, b);
         
@@ -137,7 +135,7 @@ public class ConjugateGradientTest
         });
         
         DenseVector b = DenseVector.toDenseVec(1, 4, 3, 5, 2);
-        Vec x = new DenseVector(A.cols());
+        Vec x = DenseVector.a(A.cols());
         
         x = ConjugateGradient.solveCGNR(eps, A, x, b);
         
@@ -154,7 +152,7 @@ public class ConjugateGradientTest
             {8 ,    3,     3,     5},
         });
         
-        x = new DenseVector(A.cols());
+        x = DenseVector.a(A.cols());
         x = ConjugateGradient.solveCGNR(eps, A, x, b);
         
         double error = A.multiply(x).subtract(b).pNorm(2);
@@ -227,7 +225,7 @@ public class ConjugateGradientTest
         
         
         
-        Vec x = new DenseVector(5);
+        Vec x = DenseVector.a(5);
         
         x = ConjugateGradient.solve(1e-13, A, x, b, Minv);
         

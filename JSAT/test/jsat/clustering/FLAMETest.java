@@ -34,8 +34,7 @@ public class FLAMETest
     static private ExecutorService ex;
 
     @BeforeClass
-    public static void setUpClass() throws Exception
-    {
+    public static void setUpClass() {
         algo = new FLAME(new EuclideanDistance(), 30, 800);
         GridDataGenerator gdg = new GridDataGenerator(new Normal(0, 0.05), new Random(12), 2, 5);
         easyData10 = gdg.generateData(100);
@@ -43,8 +42,7 @@ public class FLAMETest
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception
-    {
+    public static void tearDownClass() {
         ex.shutdown();
     }
     

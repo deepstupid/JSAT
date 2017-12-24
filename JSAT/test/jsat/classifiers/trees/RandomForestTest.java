@@ -16,8 +16,6 @@
  */
 package jsat.classifiers.trees;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import jsat.FixedProblems;
 import jsat.TestTools;
 import jsat.classifiers.ClassificationDataSet;
@@ -26,9 +24,7 @@ import jsat.datatransform.*;
 import jsat.linear.DenseVector;
 import jsat.regression.RegressionDataSet;
 import jsat.regression.RegressionModelEvaluation;
-import jsat.utils.SystemInfo;
 import jsat.utils.random.RandomUtil;
-import jsat.utils.random.XORWOW;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -43,7 +39,7 @@ import static org.junit.Assert.*;
 public class RandomForestTest
 {
  
-    static DenseVector coefs = new DenseVector(new double[]{0.1, 0.9, -0.2, 0.4, -0.5});
+    static DenseVector coefs = DenseVector.a(new double[]{0.1, 0.9, -0.2, 0.4, -0.5});
     public RandomForestTest()
     {
     }

@@ -1,6 +1,5 @@
 package jsat.classifiers.linear;
 
-import java.util.List;
 import jsat.DataSet;
 import jsat.SingleWeightVectorModel;
 import jsat.classifiers.BaseUpdateableClassifier;
@@ -16,7 +15,6 @@ import jsat.linear.DenseVector;
 import jsat.linear.IndexValue;
 import jsat.linear.Matrix;
 import jsat.linear.Vec;
-import jsat.parameters.Parameter;
 import jsat.parameters.Parameterized;
 
 /**
@@ -226,11 +224,11 @@ public class NHERD extends BaseUpdateableClassifier implements BinaryScoreClassi
             throw new FailedToFitException("AROW requires numeric attributes to perform classification");
         else if(predicting.getNumOfCategories() != 2)
             throw new FailedToFitException("AROW is a binary classifier");
-        w = new DenseVector(numericAttributes);
-        Sigma_xt = new DenseVector(numericAttributes);
+        w = DenseVector.a(numericAttributes);
+        Sigma_xt = DenseVector.a(numericAttributes);
         if(covMode != CovMode.FULL)
         {
-            sigmaV = new DenseVector(numericAttributes);
+            sigmaV = DenseVector.a(numericAttributes);
             sigmaV.mutableAdd(1);
         }
         else
@@ -254,8 +252,8 @@ public class NHERD extends BaseUpdateableClassifier implements BinaryScoreClassi
             //Faster to set only the needed final values
             for (IndexValue iv : x_t)
             {
-                double x_ti = iv.getValue();
-                alpha += x_ti * x_ti * sigmaV.get(iv.getIndex());
+                double x_ti = iv.value;
+                alpha += x_ti * x_ti * sigmaV.get(iv.index);
             }
         }
         else
@@ -271,7 +269,7 @@ public class NHERD extends BaseUpdateableClassifier implements BinaryScoreClassi
             w.mutableAdd(w_c, Sigma_xt);
         else
             for (IndexValue iv : x_t)
-                w.increment(iv.getIndex(), w_c * iv.getValue() * sigmaV.get(iv.getIndex()));
+                w.increment(iv.index, w_c * iv.value * sigmaV.get(iv.index));
         
         double numer = C*(C*alpha+2);
         double denom = (1+C*alpha)*(1+C*alpha);
@@ -285,16 +283,16 @@ public class NHERD extends BaseUpdateableClassifier implements BinaryScoreClassi
                 final double c = -numer/denom;
                 for (IndexValue iv : x_t)
                 {
-                    int idx = iv.getIndex();
-                    double x_ti = iv.getValue()*sigmaV.get(idx);
+                    int idx = iv.index;
+                    double x_ti = iv.value *sigmaV.get(idx);
                     sigmaV.increment(idx, c*x_ti*x_ti);
                 }
                 break;
             case PROJECT:
                 for(IndexValue iv : x_t)//only the nonzero values in x_t will cause a change in value
                 {
-                    int idx = iv.getIndex();
-                    double x_r = iv.getValue();
+                    int idx = iv.index;
+                    double x_r = iv.value;
                     double S_rr = sigmaV.get(idx);
                     sigmaV.set(idx, 1/(1/S_rr+numer*x_r*x_r));
                 }
@@ -302,8 +300,8 @@ public class NHERD extends BaseUpdateableClassifier implements BinaryScoreClassi
             case EXACT:
                 for(IndexValue iv : x_t)//only the nonzero values in x_t will cause a change in value
                 {
-                    int idx = iv.getIndex();
-                    double x_r = iv.getValue();
+                    int idx = iv.index;
+                    double x_r = iv.value;
                     double S_rr = sigmaV.get(idx);
                     sigmaV.set(idx, S_rr/(Math.pow(S_rr*x_r*x_r*C+1, 2)));
                 }

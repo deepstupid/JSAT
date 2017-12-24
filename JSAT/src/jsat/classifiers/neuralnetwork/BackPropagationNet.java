@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ExecutorService;
+
 import jsat.DataSet;
 import jsat.classifiers.CategoricalResults;
 import jsat.classifiers.ClassificationDataSet;
@@ -164,9 +164,9 @@ public class BackPropagationNet implements Classifier, Regressor, Parameterized
             for(Matrix w : Ws)
             {
                 int L = w.rows();
-                activations.get(i).add(new DenseVector(L));
-                derivatives.get(i).add(new DenseVector(L));
-                deltas.get(i).add(new DenseVector(L));
+                activations.get(i).add(DenseVector.a(L));
+                derivatives.get(i).add(DenseVector.a(L));
+                deltas.get(i).add(DenseVector.a(L));
                 if(i == 0)
                     updates.add(new DenseMatrix(w.rows(), w.cols()));
             }
@@ -741,7 +741,7 @@ public class BackPropagationNet implements Classifier, Regressor, Parameterized
         
         //First Hiden layer takes input raw
         DenseMatrix W = new DenseMatrix(npl[0], inputSize);
-        Vec b = new DenseVector(W.rows());
+        Vec b = DenseVector.a(W.rows());
         initializeWeights(W, rand);
         initializeWeights(b, W.cols(), rand);
         Ws.add(W);
@@ -751,7 +751,7 @@ public class BackPropagationNet implements Classifier, Regressor, Parameterized
         for(int i = 1; i < npl.length; i++)
         {
             W = new DenseMatrix(npl[i], npl[i-1]);
-            b = new DenseVector(W.rows());
+            b = DenseVector.a(W.rows());
             initializeWeights(W, rand);
             initializeWeights(b, W.cols(), rand);
             Ws.add(W);
@@ -760,7 +760,7 @@ public class BackPropagationNet implements Classifier, Regressor, Parameterized
         
         //Output layer
         W = new DenseMatrix(outputSize, npl[npl.length-1]);
-        b = new DenseVector(W.rows());
+        b = DenseVector.a(W.rows());
         initializeWeights(W, rand);
         initializeWeights(b, W.cols(), rand);
         Ws.add(W);

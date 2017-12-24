@@ -1,6 +1,5 @@
 package jsat.linear;
 
-import jsat.math.Function;
 import jsat.math.IndexFunction;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -344,11 +343,11 @@ public class SparseVectorTest
         System.out.println("multiply");
         double c = 0.5;
         Matrix A = Matrix.pascal(20);
-        Vec b = new DenseVector(20);
+        Vec b = DenseVector.a(20);
         
         x.multiply(c, A, b);
         
-        DenseVector truth = new DenseVector(new double[]
+        DenseVector truth = DenseVector.a(new double[]
         {
             9.50000000000000e+00,
             1.17000000000000e+02,
@@ -385,7 +384,7 @@ public class SparseVectorTest
         
         x.mutableAdd(1.0);
         
-        DenseVector truth = new DenseVector(new double[]{
+        DenseVector truth = DenseVector.a(new double[]{
             3.00000000000000e+00,
             1.00000000000000e+00,
             1.00000000000000e+00,
@@ -421,7 +420,7 @@ public class SparseVectorTest
         
         x.mutableAdd(c, y);
         
-        DenseVector truth = new DenseVector(new double[]{
+        DenseVector truth = DenseVector.a(new double[]{
             2.00000000000000e+00,
             1.00000000000000e+00,
             0.00000000000000e+00,
@@ -456,7 +455,7 @@ public class SparseVectorTest
         System.out.println("mutableMultiply");
         
         x.mutableMultiply(2);
-        DenseVector truth = new DenseVector(new double[]{
+        DenseVector truth = DenseVector.a(new double[]{
             4.00000000000000e+00,
             0.00000000000000e+00,
             0.00000000000000e+00,
@@ -491,7 +490,7 @@ public class SparseVectorTest
         System.out.println("mutableDivide");
 
         x.mutableDivide(2);
-        DenseVector truth = new DenseVector(new double[]{
+        DenseVector truth = DenseVector.a(new double[]{
             1.00000000000000e+00,
             0.00000000000000e+00,
             0.00000000000000e+00,
@@ -587,7 +586,7 @@ public class SparseVectorTest
         
         x.normalize();
         
-        DenseVector truth = new DenseVector(new double[]{
+        DenseVector truth = DenseVector.a(new double[]{
             2.51976315339485e-01,
             0.00000000000000e+00,
             0.00000000000000e+00,
@@ -621,7 +620,7 @@ public class SparseVectorTest
     {
         System.out.println("mutablePairwiseMultiply");
         
-        DenseVector truth = new DenseVector(new double[]{
+        DenseVector truth = DenseVector.a(new double[]{
             0.00000000000000e+00,
             0.00000000000000e+00,
             0.00000000000000e+00,
@@ -656,7 +655,7 @@ public class SparseVectorTest
     public void testMutablePairwiseDivide()
     {
         System.out.println("mutablePairwiseDivide");
-        DenseVector truth = new DenseVector(new double[]{
+        DenseVector truth = DenseVector.a(new double[]{
             2.00000000000000e+00,
             0.00000000000000e+00,
             0.00000000000000e+00,
@@ -743,7 +742,7 @@ public class SparseVectorTest
        
         x.applyFunction((x) -> -x);
 
-        DenseVector truth = new DenseVector(new double[]{
+        DenseVector truth = DenseVector.a(new double[]{
             -2.00000000000000e+00,
             -0.00000000000000e+00,
             -0.00000000000000e+00,
@@ -794,7 +793,7 @@ public class SparseVectorTest
         
         x.applyIndexFunction(f);
         
-        DenseVector truth = new DenseVector(new double[]{
+        DenseVector truth = DenseVector.a(new double[]{
             0.00000000000000e+00,
             0.00000000000000e+00,
             0.00000000000000e+00,
@@ -841,14 +840,14 @@ public class SparseVectorTest
     public void testGetNonZeroIterator()
     {
         System.out.println("getNonZeroIterator");
-        
-        assertEquals(0, x.getNonZeroIterator(0).next().getIndex());
-        assertEquals(1, y.getNonZeroIterator(0).next().getIndex());
-        
-        assertEquals(18, x.getNonZeroIterator(16).next().getIndex());
-        assertEquals(17, y.getNonZeroIterator(16).next().getIndex());
-        
-        assertEquals(19, x.getNonZeroIterator(19).next().getIndex());
+
+        assertEquals(0, x.getNonZeroIterator(0).next().index);
+        assertEquals(1, y.getNonZeroIterator(0).next().index);
+
+        assertEquals(18, x.getNonZeroIterator(16).next().index);
+        assertEquals(17, y.getNonZeroIterator(16).next().index);
+
+        assertEquals(19, x.getNonZeroIterator(19).next().index);
         assertFalse(y.getNonZeroIterator(19).hasNext());
     }
 

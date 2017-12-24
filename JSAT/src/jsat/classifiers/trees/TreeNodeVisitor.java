@@ -2,7 +2,7 @@ package jsat.classifiers.trees;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.List;
+
 import jsat.classifiers.CategoricalResults;
 import jsat.classifiers.DataPoint;
 import jsat.linear.DenseVector;
@@ -142,7 +142,7 @@ public abstract class TreeNodeVisitor implements Serializable, Cloneable
                         continue;
                     CategoricalResults child_result = node.getChild(child).classify(dp);
                     if(resultSum == null)
-                        resultSum = new DenseVector(child_result.size());
+                        resultSum = DenseVector.a(child_result.size());
                     sum += node.getPathWeight(child);
                     resultSum.mutableAdd(node.getPathWeight(child), child_result.getVecView());
                 }

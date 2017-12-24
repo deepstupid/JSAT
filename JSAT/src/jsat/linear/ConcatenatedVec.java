@@ -140,9 +140,9 @@ public class ConcatenatedVec extends Vec
             {
                 if(nextValue == null)
                     throw new NoSuchElementException();
-                valToSend.setIndex(nextValue.getIndex()+lengthSums[baseIndex]);
-                valToSend.setValue(nextValue.getValue());
-                
+                valToSend.index = nextValue.index +lengthSums[baseIndex];
+                valToSend.value = nextValue.value;
+
                 if(curIter.hasNext())
                     nextValue = curIter.next();
                 else

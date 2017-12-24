@@ -1,13 +1,10 @@
 package jsat.regression;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.ExecutorService;
+
 import jsat.classifiers.DataPoint;
 import jsat.linear.*;
-import jsat.parameters.Parameter;
 import jsat.parameters.Parameterized;
-import jsat.utils.FakeExecutor;
 import jsat.utils.concurrent.ParallelUtils;
 
 /**
@@ -156,7 +153,7 @@ public class RidgeRegression implements Regressor, Parameterized
         
         //reformat w and seperate out bias term
         bias = w.get(0);
-        Vec newW = new DenseVector(w.length()-1);
+        Vec newW = DenseVector.a(w.length()-1);
         for(int i = 0; i < newW.length(); i++)
             newW.set(i, w.get(i+1));
         w = newW;

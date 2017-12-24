@@ -1,8 +1,7 @@
 package jsat.classifiers.linear;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.ExecutorService;
+
 import jsat.DataSet;
 import jsat.SimpleWeightVectorModel;
 import jsat.classifiers.BaseUpdateableClassifier;
@@ -25,7 +24,6 @@ import jsat.math.decayrates.DecayRate;
 import jsat.math.decayrates.PowerDecay;
 import jsat.math.optimization.stochastic.GradientUpdater;
 import jsat.math.optimization.stochastic.SimpleSGD;
-import jsat.parameters.Parameter;
 import jsat.parameters.Parameterized;
 import jsat.regression.BaseUpdateableRegressor;
 import jsat.regression.RegressionDataSet;
@@ -336,7 +334,7 @@ public class LinearSGD extends BaseUpdateableClassifier implements UpdateableReg
             throw new FailedToFitException("LinearSGD requires numeric features to use");
         for(int i = 0; i < ws.length; i++)
         {
-            ws[i] = new ScaledVector(new DenseVector(numericAttributes));
+            ws[i] = new ScaledVector(DenseVector.a(numericAttributes));
             gus[i] = gradientUpdater.clone();
             gus[i].setup(ws[i].length());
         }
@@ -366,15 +364,15 @@ public class LinearSGD extends BaseUpdateableClassifier implements UpdateableReg
         }
         else
         {
-            Vec pred = new DenseVector(ws.length);
+            Vec pred = DenseVector.a(ws.length);
             for(int i = 0; i < ws.length; i++)
                 pred.set(i, ws[i].dot(x)+bs[i]);
             ((LossMC)loss).process(pred, pred);
             ((LossMC)loss).deriv(pred, pred, targetClass);
             for(IndexValue iv : pred)
             {
-                final int i = iv.getIndex();
-                final double lossD = iv.getValue();
+                final int i = iv.index;
+                final double lossD = iv.value;
                 performGradientUpdate(i, eta_t, lossD, x);
             }
         }
@@ -421,7 +419,7 @@ public class LinearSGD extends BaseUpdateableClassifier implements UpdateableReg
             return ((LossC)loss).getClassification(ws[0].dot(x)+bs[0]);
         else
         {
-            Vec pred = new DenseVector(ws.length);
+            Vec pred = DenseVector.a(ws.length);
             for(int i = 0; i < ws.length; i++)
                 pred.set(i, ws[i].dot(x)+bs[i]);
             ((LossMC)loss).process(pred, pred);
@@ -470,7 +468,7 @@ public class LinearSGD extends BaseUpdateableClassifier implements UpdateableReg
                 final double[] l1Q_k = l1Q[k];
                 for(IndexValue iv : x)
                 {
-                    final int i = iv.getIndex();
+                    final int i = iv.index;
                     //see "APPLYPENALTY(i)" on line 15: from Figure 2 in Tsuruoka et al paper
                     final double z = w_k.get(i);
                     double newW_i = 0;

@@ -57,8 +57,8 @@ public class OkapiBM25 extends WordWeighting
         {
             for(IndexValue iv : v)
             {
-                docAvg += iv.getValue();
-                this.df[iv.getIndex()]++;
+                docAvg += iv.value;
+                this.df[iv.index]++;
             }
         }
         N = allDocuments.size();
@@ -74,8 +74,8 @@ public class OkapiBM25 extends WordWeighting
         double sum = vec.sum();
         for(IndexValue iv : vec)
         {
-            double value = iv.getValue();
-            int index = iv.getIndex();
+            double value = iv.value;
+            int index = iv.index;
             double idf = Math.log( (N-df[index]+0.5)/(df[index]+0.5) );
         
         

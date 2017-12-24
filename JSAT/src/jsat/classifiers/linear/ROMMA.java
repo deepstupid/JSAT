@@ -155,7 +155,7 @@ public class ROMMA extends BaseUpdateableClassifier implements BinaryScoreClassi
             throw new FailedToFitException("ROMMA requires numerical features");
         else if(predicting.getNumOfCategories() != 2)
             throw new FailedToFitException("ROMMA only supports binary classification");
-        w = new DenseVector(numericAttributes);
+        w = DenseVector.a(numericAttributes);
         bias = 0;
     }
 

@@ -70,7 +70,7 @@ public class NominalToNumeric implements DataTransform
         if(dp.getNumericalValues().isSparse())
             v = new SparseVector(origNumericalCount+addedNumers);
         else
-            v = new DenseVector(origNumericalCount+addedNumers);
+            v = DenseVector.a(origNumericalCount+addedNumers);
         
         
         Vec oldV = dp.getNumericalValues();

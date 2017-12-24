@@ -128,9 +128,9 @@ public class ConcatenatedVecTest
             {
                 IndexValue dIV = diter.next();
                 IndexValue cIV = citer.next();
-                
-                assertEquals(dIV.getIndex(), cIV.getIndex());
-                assertEquals(dIV.getValue(), cIV.getValue(), 0.0);
+
+                assertEquals(dIV.index, cIV.index);
+                assertEquals(dIV.value, cIV.value, 0.0);
                 assertTrue(diter.hasNext() == citer.hasNext());
             }
             

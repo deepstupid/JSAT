@@ -70,8 +70,7 @@ public class TruncatedDistributionTest
     {
         System.out.println("pdf");
         
-        double[] expectedVals = new double[]
-        {
+        double[] expectedVals = {
             0, 0, 0, 0.5268556714063524, 0.4233404250511103, 0.3195541179514373,
             0.2265978006626938, 0.1509466771109160, 0.09446001683895860, 0
         };
@@ -87,8 +86,7 @@ public class TruncatedDistributionTest
     {
         System.out.println("cdf");
         
-        double[] expectedVals = new double[]
-        {
+        double[] expectedVals = {
             0, 0, 0, 0.2866123013348931, 0.5244537766181539, 0.7099254909327465,
             0.8458397106527087, 0.9394339130936753, 1.000000000000000,
             1.000000000000000
@@ -108,8 +106,7 @@ public class TruncatedDistributionTest
     {
         System.out.println("invCdf");
         
-        double[] expectedVals = new double[]
-        {
+        double[] expectedVals = {
             0.1659278188451017, 0.3403064608805872, 0.5255330999226814,
             0.7248810360893487, 0.9430469434588486, 1.187201184781877,
             1.469235993294530, 1.811386537666672, 2.264206423889610

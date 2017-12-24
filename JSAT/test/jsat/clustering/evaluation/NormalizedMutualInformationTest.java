@@ -57,7 +57,7 @@ public class NormalizedMutualInformationTest
                 new CategoricalData[]{}, 
                 new CategoricalData(3));
         //Using example case from Manning's book http://nlp.stanford.edu/IR-book/html/htmledition/evaluation-of-clustering-1.html
-        Vec emptyVec = new DenseVector(0);
+        Vec emptyVec = DenseVector.a(0);
         int[] clusterAssign = new int[17];
         int X = 0, O = 1, D = 2;
         clusterAssign[0] = 0; cds.addDataPoint(emptyVec, X);

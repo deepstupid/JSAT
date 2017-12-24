@@ -57,7 +57,7 @@ public class MatrixOfVecs extends GenericMatrix
     {
         this.rows = new ArrayList<Vec>(rows);
         for(int i = 0; i < rows; i++)
-            this.rows.add(sparse ? new SparseVector(cols) : new DenseVector(cols));
+            this.rows.add(sparse ? new SparseVector(cols) : DenseVector.a(cols));
     }
     
     @Override
@@ -77,7 +77,7 @@ public class MatrixOfVecs extends GenericMatrix
             for(int i = 0; i < rows(); i++)
             {
                 Vec orig = rows.get(i);
-                Vec newV = orig.isSparse() ? new SparseVector(newCols) : new DenseVector(newCols);
+                Vec newV = orig.isSparse() ? new SparseVector(newCols) : DenseVector.a(newCols);
                 if(newCols < orig.length())
                     new SubVector(0, newCols, orig).copyTo(newV);
                 else

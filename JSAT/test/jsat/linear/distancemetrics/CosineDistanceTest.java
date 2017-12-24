@@ -65,16 +65,16 @@ public class CosineDistanceTest
     @Before
     public void setUp()
     {
-        negOnes = new DenseVector(5);
+        negOnes = DenseVector.a(5);
         negOnes.mutableAdd(-1.0);
         
-        ones = new DenseVector(5);
+        ones = DenseVector.a(5);
         ones.mutableAdd(1.0);
         
-        half = new DenseVector(5);
+        half = DenseVector.a(5);
         half.mutableAdd(0.5);
         
-        inc = new DenseVector(5);
+        inc = DenseVector.a(5);
         for(int i = 0; i < inc.length(); i++)
             inc.set(i, i);
         
@@ -125,7 +125,7 @@ public class CosineDistanceTest
         
         try
         {
-            dist.dist(half, new DenseVector(half.length()+1));
+            dist.dist(half, DenseVector.a(half.length()+1));
             fail("Distance between vecs should have erred");
         }
         catch (Exception ex)

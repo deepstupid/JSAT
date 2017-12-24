@@ -32,7 +32,7 @@ import static org.junit.Assert.*;
  */
 public class BinomialTest
 {
-    static int[] testVals = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    static int[] testVals = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     
     public BinomialTest()
     {
@@ -64,8 +64,7 @@ public class BinomialTest
         System.out.println("logPmf");
         Binomial instance = new Binomial();
         
-        double[] expected_7_5 = new double[]
-        {
+        double[] expected_7_5 = {
             -4.85203026391962,-2.90612011486430,-1.80750782619619,-1.29668220243020,
             -1.29668220243020,-1.80750782619619,-2.90612011486430,-4.85203026391962,
             -Double.MAX_VALUE, -Double.MAX_VALUE, -Double.MAX_VALUE
@@ -86,8 +85,7 @@ public class BinomialTest
         System.out.println("pmf");
         Binomial instance = new Binomial();
         
-        double[] expected_7_5 = new double[]
-        {
+        double[] expected_7_5 = {
             0.00781250000000000, 0.0546875000000000, 0.164062500000000, 0.273437500000000, 0.273437500000000, 0.164062500000000, 0.0546875000000000, 0.00781250000000000, 0, 0, 0
         };
         
@@ -105,8 +103,7 @@ public class BinomialTest
         System.out.println("cdf");
         Binomial instance = new Binomial();
         
-        double[] expected_7_5 = new double[]
-        {
+        double[] expected_7_5 = {
             0.00781250000000000, 0.0625000000000000, 0.226562500000000, 0.500000000000000, 
             0.773437500000000, 0.937500000000000, 0.992187500000000, 1.00000000000000, 
             1.00000000000000, 1.00000000000000, 1.00000000000000
@@ -121,7 +118,7 @@ public class BinomialTest
             //its hard to get the right value for the probabilities right on the line, so lets nudge them a little to make sure we map to the right spot
             double val;
             if(i == 0)
-                val = instance.invCdf(expected_7_5[i]*.99);
+                val = instance.invCdf(expected_7_5[0]*.99);
             else
                 val = instance.invCdf(expected_7_5[i-1]+(expected_7_5[i]-expected_7_5[i-1])*0.95);
             

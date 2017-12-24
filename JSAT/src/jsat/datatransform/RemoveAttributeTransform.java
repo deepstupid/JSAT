@@ -229,7 +229,7 @@ public class RemoveAttributeTransform implements DataTransform
             else
                 newNumVals = new SparseVector(numIndexMap.length);
         else
-            newNumVals = new DenseVector(numIndexMap.length);
+            newNumVals = DenseVector.a(numIndexMap.length);
 
         for(int i = 0; i < catIndexMap.length; i++)
         {
@@ -249,14 +249,14 @@ public class RemoveAttributeTransform implements DataTransform
                 {
                     if (curIV == null)
                         continue;
-                    if (numIndexMap[i] > curIV.getIndex())//We skipped a value that existed
-                        while (numIndexMap[i] > curIV.getIndex() && iter.hasNext())
+                    if (numIndexMap[i] > curIV.index)//We skipped a value that existed
+                        while (numIndexMap[i] > curIV.index && iter.hasNext())
                             curIV = iter.next();
-                    if (numIndexMap[i] < curIV.getIndex())//Index is zero, nothing to set
+                    if (numIndexMap[i] < curIV.index)//Index is zero, nothing to set
                         continue;
-                    else if (numIndexMap[i] == curIV.getIndex())
+                    else if (numIndexMap[i] == curIV.index)
                     {
-                        newNumVals.set(i, curIV.getValue());
+                        newNumVals.set(i, curIV.value);
                         if (iter.hasNext())
                             curIV = iter.next();
                         else

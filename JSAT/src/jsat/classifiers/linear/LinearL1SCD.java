@@ -3,7 +3,7 @@ package jsat.classifiers.linear;
 
 import java.util.Arrays;
 import java.util.Random;
-import java.util.concurrent.ExecutorService;
+
 import jsat.DataSet;
 import jsat.classifiers.CategoricalResults;
 import jsat.classifiers.ClassificationDataSet;
@@ -138,7 +138,7 @@ public class LinearL1SCD extends StochasticSTLinearL1
         obvMax = new double[featureVals.length];
         Arrays.fill(obvMax, Double.NEGATIVE_INFINITY);
         for(int i = 0; i < featureVals.length; i++)
-            featureVals[i] = sparse ? new SparseVector(m) : new DenseVector(m);
+            featureVals[i] = sparse ? new SparseVector(m) : DenseVector.a(m);
         if(sparse)
             Arrays.fill(obvMin, 0.0);
         
@@ -147,8 +147,8 @@ public class LinearL1SCD extends StochasticSTLinearL1
             Vec x = dataSet.getDataPoint(i).getNumericalValues();
             for(IndexValue iv : x)
             {
-                int j = iv.getIndex();
-                double v = iv.getValue();
+                int j = iv.index;
+                double v = iv.value;
                 featureVals[j].set(i, v);
                 obvMax[j] = Math.max(obvMax[j], v);
                 obvMin[j] = Math.min(obvMin[j], v);
@@ -170,7 +170,7 @@ public class LinearL1SCD extends StochasticSTLinearL1
         
         Vec[] featureVals = new Vec[dataSet.getNumNumericalVars()];
         for(int i = 0; i < featureVals.length; i++)
-            featureVals[i] = sparse ? new SparseVector(m) : new DenseVector(m);
+            featureVals[i] = sparse ? new SparseVector(m) : DenseVector.a(m);
         
         setUpFeatureVals(featureVals, sparse, m, dataSet);
         
@@ -218,7 +218,7 @@ public class LinearL1SCD extends StochasticSTLinearL1
     {
         final int d = featureVals.length;
         final int m = target.length;
-        w = new DenseVector(d);
+        w = DenseVector.a(d);
         final double[] z = new double[m];
         final double beta = loss.beta();
 
@@ -233,8 +233,8 @@ public class LinearL1SCD extends StochasticSTLinearL1
                 Vec xj = featureVals[j];
                 for (IndexValue iv : xj)
                 {
-                    int i = iv.getIndex();
-                    g += loss.deriv(z[i], target[i]) * iv.getValue();
+                    int i = iv.index;
+                    g += loss.deriv(z[i], target[i]) * iv.value;
                 }
             }
             else//Bias term update, all x[i]_j = 1
@@ -260,7 +260,7 @@ public class LinearL1SCD extends StochasticSTLinearL1
 
             if (j < d)
                 for (IndexValue iv : featureVals[j])
-                    z[iv.getIndex()] += eta * iv.getValue();
+                    z[iv.index] += eta * iv.value;
             else//Bias update, all x[i]_j = 1
                 for (int i = 0; i < target.length; i++)
                     z[i] += eta;

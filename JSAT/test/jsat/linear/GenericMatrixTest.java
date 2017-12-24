@@ -21,7 +21,7 @@ public class GenericMatrixTest
 		 * 
 		 */
 		private static final long serialVersionUID = 1487285165522642650L;
-		private double[][] storage;
+		private final double[][] storage;
 
         public TestImp(double[][] storage)
         {
@@ -104,6 +104,7 @@ public class GenericMatrixTest
      */
     static ExecutorService threadpool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors()+1, new ThreadFactory() {
 
+        @Override
         public Thread newThread(Runnable r)
         {
             Thread thread = new Thread(r);
@@ -117,8 +118,7 @@ public class GenericMatrixTest
     }
 
     @BeforeClass
-    public static void setUpClass() throws Exception
-    {
+    public static void setUpClass() {
         A = new TestImp(new double[][] 
         {
             {1, 5, 4, 8, 9},
@@ -188,8 +188,7 @@ public class GenericMatrixTest
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception
-    {
+    public static void tearDownClass() {
     }
 
     /**
@@ -465,7 +464,7 @@ public class GenericMatrixTest
         DenseVector store = b.deepCopy();
         
         A.multiply(b, 3.0, store);
-        assertEquals(new DenseVector(new double[]{ 448, 335, 311, 288, 454}), store);
+        assertEquals(DenseVector.a(new double[]{ 448, 335, 311, 288, 454}), store);
         
         DenseVector Cz = new DenseVector(Arrays.asList(62.0, 100.0, 88.0, 74.0, 68.0));
         

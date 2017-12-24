@@ -28,7 +28,6 @@ import jsat.linear.*;
 import jsat.regression.RegressionDataSet;
 import jsat.utils.DoubleList;
 import jsat.utils.random.RandomUtil;
-import jsat.utils.random.XORWOW;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -385,7 +384,7 @@ public class CSVTest
         Random rand = RandomUtil.getRandom();
         for (int i = 0; i < 100; i++)
         {
-            DenseVector dv = new DenseVector(3);
+            DenseVector dv = DenseVector.a(3);
             int[] vals = new int[3];
             for (int j = 0; j < 3; j++)
             {

@@ -35,7 +35,7 @@ public class XORWOW extends Random
     }
 
     @Override
-    public synchronized void setSeed(long seed)
+    public void setSeed(long seed)
     {
         super.setSeed(seed);
         x = super.next(32);
@@ -72,8 +72,7 @@ public class XORWOW extends Random
     @Override
     public long nextLong()
     {
-        long t;
-        t = (x ^ (x >> 2));
+        long t = (x ^ (x >> 2));
         x = y;
         y = z;
         z = w;

@@ -69,8 +69,7 @@ public class LogUniformTest
         
         LogUniform instance = new LogUniform(1e-2, 10);
         
-        double[] expected = new double[]
-        {
+        double[] expected = {
             0, 0.14476482730108394, 0.072382413650541971, 0.048254942433694648, 
             0.036191206825270986, 0.028952965460216789, 0.024127471216847324, 
             0.020680689614440563, 0.018095603412635493, 0.016084980811231549, 
@@ -88,8 +87,7 @@ public class LogUniformTest
         
         LogUniform instance = new LogUniform(1e-2, 10);
         
-        double[] expected = new double[]
-        {
+        double[] expected = {
             -Double.MAX_VALUE,-1.9326447339160655,-2.62579191447601080,-3.0312570225841752,-3.3189390950359561,-3.5420826463501659,-3.7244042031441205,-3.8785548829713788,-4.0120862755959014,-4.1298693112522849,-4.2352298269101112
         };
         
@@ -107,8 +105,7 @@ public class LogUniformTest
         
         LogUniform instance = new LogUniform(1e-2, 10);
         
-        double[] expected = new double[]
-        {
+        double[] expected = {
             0, 0.66666666666666667, 0.76700999855466040, 
             0.82570708490655415, 0.86735333044265413, 0.89965666811200627, 
             0.92605041679454788, 0.94836601333808561, 0.96769666233064786, 
@@ -129,8 +126,7 @@ public class LogUniformTest
         
         LogUniform instance = new LogUniform(1e-2, 10);
         
-        double[] expected = new double[]
-        {
+        double[] expected = {
             0.014125375446227543, 0.019952623149688796, 0.028183829312644538, 
             0.039810717055349725, 0.056234132519034908, 0.079432823472428150,
             0.11220184543019634, 0.15848931924611135, 0.22387211385683396, 
@@ -140,8 +136,7 @@ public class LogUniformTest
             7.0794578438413791
         };
         
-        double[] ps = new double[]
-        {
+        double[] ps = {
             0.05, 0.1, .15, .2, .25, .3, .35, .4, .45, .5, .55, .6, .65, .7,
             .75, .8, .85, .9, .95
         };

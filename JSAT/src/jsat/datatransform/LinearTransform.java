@@ -110,9 +110,9 @@ public class LinearTransform implements InPlaceInvertibleTransform
     @Override
     public void fit(DataSet dataSet)
     {
-        mins = new DenseVector(dataSet.getNumNumericalVars());
-        Vec maxs = new DenseVector(mins.length());
-        mutliplyConstants = new DenseVector(mins.length());
+        mins = DenseVector.a(dataSet.getNumNumericalVars());
+        Vec maxs = DenseVector.a(mins.length());
+        mutliplyConstants = DenseVector.a(mins.length());
         
         OnLineStatistics[] stats = dataSet.getOnlineColumnStats(false);
         

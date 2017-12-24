@@ -199,7 +199,7 @@ public class ShiftedVec extends Vec
         //+ contribution of non zero values
         double baseNonZeroContribs = 0;
         for(IndexValue iv : base)
-            baseNonZeroContribs += pow(abs(iv.getValue()+shift), p);
+            baseNonZeroContribs += pow(abs(iv.value +shift), p);
         return pow(baseNonZeroContribs+baseZeroContribs, 1/p);
     }
 
@@ -273,12 +273,12 @@ public class ShiftedVec extends Vec
                 for(int effectiveStart = start; effectiveStart <= lastIndx; effectiveStart++)
                 {
                     nextBaseVal = baseIter.hasNext() ? baseIter.next() : null;
-                    if (nextBaseVal != null && nextBaseVal.getIndex() == effectiveStart)
+                    if (nextBaseVal != null && nextBaseVal.index == effectiveStart)
                     {
-                        if (nextBaseVal.getValue() + shift == 0)
+                        if (nextBaseVal.value + shift == 0)
                             continue;//no starting on zero!
                         else
-                            nextVal = new IndexValue(effectiveStart, nextBaseVal.getValue() + shift);
+                            nextVal = new IndexValue(effectiveStart, nextBaseVal.value + shift);
                         nextBaseVal = baseIter.hasNext() ? baseIter.next() : null;
                     }
                     else//was zero + shift
@@ -299,30 +299,30 @@ public class ShiftedVec extends Vec
             @Override
             public IndexValue next()
             {
-                toRet.setIndex(nextVal.getIndex());
-                toRet.setValue(nextVal.getValue());
-                
+                toRet.index = nextVal.index;
+                toRet.value = nextVal.value;
+
                 //loop to get next value b/c we may have to skip over zeros
                 do
                 {
-                    nextVal.setIndex(nextVal.getIndex()+1);//pre-bump index 
+                    nextVal.index = nextVal.index +1;
                     //prep next value
-                    if(nextVal.getIndex() == lastIndx+1)
+                    if(nextVal.index == lastIndx+1)
                         nextVal = null;//done
                     else
                     {
-                        if(nextBaseVal != null && nextBaseVal.getIndex() == nextVal.getIndex())//there is a base non-zero next
+                        if(nextBaseVal != null && nextBaseVal.index == nextVal.index)//there is a base non-zero next
                         {
-                            nextVal.setValue(nextBaseVal.getValue()+shift);
+                            nextVal.value = nextBaseVal.value +shift;
                             nextBaseVal = baseIter.hasNext() ? baseIter.next() : null;
                         }
                         else//a base non-zero in our imediate future
                         {
-                            nextVal.setValue(shift);
+                            nextVal.value = shift;
                         }
                     }
                 }
-                while(nextVal != null && nextVal.getValue() == 0);
+                while(nextVal != null && nextVal.value == 0);
                 
                 return toRet;
             }

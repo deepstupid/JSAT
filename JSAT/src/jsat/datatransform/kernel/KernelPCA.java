@@ -1,7 +1,6 @@
 package jsat.datatransform.kernel;
 
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import jsat.DataSet;
 import jsat.classifiers.DataPoint;
@@ -228,7 +227,7 @@ public class KernelPCA extends DataTransformBase
     public DataPoint transform(DataPoint dp)
     {
         Vec oldVec = dp.getNumericalValues();
-        Vec newVec = new DenseVector(dimensions);
+        Vec newVec = DenseVector.a(dimensions);
         
         //TODO put this in a thread local object? Or hope JVM puts a large array on the stack? 
         final double[] kEvals = new double[vecs.length];

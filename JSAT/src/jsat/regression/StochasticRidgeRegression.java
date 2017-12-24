@@ -2,8 +2,7 @@
 package jsat.regression;
 
 import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.ExecutorService;
+
 import jsat.SingleWeightVectorModel;
 import jsat.classifiers.DataPoint;
 import jsat.linear.DenseVector;
@@ -11,7 +10,6 @@ import jsat.linear.IndexValue;
 import jsat.linear.Vec;
 import jsat.math.decayrates.DecayRate;
 import jsat.math.decayrates.NoDecay;
-import jsat.parameters.Parameter;
 import jsat.parameters.Parameterized;
 import jsat.utils.IntList;
 import jsat.utils.ListUtils;
@@ -226,7 +224,7 @@ public class StochasticRidgeRegression implements Regressor, Parameterized, Sing
     public void train(RegressionDataSet dataSet)
     {
         int batch = Math.min(batchSize, dataSet.getSampleSize());
-        w = new DenseVector(dataSet.getNumNumericalVars());
+        w = DenseVector.a(dataSet.getNumNumericalVars());
         
         IntList sample = new IntList(dataSet.getSampleSize());
         ListUtils.addRange(sample, 0, dataSet.getSampleSize(), 1);
@@ -280,7 +278,7 @@ public class StochasticRidgeRegression implements Regressor, Parameterized, Sing
                     {
                         for(IndexValue iv : x)
                         {
-                            int idx = iv.getIndex();
+                            int idx = iv.index;
                             if(lastTime[idx] != time)//update the theta for all missed updates
                             {
                                 double theta_idx = w.get(idx);
@@ -288,7 +286,7 @@ public class StochasticRidgeRegression implements Regressor, Parameterized, Sing
                                 lastTime[idx] = time;
                             }
                             //now accumlate errors
-                            w.increment(idx, -alphaError*iv.getValue());
+                            w.increment(idx, -alphaError* iv.value);
                         }
                     }
                     else//dense updates, no need to track last time we updated weight values

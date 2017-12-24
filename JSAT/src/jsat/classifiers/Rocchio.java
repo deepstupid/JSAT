@@ -126,7 +126,7 @@ public class Rocchio implements Classifier
         ExecutorService threadPool = parallel ? Executors.newFixedThreadPool(SystemInfo.LogicalCores) : new FakeExecutor();
         for(int i = 0; i < N; i++)
         {
-            final Vec rochVec = new DenseVector(d);
+            final Vec rochVec = DenseVector.a(d);
             rocVecs.add(rochVec);
             
             threadPool.submit(new RocchioAdder(cdl, i, rochVec, dataSet.getSamples(i)));

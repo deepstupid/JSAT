@@ -2,7 +2,7 @@
 package jsat.linear;
 
 import java.util.Iterator;
-import jsat.math.Function;
+
 import jsat.math.Function1D;
 
 /**
@@ -46,8 +46,8 @@ public class VecOps
         {
             for (IndexValue wiv : w)
             {
-                final int idx = wiv.getIndex();
-                val += wiv.getValue() * f.f(x.get(idx) - y.get(idx));
+                final int idx = wiv.index;
+                val += wiv.value * f.f(x.get(idx) - y.get(idx));
             }
         }
         else if (!wSparse && !xSparse && !ySparse)//w is dense
@@ -65,22 +65,22 @@ public class VecOps
 
             for (IndexValue wiv : w)
             {
-                int index = wiv.getIndex();
-                double w_i = wiv.getValue();
+                int index = wiv.index;
+                double w_i = wiv.value;
 
-                while (xiv.getIndex() < index && xIter.hasNext())
+                while (xiv.index < index && xIter.hasNext())
                     xiv = xIter.next();
-                while (yiv.getIndex() < index && yIter.hasNext())
+                while (yiv.index < index && yIter.hasNext())
                     yiv = yIter.next();
 
 
                 final double x_i, y_i;
-                if (xiv.getIndex() == index)
-                    x_i = xiv.getValue();
+                if (xiv.index == index)
+                    x_i = xiv.value;
                 else
                     x_i = 0;
-                if (yiv.getIndex() == index)
-                    y_i = yiv.getValue();
+                if (yiv.index == index)
+                    y_i = yiv.value;
                 else
                     y_i = 0;
 
@@ -117,13 +117,13 @@ public class VecOps
             
             while(xiv != badIV && yiv != badIV)
             {
-                if(xiv.getIndex() < yiv.getIndex())
+                if(xiv.index < yiv.index)
                     xiv = xIter.hasNext() ? xIter.next() : badIV;
-                else if(yiv.getIndex() > xiv.getIndex())
+                else if(yiv.index > xiv.index)
                     yiv = yIter.hasNext() ? yIter.next() : badIV;
                 else//on the same page
                 {
-                    sum += w.get(xiv.getIndex())*xiv.getValue()*yiv.getValue();
+                    sum += w.get(xiv.index)* xiv.value * yiv.value;
                     xiv = xIter.hasNext() ? xIter.next() : badIV;
                     yiv = yIter.hasNext() ? yIter.next() : badIV;
                 }
@@ -133,8 +133,8 @@ public class VecOps
         {
             for(IndexValue iv : x)
             {
-                int indx = iv.getIndex();
-                sum += w.get(indx)*iv.getValue()*y.get(indx);
+                int indx = iv.index;
+                sum += w.get(indx)* iv.value *y.get(indx);
             }
         }
         else if(y.isSparse())

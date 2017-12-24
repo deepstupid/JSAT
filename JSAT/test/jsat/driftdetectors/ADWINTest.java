@@ -116,30 +116,28 @@ public class ADWINTest
         }
         
         //drift up again
-        {
-            boolean drifted = false;
-            for(int i = 0; i < 400; i++)
-                if(adwin.addSample(normal_2_1.invCdf(rand.nextDouble()), i))
+        boolean drifted = false;
+        for(int i = 0; i < 400; i++)
+            if(adwin.addSample(normal_2_1.invCdf(rand.nextDouble()), i))
+            {
+                assertTrue(adwin.getDriftAge() < i+30);
+                assertFalse(drifted);
+                assertEquals(normal_1_1.mean(), adwin.getOldMean(), 0.35);
+                assertEquals(normal_2_1.mean(), adwin.getNewMean(), 1.5);//few samples, lose bound
+
+                List<Integer> driftedHistory = adwin.getDriftedHistory();
+                assertEquals(Math.min(adwin.getMaxHistory(), adwin.getDriftAge()), driftedHistory.size());
+                for(int j = 1; j <driftedHistory.size(); j++)
                 {
-                    assertTrue(adwin.getDriftAge() < i+30);
-                    assertFalse(drifted);
-                    assertEquals(normal_1_1.mean(), adwin.getOldMean(), 0.35);
-                    assertEquals(normal_2_1.mean(), adwin.getNewMean(), 1.5);//few samples, lose bound
-                    
-                    List<Integer> driftedHistory = adwin.getDriftedHistory();
-                    assertEquals(Math.min(adwin.getMaxHistory(), adwin.getDriftAge()), driftedHistory.size());
-                    for(int j = 1; j <driftedHistory.size(); j++)
-                    {
-                        assertTrue(driftedHistory.get(j-1) > driftedHistory.get(j));
-                        if(driftedHistory.get(j) == 0)
-                            break;
-                    }
-                    
-                    adwin.driftHandled();
-                    drifted = true;
+                    assertTrue(driftedHistory.get(j-1) > driftedHistory.get(j));
+                    if(driftedHistory.get(j) == 0)
+                        break;
                 }
-            assertTrue(drifted);
-            assertEquals(normal_2_1.mean(), adwin.getMean(), 0.35);
-        }
+
+                adwin.driftHandled();
+                drifted = true;
+            }
+        assertTrue(drifted);
+        assertEquals(normal_2_1.mean(), adwin.getMean(), 0.35);
     }
 }

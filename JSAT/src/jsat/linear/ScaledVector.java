@@ -280,7 +280,7 @@ public class ScaledVector extends Vec
             {
                 IndexValue iv = origIter.next();
                 if( iv != null)
-                    iv.setValue(scale*iv.getValue());
+                    iv.value = scale* iv.value;
                 return iv;
             }
 

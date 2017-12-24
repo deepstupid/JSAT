@@ -48,7 +48,7 @@ public class OneVSOne implements Classifier, Parameterized
      */
     public OneVSOne(Classifier baseClassifier)
     {
-        this(baseClassifier, false);
+        this(baseClassifier, true);
     }
     
     /**

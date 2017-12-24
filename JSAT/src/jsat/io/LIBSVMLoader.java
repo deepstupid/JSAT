@@ -464,11 +464,11 @@ public class LIBSVMLoader
             writer.write(pred + " ");
             for(IndexValue iv : vals)
             {
-                double val = iv.getValue();
+                double val = iv.value;
                 if(Math.rint(val) == val)//cast to long before writting to save space
-                    writer.write((iv.getIndex()+1) + ":" + (long)val + " ");//+1 b/c 1 based indexing
+                    writer.write((iv.index +1) + ":" + (long)val + " ");//+1 b/c 1 based indexing
                 else
-                    writer.write((iv.getIndex()+1) + ":" + val + " ");//+1 b/c 1 based indexing
+                    writer.write((iv.index +1) + ":" + val + " ");//+1 b/c 1 based indexing
             }
             writer.write("\n");
         }
@@ -492,11 +492,11 @@ public class LIBSVMLoader
             writer.write(pred + " ");
             for(IndexValue iv : vals)
             {
-                double val = iv.getValue();
+                double val = iv.value;
                 if(Math.rint(val) == val)//cast to long before writting to save space
-                    writer.write((iv.getIndex()+1) + ":" + (long)val + " ");//+1 b/c 1 based indexing
+                    writer.write((iv.index +1) + ":" + (long)val + " ");//+1 b/c 1 based indexing
                 else
-                    writer.write((iv.getIndex()+1) + ":" + val + " ");//+1 b/c 1 based indexing
+                    writer.write((iv.index +1) + ":" + val + " ");//+1 b/c 1 based indexing
             }
             writer.write("\n");
         }
@@ -547,11 +547,11 @@ public class LIBSVMLoader
                 Vec vals = dp.getNumericalValues();
                 for(IndexValue iv : vals)
                 {
-                    double val = iv.getValue();
+                    double val = iv.value;
                     if(Math.rint(val) == val)//cast to long before writting to save space
-                        writer.write((iv.getIndex()+1) + ":" + (long)val + " ");//+1 b/c 1 based indexing
+                        writer.write((iv.index +1) + ":" + (long)val + " ");//+1 b/c 1 based indexing
                     else
-                        writer.write((iv.getIndex()+1) + ":" + val + " ");//+1 b/c 1 based indexing
+                        writer.write((iv.index +1) + ":" + val + " ");//+1 b/c 1 based indexing
                 }
                 writer.write("\n");
                 writer.flush();

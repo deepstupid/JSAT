@@ -60,7 +60,7 @@ public class ModifiedOWLQNTest
     {
         System.out.println("optimize");
         Random rand = RandomUtil.getRandom();
-        Vec x0 = new DenseVector(3);//D=3 means one local minima for easy evaluation
+        Vec x0 = DenseVector.a(3);//D=3 means one local minima for easy evaluation
         for(int i = 0; i < x0.length(); i++)
             x0.set(i, rand.nextDouble()+0.5);
 
@@ -70,7 +70,7 @@ public class ModifiedOWLQNTest
         instance.setLambda(0.0); 
         instance.setMaximumIterations(500);
 
-        Vec w = new DenseVector(x0.length());
+        Vec w = DenseVector.a(x0.length());
         instance.optimize(1e-8, w, x0, f, fp, null);
 
         for (int i = 0; i < w.length(); i++)
@@ -83,7 +83,7 @@ public class ModifiedOWLQNTest
     {
         System.out.println("optimize");
         Random rand = RandomUtil.getRandom();
-        Vec x0 = new DenseVector(3);//D=3 means one local minima for easy evaluation
+        Vec x0 = DenseVector.a(3);//D=3 means one local minima for easy evaluation
         for(int i = 0; i < x0.length(); i++)
             x0.set(i, rand.nextDouble()+0.5);
 
@@ -94,7 +94,7 @@ public class ModifiedOWLQNTest
         instance.setEps(Double.MAX_VALUE);
         instance.setMaximumIterations(2000);
 
-        Vec w = new DenseVector(x0.length());
+        Vec w = DenseVector.a(x0.length());
         instance.optimize(1e-4, w, x0, f, fp, null);
 
         for (int i = 0; i < w.length(); i++)
@@ -128,7 +128,7 @@ public class ModifiedOWLQNTest
             data.addDataPoint(v, (int) (Math.signum(Z1+0.1*Z2)+1)/2);
         }
         
-        Vec x0 = new DenseVector(data.getNumNumericalVars());
+        Vec x0 = DenseVector.a(data.getNumNumericalVars());
         for(int i = 0; i < x0.length(); i++)
             x0.set(i, rand.nextDouble()*2-1);
         
@@ -144,17 +144,17 @@ public class ModifiedOWLQNTest
         instance.setLambda(lambda/2);
         instance.setMaximumIterations(500);
         
-        Vec w = new DenseVector(x0.length());
+        Vec w = DenseVector.a(x0.length());
         instance.optimize(1e-4, w, x0, f, fp, null);
         
         assertTrue(w.nnz() <= 3);
         for(IndexValue iv : w)
         {
-            assertTrue(iv.getIndex() < 3);
-            if(iv.getIndex() % 2 == 0)
-                assertTrue(iv.getValue() > 0);
+            assertTrue(iv.index < 3);
+            if(iv.index % 2 == 0)
+                assertTrue(iv.value > 0);
             else
-                assertTrue(iv.getValue() < 0);
+                assertTrue(iv.value < 0);
         }
         
         //do it again, but don't regularize one value
@@ -166,10 +166,10 @@ public class ModifiedOWLQNTest
         assertTrue(w.nnz() <= 4);
         for(IndexValue iv : w)
         {
-            if(iv.getIndex() % 2 == 0)
-                assertTrue(iv.getValue() > 0);
+            if(iv.index % 2 == 0)
+                assertTrue(iv.value > 0);
             else
-                assertTrue(iv.getValue() < 0);
+                assertTrue(iv.value < 0);
         }
         assertEquals(0.0, w.get(5), 0.0);
         assertEquals(0.0, w.get(3), 0.0);

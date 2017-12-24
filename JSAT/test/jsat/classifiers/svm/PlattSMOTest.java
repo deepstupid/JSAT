@@ -148,7 +148,7 @@ public class PlattSMOTest
             }
     }
     
-    @Test()
+    @Test
     public void testTrainWarmCFastSMO()
     {
         //problem needs to be non-linear to make SMO work harder
@@ -183,7 +183,7 @@ public class PlattSMOTest
         
     }
     
-    @Test()
+    @Test
     public void testTrainWarmCFastOther()
     {
         ClassificationDataSet train = FixedProblems.getHalfCircles(250, RandomUtil.getRandom(), 0.1, 0.2);
@@ -218,7 +218,7 @@ public class PlattSMOTest
         
     }
     
-    @Test()
+    @Test
     public void testTrainWarmRFastOther()
     {
         RegressionDataSet train = FixedProblems.getLinearRegression(1000, RandomUtil.getRandom());

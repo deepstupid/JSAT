@@ -22,9 +22,8 @@ import java.util.concurrent.ExecutorService;
 import jsat.distributions.kernels.KernelTrick;
 import jsat.linear.IndexValue;
 import jsat.linear.Vec;
-import jsat.parameters.Parameter;
+
 import static java.lang.Math.*;
-import java.util.Collections;
 
 /**
  * This class implements both the weighted Jaccard Distance and the standard
@@ -149,28 +148,28 @@ public class JaccardDistance implements DistanceMetric, KernelTrick
         {
             if (weighted)
             {
-                if (a_val.getIndex() == b_val.getIndex())
+                if (a_val.index == b_val.index)
                 {
-                    numer += max(min(a_val.getValue(), b_val.getValue()), 0.0);
-                    denom += max(max(a_val.getValue(), b_val.getValue()), 0.0);
+                    numer += max(min(a_val.value, b_val.value), 0.0);
+                    denom += max(max(a_val.value, b_val.value), 0.0);
                     
                     a_val = a_iter.hasNext() ? a_iter.next() : null;
                     b_val = b_iter.hasNext() ? b_iter.next() : null;
                 }
-                else if(a_val.getIndex() < b_val.getIndex())
+                else if(a_val.index < b_val.index)
                 {
-                    denom += max(a_val.getValue(), 0.0);
+                    denom += max(a_val.value, 0.0);
                     a_val = a_iter.hasNext() ? a_iter.next() : null;
                 }
                 else//b had a lower index
                 {
-                    denom += max(b_val.getValue(), 0.0);
+                    denom += max(b_val.value, 0.0);
                     b_val = b_iter.hasNext() ? b_iter.next() : null;
                 }
             }
             else//unweighted variant
             {
-                if (a_val.getIndex() == b_val.getIndex())
+                if (a_val.index == b_val.index)
                 {
                     numer++;
                     denom++;
@@ -178,7 +177,7 @@ public class JaccardDistance implements DistanceMetric, KernelTrick
                     a_val = a_iter.hasNext() ? a_iter.next() : null;
                     b_val = b_iter.hasNext() ? b_iter.next() : null;
                 }
-                else if(a_val.getIndex() < b_val.getIndex())
+                else if(a_val.index < b_val.index)
                 {
                     denom++;
                     a_val = a_iter.hasNext() ? a_iter.next() : null;
@@ -197,7 +196,7 @@ public class JaccardDistance implements DistanceMetric, KernelTrick
         while(finalVal != null)
         {
             if(weighted)
-                denom += max(finalVal.getValue(), 0.0);
+                denom += max(finalVal.value, 0.0);
             else
                 denom++;
             finalVal =  finalIter.hasNext() ?  finalIter.next() : null;

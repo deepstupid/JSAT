@@ -300,7 +300,7 @@ public class TSNE implements VisualizationTransform
             public DataPoint transform(DataPoint dp)
             {
                 int i = indexMap.get(dp);
-                DenseVector dv = new DenseVector(s);
+                DenseVector dv = DenseVector.a(s);
                 for(int k = 0; k < s; k++)
                     dv.set(k, y[i*2+k]);
                 

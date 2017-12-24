@@ -1,6 +1,5 @@
 package jsat.classifiers.linear;
 
-import java.util.List;
 import jsat.DataSet;
 import jsat.SingleWeightVectorModel;
 import jsat.classifiers.BaseUpdateableClassifier;
@@ -16,7 +15,6 @@ import jsat.linear.DenseVector;
 import jsat.linear.IndexValue;
 import jsat.linear.Matrix;
 import jsat.linear.Vec;
-import jsat.parameters.Parameter;
 import jsat.parameters.Parameterized;
 
 /**
@@ -161,11 +159,11 @@ public class AROW extends BaseUpdateableClassifier implements BinaryScoreClassif
             throw new FailedToFitException("AROW requires numeric attributes to perform classification");
         else if(predicting.getNumOfCategories() != 2)
             throw new FailedToFitException("AROW is a binary classifier");
-        w = new DenseVector(numericAttributes);
-        Sigma_xt = new DenseVector(numericAttributes);
+        w = DenseVector.a(numericAttributes);
+        Sigma_xt = DenseVector.a(numericAttributes);
         if(diagonalOnly)
         {
-            sigmaV = new DenseVector(numericAttributes);
+            sigmaV = DenseVector.a(numericAttributes);
             sigmaV.mutableAdd(1);
         }
         else
@@ -190,8 +188,8 @@ public class AROW extends BaseUpdateableClassifier implements BinaryScoreClassif
         {
             for(IndexValue iv : x_t)
             {
-                double x_ti = iv.getValue();
-                v_t += x_ti * x_ti * sigmaV.get(iv.getIndex());
+                double x_ti = iv.value;
+                v_t += x_ti * x_ti * sigmaV.get(iv.index);
             }
         }
         else
@@ -207,7 +205,7 @@ public class AROW extends BaseUpdateableClassifier implements BinaryScoreClassif
             w.mutableAdd(alpha_t * y_t, Sigma_xt);
         else
             for (IndexValue iv : x_t)
-                w.increment(iv.getIndex(), alpha_t * y_t * iv.getValue() * sigmaV.get(iv.getIndex()));
+                w.increment(iv.index, alpha_t * y_t * iv.value * sigmaV.get(iv.index));
 
         if(diagonalOnly)
         {
@@ -219,8 +217,8 @@ public class AROW extends BaseUpdateableClassifier implements BinaryScoreClassif
              */
             for(IndexValue iv : x_t)
             {
-                int idx = iv.getIndex();
-                double xt_i = iv.getValue()*sigmaV.get(idx);
+                int idx = iv.index;
+                double xt_i = iv.value *sigmaV.get(idx);
                 sigmaV.increment(idx, -(xt_i*xt_i)/b_t_inv);
             }
         }

@@ -166,9 +166,9 @@ public class OnlineLDAsvi implements Parameterized
         if(K < 2)
             throw new IllegalArgumentException("At least 2 topics must be learned");
         this.K = K;
-        gammaLocal = ThreadLocal.withInitial(() -> new DenseVector(K));
-        logThetaLocal  = ThreadLocal.withInitial(() -> new DenseVector(K));
-        expLogThetaLocal = ThreadLocal.withInitial(() -> new DenseVector(K));
+        gammaLocal = ThreadLocal.withInitial(() -> DenseVector.a(K));
+        logThetaLocal  = ThreadLocal.withInitial(() -> DenseVector.a(K));
+        expLogThetaLocal = ThreadLocal.withInitial(() -> DenseVector.a(K));
         
         lambda = null;
     }
@@ -563,7 +563,7 @@ public class OnlineLDAsvi implements Parameterized
      */
     public Vec getTopics(Vec doc)
     {
-        Vec gamma = new DenseVector(K);
+        Vec gamma = DenseVector.a(K);
 
         Random rand = RandomUtil.getRandom();
         double lambdaInv = (W * K) / (D * 100.0);
@@ -571,8 +571,8 @@ public class OnlineLDAsvi implements Parameterized
         for (int j = 0; j < gamma.length(); j++)
             gamma.set(j, sampleExpoDist(lambdaInv, rand.nextDouble()) + eta);
 
-        Vec eLogTheta_i = new DenseVector(K);
-        Vec expLogTheta_i = new DenseVector(K);
+        Vec eLogTheta_i = DenseVector.a(K);
+        Vec expLogTheta_i = DenseVector.a(K);
         expandPsiMinusPsiSum(gamma, gamma.sum(), eLogTheta_i);
         for (int j = 0; j < eLogTheta_i.length(); j++)
             expLogTheta_i.set(j, FastMath.exp(eLogTheta_i.get(j)));
@@ -604,7 +604,7 @@ public class OnlineLDAsvi implements Parameterized
                 for(Vec doc : docsSub)//make sure out ELogBeta is up to date
                     for(IndexValue iv : doc)
                     {
-                        int indx = iv.getIndex();
+                        int indx = iv.index;
                         if(lastUsed[indx] != t)
                         {
                             for(int k = 0; k < K; k++)
@@ -695,13 +695,13 @@ public class OnlineLDAsvi implements Parameterized
         final SparseVector updateVec = new SparseVector(indexMap, phiCols, W, doc.nnz());
         for(IndexValue iv : doc)
         {
-            int wordIndex = iv.getIndex();
+            int wordIndex = iv.index;
             double sum = 0;
             for(int i = 0; i < ExpELogTheta_d.length(); i++)
                 sum += ExpELogTheta_d.get(i)*ExpELogBeta.get(i).get(wordIndex);
 
             indexMap[pos] = wordIndex;
-            phiCols[pos] = iv.getValue()/(sum+1e-15);
+            phiCols[pos] = iv.value /(sum+1e-15);
             pos++;
         }
         //iterate till convergence or we hit arbitrary 100 limit (dont usually see more than 70)
@@ -730,11 +730,11 @@ public class OnlineLDAsvi implements Parameterized
             int indx = 0;
             for(IndexValue iv : doc)
             {
-                int wordIndex = iv.getIndex();
+                int wordIndex = iv.index;
                 double sum = 0;
                 for(int i = 0; i < ExpELogTheta_d.length(); i++)
                     sum += ExpELogTheta_d.get(i)*ExpELogBeta.get(i).get(wordIndex);
-                phiCols[indx] = iv.getValue() / (sum + 1e-15);
+                phiCols[indx] = iv.value / (sum + 1e-15);
                 indx++;
             }
             
@@ -772,11 +772,11 @@ public class OnlineLDAsvi implements Parameterized
         Random rand = RandomUtil.getRandom();
         for(int i = 0; i < K; i++)
         {
-            Vec lambda_i = new DenseVector(W);
+            Vec lambda_i = DenseVector.a(W);
             lambda.add(new ScaledVector(lambda_i));
             lambdaLocks.add(new ReentrantLock());
-            ELogBeta.add(new DenseVector(W));
-            ExpELogBeta.add(new DenseVector(W));
+            ELogBeta.add(DenseVector.a(W));
+            ExpELogBeta.add(DenseVector.a(W));
             double rowSum = 0;
             for(int j = 0; j < W; j++)
             {

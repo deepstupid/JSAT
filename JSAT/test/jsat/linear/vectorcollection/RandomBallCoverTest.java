@@ -77,7 +77,7 @@ public class RandomBallCoverTest
         
         VectorArray<Vec> vecCol = new VectorArray<Vec>(new EuclideanDistance());
         for(int i = 0; i < 250; i++)
-            vecCol.add(DenseVector.random(3, rand));
+            vecCol.add(Vec.random(3, rand));
         
         for(VectorCollectionFactory<Vec> factory : collectionFactories)
         {
@@ -132,7 +132,7 @@ public class RandomBallCoverTest
         
         VectorArray<Vec> vecCol = new VectorArray<Vec>(new EuclideanDistance());
         for(int i = 0; i < 250; i++)
-            vecCol.add(DenseVector.random(3, rand));
+            vecCol.add(Vec.random(3, rand));
         
         for(VectorCollectionFactory<Vec> factory : collectionFactories)
         {
@@ -181,7 +181,7 @@ public class RandomBallCoverTest
         
         VectorArray<Vec> vecCol = new VectorArray<Vec>(new EuclideanDistance());
         for(int i = 0; i < 1000; i++)
-            vecCol.add(DenseVector.random(3, rand));
+            vecCol.add(Vec.random(3, rand));
         
         
         IncrementalCollection<Vec> collection0 = new RandomBallCover<Vec>(new EuclideanDistance());

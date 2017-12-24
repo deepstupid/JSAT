@@ -213,12 +213,12 @@ public class NaiveBayes implements Classifier, Parameterized
                 while(iter.hasNext())
                 {
                     IndexValue indexValue = iter.next();
-                    int j = indexValue.getIndex();
+                    int j = indexValue.index;
                     double logPDF;
                     if(distributions[i][j] == null)
                         logPDF = Double.NEGATIVE_INFINITY;//Should not occur
                     else
-                        logPDF = distributions[i][j].logPdf(indexValue.getValue());
+                        logPDF = distributions[i][j].logPdf(indexValue.value);
                     if(Double.isInfinite(logPDF))//Avoid propigation -infinty when the probability is zero
                         logProb += log(1e-16);//
                     else

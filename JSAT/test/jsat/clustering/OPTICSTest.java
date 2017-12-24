@@ -30,13 +30,12 @@ public class OPTICSTest
     }
 
     static private OPTICS optics;
-    static private EnumSet<OPTICS.ExtractionMethod> toTest = EnumSet.of(OPTICS.ExtractionMethod.THRESHHOLD, OPTICS.ExtractionMethod.THRESHHOLD);
+    static private final EnumSet<OPTICS.ExtractionMethod> toTest = EnumSet.of(OPTICS.ExtractionMethod.THRESHHOLD, OPTICS.ExtractionMethod.THRESHHOLD);
     static private SimpleDataSet easyData10;
     static private ExecutorService ex;
 
     @BeforeClass
-    public static void setUpClass() throws Exception
-    {
+    public static void setUpClass() {
         optics = new OPTICS();
         GridDataGenerator gdg = new GridDataGenerator(new Normal(0, 0.05), new Random(12), 2, 5);
         easyData10 = gdg.generateData(100);
@@ -44,8 +43,7 @@ public class OPTICSTest
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception
-    {
+    public static void tearDownClass() {
         ex.shutdown();
     }
     

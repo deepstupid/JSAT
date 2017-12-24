@@ -9,10 +9,10 @@ package jsat.linear;
  * 
  * @author Edward Raff
  */
-public class IndexValue
+public final class IndexValue
 {
-    private int index;
-    private double value;
+    public int index;
+    public double value;
 
     /**
      * Creates a new IndexValue
@@ -25,40 +25,4 @@ public class IndexValue
         this.value = value;
     }
 
-    /**
-     * Sets the index associated with the value. 
-     * @param index the new index
-     */
-    public void setIndex(int index)
-    {
-        this.index = index;
-    }
-
-    /**
-     * Sets the value associated with the index
-     * @param value the new value
-     */
-    public void setValue(double value)
-    {
-        this.value = value;
-    }
-
-    /**
-     * Returns the index of the stored value
-     * @return the index of the stored value
-     */
-    public int getIndex()
-    {
-        return index;
-    }
-
-    /**
-     * Returns the value of the stored index
-     * @return the value of the stored index
-     */
-    public double getValue()
-    {
-        return value;
-    }
-    
 }

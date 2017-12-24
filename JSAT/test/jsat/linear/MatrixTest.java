@@ -59,12 +59,11 @@ public class MatrixTest
     {
         System.out.println("OuterProductUpdate");
         Matrix A = Matrix.eye(4);
-        Vec x = new DenseVector(new double[]{1, 2, 3, 4});
-        Vec y = new DenseVector(new double[]{5, 6, 7, 8});
+        Vec x = DenseVector.a(new double[]{1, 2, 3, 4});
+        Vec y = DenseVector.a(new double[]{5, 6, 7, 8});
         double c = 2.0;
         
-        double[][] expected = new double[][]
-        {
+        double[][] expected = {
             {11, 12, 14, 16},
             {20, 25, 28, 32},
             {30, 36, 43, 48},
@@ -86,12 +85,11 @@ public class MatrixTest
     {
         System.out.println("OuterProductUpdate");
         Matrix A = Matrix.eye(4);
-        Vec x = new DenseVector(new double[]{1, 2, 3, 4});
-        Vec y = new DenseVector(new double[]{5, 6, 7, 8});
+        Vec x = DenseVector.a(new double[]{1, 2, 3, 4});
+        Vec y = DenseVector.a(new double[]{5, 6, 7, 8});
         double c = 2.0;
         
-        double[][] expected = new double[][]
-        {
+        double[][] expected = {
             {11, 12, 14, 16},
             {20, 25, 28, 32},
             {30, 36, 43, 48},
@@ -174,10 +172,9 @@ public class MatrixTest
             { 6,    7,   10,    5,    8},
         });
         
-        Vec b = new DenseVector(new double[]{4, -3, 3, -4, 2});
+        Vec b = DenseVector.a(new double[]{4, -3, 3, -4, 2});
         
-        double[][] expected = new double[][]
-        {
+        double[][] expected = {
             { 0,  -24,   21,  -20,   10},
             {24,  -30,   12,  -32,    8},
             {40,  -21,   15,  -32,   12},
@@ -205,10 +202,9 @@ public class MatrixTest
             { 6,    7,   10,    5,    8},
         });
         
-        Vec b = new DenseVector(new double[]{4, -3, 3, -4, 2});
+        Vec b = DenseVector.a(new double[]{4, -3, 3, -4, 2});
         
-        double[][] expected = new double[][]
-        {
+        double[][] expected = {
             {  0,   32,   28,   20,   20},
             {-18,  -30,  -12,  -24,  -12},
             { 30,   21,   15,   24,   18},

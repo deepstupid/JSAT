@@ -127,7 +127,7 @@ public abstract class GenericMatrix extends Matrix
             {
                 double dot = 0;
                 for(IndexValue iv : b)
-                    dot += this.get(i, iv.getIndex()) * iv.getValue();
+                    dot += this.get(i, iv.index) * iv.value;
                 c.increment(i, dot * z);
             }
         }

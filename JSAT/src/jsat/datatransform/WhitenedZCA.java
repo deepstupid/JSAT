@@ -103,7 +103,7 @@ public class WhitenedZCA extends WhitenedPCA implements InPlaceTransform
     protected void setUpTransform(SingularValueDecomposition svd)
     {
         double[] s = svd.getSingularValues();
-        Vec diag = new DenseVector(s.length);
+        Vec diag = DenseVector.a(s.length);
 
         for(int i = 0; i < s.length; i++)
             diag.set(i, 1.0/Math.sqrt(s[i]+regularization));
@@ -115,6 +115,6 @@ public class WhitenedZCA extends WhitenedPCA implements InPlaceTransform
 
     private static ThreadLocal<Vec> getThreadLocal(final int dim)
     {
-        return ThreadLocal.withInitial(() -> new DenseVector(dim));
+        return ThreadLocal.withInitial(() -> DenseVector.a(dim));
     }
 }

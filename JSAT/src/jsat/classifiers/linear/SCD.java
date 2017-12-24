@@ -1,7 +1,7 @@
 package jsat.classifiers.linear;
 
 import java.util.*;
-import java.util.concurrent.ExecutorService;
+
 import jsat.SingleWeightVectorModel;
 import jsat.classifiers.*;
 import jsat.exceptions.UntrainedModelException;
@@ -9,12 +9,10 @@ import jsat.linear.DenseVector;
 import jsat.linear.IndexValue;
 import jsat.linear.Vec;
 import jsat.lossfunctions.*;
-import jsat.parameters.Parameter;
 import jsat.parameters.Parameterized;
 import jsat.regression.RegressionDataSet;
 import jsat.regression.Regressor;
 import jsat.utils.random.RandomUtil;
-import jsat.utils.random.XORWOW;
 
 /**
  * Implementation of Stochastic Coordinate Descent for L1 regularized
@@ -215,14 +213,14 @@ public class SCD implements Classifier, Regressor, Parameterized, SingleWeightVe
     {
         final double beta = loss.getDeriv2Max();
         double[] z = new double[y.length];///stores w.dot(x)
-        w = new DenseVector(columns.length);
+        w = DenseVector.a(columns.length);
         Random rand = RandomUtil.getRandom();
         for (int iter = 0; iter < iterations; iter++)
         {
             final int j = rand.nextInt(columns.length);
             double g = 0;
             for (IndexValue iv : columns[j])
-                g += loss.getDeriv(z[iv.getIndex()], y[iv.getIndex()]) * iv.getValue();
+                g += loss.getDeriv(z[iv.index], y[iv.index]) * iv.value;
             g /= y.length;
             final double w_j = w.get(j);
             final double eta;
@@ -235,7 +233,7 @@ public class SCD implements Classifier, Regressor, Parameterized, SingleWeightVe
             w.increment(j, eta);
 
             for (IndexValue iv : columns[j])
-                z[iv.getIndex()] += eta * iv.getValue();
+                z[iv.index] += eta * iv.value;
         }
     }
 

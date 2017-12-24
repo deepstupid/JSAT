@@ -39,7 +39,7 @@ public class ZeroMeanTransform implements InPlaceInvertibleTransform
     @Override
     public void fit(DataSet dataset)
     {
-        shiftVector = new DenseVector(dataset.getNumNumericalVars());
+        shiftVector = DenseVector.a(dataset.getNumNumericalVars());
         shiftVector = dataset.getColumnMeanVariance()[0];
     }
     

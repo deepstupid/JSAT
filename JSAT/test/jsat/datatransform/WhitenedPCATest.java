@@ -25,13 +25,11 @@ public class WhitenedPCATest
     }
 
     @BeforeClass
-    public static void setUpClass() throws Exception
-    {
+    public static void setUpClass() {
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception
-    {
+    public static void tearDownClass() {
     }
     
     @Before
@@ -52,7 +50,7 @@ public class WhitenedPCATest
     public void testTransform()
     {
         System.out.println("testTransform");
-        NormalM normal = new NormalM(new DenseVector(3), new DenseMatrix(new double[][]
+        NormalM normal = new NormalM(DenseVector.a(3), new DenseMatrix(new double[][]
         {
             {133.138,   -57.278,    40.250},
             {-57.278,    25.056,   -17.500},

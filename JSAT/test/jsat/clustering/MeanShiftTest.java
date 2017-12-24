@@ -37,8 +37,7 @@ public class MeanShiftTest
     static private ExecutorService ex;
 
     @BeforeClass
-    public static void setUpClass() throws Exception
-    {
+    public static void setUpClass() {
         meanShift = new MeanShift();
         GridDataGenerator gdg = new GridDataGenerator(new Normal(0, 0.10), new Random(12), 2, 5);
         easyData10 = gdg.generateData(40);
@@ -46,8 +45,7 @@ public class MeanShiftTest
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception
-    {
+    public static void tearDownClass() {
         ex.shutdown();
     }
     

@@ -3,7 +3,7 @@ package jsat.classifiers.linear;
 import static java.lang.Math.*;
 import java.util.Arrays;
 import java.util.Random;
-import java.util.concurrent.ExecutorService;
+
 import jsat.DataSet;
 import jsat.classifiers.CategoricalResults;
 import jsat.classifiers.ClassificationDataSet;
@@ -138,7 +138,7 @@ public class SMIDAS extends StochasticSTLinearL1
         
         Vec obvMinV = DenseVector.toDenseVec(obvMin);
         Vec obvMaxV = DenseVector.toDenseVec(obvMax);
-        Vec multitpliers = new DenseVector(obvMaxV.length());
+        Vec multitpliers = DenseVector.a(obvMaxV.length());
         multitpliers.mutableAdd(maxScaled-minScaled);
         multitpliers.mutablePairwiseDivide(obvMaxV.subtract(obvMinV));
         
@@ -180,7 +180,7 @@ public class SMIDAS extends StochasticSTLinearL1
         
         Vec obvMinV = DenseVector.toDenseVec(obvMin);
         Vec obvMaxV = DenseVector.toDenseVec(obvMax);
-        Vec multitpliers = new DenseVector(obvMaxV.length());
+        Vec multitpliers = DenseVector.a(obvMaxV.length());
         multitpliers.mutableAdd(maxScaled-minScaled);
         multitpliers.mutablePairwiseDivide(obvMaxV.subtract(obvMinV));
         
@@ -214,10 +214,10 @@ public class SMIDAS extends StochasticSTLinearL1
         final int d = x[0].length();
         final double p = 2*Math.log(d);
         
-        Vec theta = new DenseVector(d);
+        Vec theta = DenseVector.a(d);
         double theta_bias = 0;
         double lossScore = 0;
-        w = new DenseVector(d);
+        w = DenseVector.a(d);
         
         Random rand = RandomUtil.getRandom();
         
@@ -232,8 +232,8 @@ public class SMIDAS extends StochasticSTLinearL1
 
             for(IndexValue iv : theta)
             {
-                int j = iv.getIndex();
-                double theta_j = iv.getValue();//theta.get(j);
+                int j = iv.index;
+                double theta_j = iv.value;//theta.get(j);
                 theta.set(j, signum(theta_j)*max(0, abs(theta_j)-eta*lambda));
             }
             theta_bias = signum(theta_bias)*max(0, abs(theta_bias)-eta*lambda);
@@ -295,8 +295,8 @@ public class SMIDAS extends StochasticSTLinearL1
 
             for(IndexValue iv : x[i])
             {
-                int j = iv.getIndex();
-                double v = iv.getValue();
+                int j = iv.index;
+                double v = iv.value;
                 obvMin[j] = Math.min(obvMin[j], v);
                 obvMax[j] = Math.max(obvMax[j], v);
             }

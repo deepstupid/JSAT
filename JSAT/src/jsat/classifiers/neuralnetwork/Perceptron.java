@@ -96,7 +96,7 @@ public class Perceptron implements BinaryScoreClassifier, SingleWeightVectorMode
 
         public BatchTrainingUnit(List<DataPointPair<Integer>> toOperateOn)
         {
-            this.tmpSummedErrors = new DenseVector(weights.length());
+            this.tmpSummedErrors = DenseVector.a(weights.length());
             this.dataPoints = toOperateOn;
             this.globalError = 0;
             this.biasChange = 0;
@@ -144,7 +144,7 @@ public class Perceptron implements BinaryScoreClassifier, SingleWeightVectorMode
         Random r = RandomUtil.getRandom();
         int numerVars = dataSet.getNumNumericalVars();
         
-        weights = new DenseVector(numerVars);
+        weights = DenseVector.a(numerVars);
         for(int i = 0; i < weights.length(); i++)//give all variables a random weight in the range [0,1]
             weights.set(i, r.nextDouble());
         
@@ -158,7 +158,7 @@ public class Perceptron implements BinaryScoreClassifier, SingleWeightVectorMode
         do
         {
             globalError = 0;
-            final Vec sumedErrors = new DenseVector(weights.length());
+            final Vec sumedErrors = DenseVector.a(weights.length());
             double biasChange = 0;
             
             
@@ -232,7 +232,7 @@ public class Perceptron implements BinaryScoreClassifier, SingleWeightVectorMode
         Random r = RandomUtil.getRandom();
         int numerVars = dataSet.getNumNumericalVars();
         
-        weights = new DenseVector(numerVars);
+        weights = DenseVector.a(numerVars);
         for(int i = 0; i < weights.length(); i++)//give all variables a random weight in the range [0,1]
             weights.set(i, r.nextDouble());
         

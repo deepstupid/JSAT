@@ -25,7 +25,6 @@ import jsat.lossfunctions.SoftmaxLoss;
 import jsat.math.FunctionP;
 import jsat.math.FunctionVec;
 import jsat.math.optimization.*;
-import jsat.parameters.Parameter;
 import jsat.parameters.Parameterized;
 import jsat.regression.*;
 import jsat.utils.ListUtils;
@@ -234,7 +233,7 @@ public class LinearBatch implements Classifier, Regressor, Parameterized, Simple
             return ((LossC)loss).getClassification(ws[0].dot(x)+bs[0]);
         else
         {
-            Vec pred = new DenseVector(ws.length);
+            Vec pred = DenseVector.a(ws.length);
             for(int i = 0; i < ws.length; i++)
                 pred.set(i, ws[i].dot(x)+bs[i]);
             ((LossMC)loss).process(pred, pred);
@@ -278,7 +277,7 @@ public class LinearBatch implements Classifier, Regressor, Parameterized, Simple
             bs = new double[1];
         }
         for (int i = 0; i < ws.length; i++)
-            ws[i] = new DenseVector(D.getNumNumericalVars());
+            ws[i] = DenseVector.a(D.getNumNumericalVars());
 
         Optimizer2 optimizerToUse;
         if(optimizer == null)
@@ -366,7 +365,7 @@ public class LinearBatch implements Classifier, Regressor, Parameterized, Simple
             throw new FailedToFitException("LinearBath requires numeric features to work");
         if(!(loss instanceof LossR))
             throw new FailedToFitException("Loss function " + loss.getClass().getSimpleName() + " does not regression");
-        ws = new Vec[]{ new DenseVector(D.getNumNumericalVars()) };
+        ws = new Vec[]{DenseVector.a(D.getNumNumericalVars())};
         bs = new double[1];
         
         Optimizer2 optimizerToUse;
@@ -711,7 +710,7 @@ public class LinearBatch implements Classifier, Regressor, Parameterized, Simple
         public double f(Vec w)
         {
             double sum = 0;
-            Vec pred = new DenseVector(D.getClassSize());//store the predictions in
+            Vec pred = DenseVector.a(D.getClassSize());//store the predictions in
             //bias terms are at the end, treat them seperate and special
             final int subWSize = (w.length() - (useBiasTerm ? bs.length : 0) )/D.getClassSize();
             double weightSum = 0;
@@ -746,7 +745,7 @@ public class LinearBatch implements Classifier, Regressor, Parameterized, Simple
                 final int ID = p;
                 partialSums.add(ex.submit(() -> {
                     double sum = 0;
-                    Vec pred = new DenseVector(D.getClassSize());//store the predictions in
+                    Vec pred = DenseVector.a(D.getClassSize());//store the predictions in
                     double weightSum = 0;
                     for (int i = ParallelUtils.getStartBlock(N, ID, P); i < ParallelUtils.getEndBlock(N, ID, P); i++)
                     {
@@ -826,7 +825,7 @@ public class LinearBatch implements Classifier, Regressor, Parameterized, Simple
                 s = w.clone();
             s.zeroOut();
             
-            Vec pred = new DenseVector(D.getClassSize());//store the predictions in
+            Vec pred = DenseVector.a(D.getClassSize());//store the predictions in
             final int subWSize = (w.length() - (useBiasTerm ? bs.length : 0) )/D.getClassSize();
             double weightSum = 0;
             for (int i = 0; i < D.getSampleSize(); i++)
@@ -870,7 +869,7 @@ public class LinearBatch implements Classifier, Regressor, Parameterized, Simple
                 ex.submit(() -> {
                     Vec temp = tempVecs.get();
                     temp.zeroOut();
-                    Vec pred = new DenseVector(D.getClassSize());//store the predictions in
+                    Vec pred = DenseVector.a(D.getClassSize());//store the predictions in
                     double weightSum = 0;
                     for (int i = ParallelUtils.getStartBlock(N, ID, P); i < ParallelUtils.getEndBlock(N, ID, P); i++)
                     {
@@ -884,7 +883,7 @@ public class LinearBatch implements Classifier, Regressor, Parameterized, Simple
                         int y = D.getDataPointCategory(i);
                         loss.deriv(pred, pred, y);
                         for(IndexValue iv : pred)
-                            new SubVector(iv.getIndex() * subWSize, subWSize, temp).mutableAdd(iv.getValue()*dp.getWeight(), x);
+                            new SubVector(iv.index * subWSize, subWSize, temp).mutableAdd(iv.value *dp.getWeight(), x);
                         weightSum += dp.getWeight();
                     }
                     synchronized (store)

@@ -215,7 +215,7 @@ public class Stacking implements Classifier, Regressor
     @Override
     public CategoricalResults classify(DataPoint data)
     {
-        Vec w = new DenseVector(weightsPerModel*baseClassifiers.size());
+        Vec w = DenseVector.a(weightsPerModel*baseClassifiers.size());
         if(weightsPerModel == 1)
             for(int i = 0; i < baseClassifiers.size(); i++)
                 w.set(i, baseClassifiers.get(i).classify(data).getProb(0)*2-1);
@@ -245,7 +245,7 @@ public class Stacking implements Classifier, Regressor
         //iterate in the order of the folds so we get the right dataum weights
         for(ClassificationDataSet cds : dataFolds)
             for(int i = 0; i < cds.getSampleSize(); i++)
-                metaSet.addDataPoint(new DenseVector(weightsPerModel*models), cds.getDataPointCategory(i), cds.getDataPoint(i).getWeight());
+                metaSet.addDataPoint(DenseVector.a(weightsPerModel*models), cds.getDataPointCategory(i), cds.getDataPoint(i).getWeight());
         
         //create the meta training set
         for(int c = 0; c < baseClassifiers.size(); c++)
@@ -298,7 +298,7 @@ public class Stacking implements Classifier, Regressor
     @Override
     public double regress(DataPoint data)
     {
-        Vec w = new DenseVector(baseRegressors.size());
+        Vec w = DenseVector.a(baseRegressors.size());
         for (int i = 0; i < baseRegressors.size(); i++)
             w.set(i, baseRegressors.get(i).regress(data));
 
@@ -316,7 +316,7 @@ public class Stacking implements Classifier, Regressor
         //iterate in the order of the folds so we get the right dataum weights
         for(RegressionDataSet rds : dataFolds)
             for(int i = 0; i < rds.getSampleSize(); i++)
-                metaSet.addDataPoint(new DataPoint(new DenseVector(weightsPerModel*models), rds.getDataPoint(i).getWeight()), rds.getTargetValue(i));
+                metaSet.addDataPoint(new DataPoint(DenseVector.a(weightsPerModel*models), rds.getDataPoint(i).getWeight()), rds.getTargetValue(i));
         
         //create the meta training set
         for(int c = 0; c < baseRegressors.size(); c++)

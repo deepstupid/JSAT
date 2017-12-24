@@ -132,7 +132,7 @@ public class EigenvalueDecompositionTest
         Random rand = new Random(123);
         
         Matrix V = Matrix.random(7, 7, rand);
-        Matrix D = Matrix.diag(DenseVector.random(7, rand).multiply(10));
+        Matrix D = Matrix.diag(Vec.random(7, rand).multiply(10));
         SingularValueDecomposition svd = new SingularValueDecomposition(V.clone());
         Matrix A = V.multiply(D).multiply(svd.getPseudoInverse());
         EigenValueDecomposition evd = new EigenValueDecomposition(A);
@@ -147,7 +147,7 @@ public class EigenvalueDecompositionTest
         Random rand = new Random(123);
         
         Matrix V = Matrix.random(70, 70, rand);
-        Matrix D = Matrix.diag(DenseVector.random(70, rand).multiply(10));
+        Matrix D = Matrix.diag(Vec.random(70, rand).multiply(10));
         SingularValueDecomposition svd = new SingularValueDecomposition(V.clone());
         Matrix A = V.multiply(D).multiply(svd.getPseudoInverse());
         EigenValueDecomposition evd = new EigenValueDecomposition(A);

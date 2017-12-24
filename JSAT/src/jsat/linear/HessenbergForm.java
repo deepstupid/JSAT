@@ -30,7 +30,7 @@ public class HessenbergForm implements Serializable
         /**
          * Space used to store the vector for updating the columns of A
          */
-        DenseVector columnUpdateTmp = new DenseVector(m);
+        DenseVector columnUpdateTmp = DenseVector.a(m);
         double[] vk = new double[m];
         /**
          * Space used for updating the sub matrix at step i

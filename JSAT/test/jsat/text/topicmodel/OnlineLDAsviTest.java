@@ -1,7 +1,5 @@
 package jsat.text.topicmodel;
 
-import jsat.text.topicmodel.OnlineLDAsvi;
-
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -14,7 +12,6 @@ import jsat.linear.*;
 import jsat.utils.IntSet;
 import jsat.utils.SystemInfo;
 import jsat.utils.random.RandomUtil;
-import jsat.utils.random.XORWOW;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -96,7 +93,7 @@ public class OnlineLDAsviTest
                 Random rand = RandomUtil.getRandom();
                 for(Vec topicSample : dirichlet.sample(100000, rand))
                 {
-                    Vec doc = new DenseVector(basis.get(0).length());
+                    Vec doc = DenseVector.a(basis.get(0).length());
                     //sample 40 times
                     for(int i = 0; i < 100; i++)
                     {
@@ -117,7 +114,7 @@ public class OnlineLDAsviTest
                         {
                             if(pos == randBasisWord)
                             {
-                                doc.increment(iv.getIndex() , 1.0);
+                                doc.increment(iv.index, 1.0);
                                 break;
                             }
                             pos++;
@@ -183,7 +180,7 @@ public class OnlineLDAsviTest
         //make sure that computing the topic distirbution works
         for(Vec topicSample : dirichlet.sample(100, rand))
         {
-            Vec doc = new DenseVector(basis.get(0).length());
+            Vec doc = DenseVector.a(basis.get(0).length());
             //sample 40 times
             for(int i = 0; i < 100; i++)
             {
@@ -204,7 +201,7 @@ public class OnlineLDAsviTest
                 {
                     if(pos == randBasisWord)
                     {
-                        doc.increment(iv.getIndex(), 1.0);
+                        doc.increment(iv.index, 1.0);
                         break;
                     }
                     pos++;

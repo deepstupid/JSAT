@@ -1,6 +1,5 @@
 package jsat.classifiers.evaluation;
 
-import jsat.classifiers.evaluation.F1Score;
 import jsat.classifiers.CategoricalData;
 import jsat.classifiers.CategoricalResults;
 import org.junit.After;

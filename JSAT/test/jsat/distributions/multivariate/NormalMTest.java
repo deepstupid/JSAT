@@ -24,13 +24,11 @@ public class NormalMTest
     }
 
     @BeforeClass
-    public static void setUpClass() throws Exception
-    {
+    public static void setUpClass() {
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception
-    {
+    public static void tearDownClass() {
     }
     
     @Before
@@ -57,7 +55,7 @@ public class NormalMTest
         Matrix t2 = new DenseMatrix(2, 3);//Should fail, not square
         Matrix t3 = new DenseMatrix(3, 2);//Should fail, not square
         
-        Matrix[] shouldFail = new Matrix[] {t1, t2, t3};
+        Matrix[] shouldFail = {t1, t2, t3};
 
         for (Matrix badMatrix : shouldFail)
             try
@@ -80,8 +78,7 @@ public class NormalMTest
     {
         System.out.println("logPdf");
         NormalM normalM = new NormalM(mean, covariance);
-        Vec[] xVals = new Vec[] 
-        {
+        Vec[] xVals = {
             DenseVector.toDenseVec(1, 0), DenseVector.toDenseVec(1, 1),
             DenseVector.toDenseVec(0, 1), DenseVector.toDenseVec(-1, 0),
             DenseVector.toDenseVec(0, -1), DenseVector.toDenseVec(-1, -1),
@@ -89,8 +86,7 @@ public class NormalMTest
             DenseVector.toDenseVec(1, -1), DenseVector.toDenseVec(-1, 1),
         };
         
-        double[] pVals = new double[]
-        {
+        double[] pVals = {
             -4.825148700723577e+000, -1.709787597345085e+001,
             -2.573423960981450e+001, -1.755242142799632e+001,
             -2.097875973450849e+000, -6.188785064359943e+000,
@@ -110,8 +106,7 @@ public class NormalMTest
     {
         System.out.println("pdf");
         NormalM normalM = new NormalM(mean, covariance);
-        Vec[] xVals = new Vec[] 
-        {
+        Vec[] xVals = {
             DenseVector.toDenseVec(1, 0), DenseVector.toDenseVec(1, 1),
             DenseVector.toDenseVec(0, 1), DenseVector.toDenseVec(-1, 0),
             DenseVector.toDenseVec(0, -1), DenseVector.toDenseVec(-1, -1),
@@ -119,8 +114,7 @@ public class NormalMTest
             DenseVector.toDenseVec(1, -1), DenseVector.toDenseVec(-1, 1),
         };
         
-        double[] pVals = new double[]
-        {
+        double[] pVals = {
             8.025360404763595e-003, 3.753935553147029e-008,
             6.664410523370948e-012, 2.382759609937137e-008,
             1.227168053837841e-001, 2.052318674310052e-003,

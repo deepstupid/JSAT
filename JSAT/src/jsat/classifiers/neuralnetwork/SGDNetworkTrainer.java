@@ -28,7 +28,6 @@ import jsat.math.optimization.stochastic.GradientUpdater;
 import jsat.math.optimization.stochastic.SimpleSGD;
 import jsat.utils.SystemInfo;
 import jsat.utils.random.RandomUtil;
-import jsat.utils.random.XORWOW;
 
 /**
  * This class provides a highly configurable and generalized method of training 
@@ -399,7 +398,7 @@ public class SGDNetworkTrainer implements Serializable
             W.add(new DenseMatrix(layerSizes[l], layerSizes[l-1]));
             weightInit.init(W.get(W.size()-1), rand);
             
-            B.add(new DenseVector(layerSizes[l]));
+            B.add(DenseVector.a(layerSizes[l]));
             biasInit.init(B.get(B.size()-1), layerSizes[l-1], rand);
             
         }
@@ -425,7 +424,7 @@ public class SGDNetworkTrainer implements Serializable
         for(int l = 1; l < layerSizes.length; l++)
         {
             W_deltas.add(new DenseMatrix(layerSizes[l], layerSizes[l-1]));
-            B_deltas.add(new DenseVector(layerSizes[l]));
+            B_deltas.add(DenseVector.a(layerSizes[l]));
             //updaters
             List<GradientUpdater> W_updaters_l = new ArrayList<GradientUpdater>(layerSizes[l]);
             for(int i = 0; i < layerSizes[l]; i++)
@@ -602,7 +601,7 @@ public class SGDNetworkTrainer implements Serializable
         Vec a_lprev = x;
         for (int l = 0; l < layersActivation.size(); l++)
         {
-            Vec z_l = new DenseVector(layerSizes[l+1]);
+            Vec z_l = DenseVector.a(layerSizes[l+1]);
             z_l.zeroOut();
             W.get(l).multiply(a_lprev, 1.0, z_l);
 

@@ -225,7 +225,7 @@ public class FastICA implements InvertibleTransform
     {
         int N = data.getSampleSize();
         
-        Vec tmp = new DenseVector(N);
+        Vec tmp = DenseVector.a(N);
              
         List<Vec> ws = new ArrayList<Vec>(C);
         
@@ -248,7 +248,7 @@ public class FastICA implements InvertibleTransform
             X = data.getDataMatrixView();
         
         int subD = X.cols();//projected space may be smaller if low rank
-        Vec w_tmp = new DenseVector(subD);//used to check for convergence
+        Vec w_tmp = DenseVector.a(subD);//used to check for convergence
         
         int maxIter = 500;//TODO make this configurable
                 

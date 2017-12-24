@@ -86,9 +86,9 @@ public class StringUtilsTest
         System.out.println("parseDouble");
         Random rand = new Random(42);
         
-        String[] signOps = new String[]{"+", "-", ""};
-        String[] Es = new String[]{"e", "E"};
-        String[] zeros = new String[]{"","", "", "0", "00", "000", "0000"};
+        String[] signOps = {"+", "-", ""};
+        String[] Es = {"e", "E"};
+        String[] zeros = {"","", "", "0", "00", "000", "0000"};
         
         double truth, attempt;
         String toTest;

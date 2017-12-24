@@ -177,7 +177,7 @@ public class WhitenedPCA extends DataTransformBase
      */
     protected void setUpTransform(SingularValueDecomposition svd)
     {
-        Vec diag = new DenseVector(dimensions);
+        Vec diag = DenseVector.a(dimensions);
         
         double[] s = svd.getSingularValues();
         

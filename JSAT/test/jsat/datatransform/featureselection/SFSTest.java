@@ -113,7 +113,7 @@ public class SFSTest
         int cSize = 40;
         for(int i = 0; i < cSize; i++)
         {
-            Vec dv = DenseVector.random(10, rand);
+            Vec dv = Vec.random(10, rand);
             dv.mutableDivide(3);
             
             dv.set(t0, 5.0);
@@ -125,7 +125,7 @@ public class SFSTest
         
         for(int i = 0; i < cSize; i++)
         {
-            Vec dv = DenseVector.random(10, rand);
+            Vec dv = Vec.random(10, rand);
             dv.mutableDivide(3);
             
             dv.set(t0, 5.0);
@@ -136,7 +136,7 @@ public class SFSTest
         
         for(int i = 0; i < cSize; i++)
         {
-            Vec dv = DenseVector.random(10, rand);
+            Vec dv = Vec.random(10, rand);
             dv.mutableDivide(3);
             
             dv.set(t0, 5.0);
@@ -147,7 +147,7 @@ public class SFSTest
         
         for(int i = 0; i < cSize; i++)
         {
-            Vec dv = DenseVector.random(10, rand);
+            Vec dv = Vec.random(10, rand);
             dv.mutableDivide(3);
             
             dv.set(t0, 0.0);
@@ -166,7 +166,7 @@ public class SFSTest
         int cSize = 80;
         for(int i = 0; i < cSize; i++)
         {
-            Vec dv = DenseVector.random(10, rand);
+            Vec dv = Vec.random(10, rand);
             
             cds.addDataPoint(dv, new int[0], dv.get(t0)*6 + dv.get(t1)*4 + dv.get(t2)*8);
             

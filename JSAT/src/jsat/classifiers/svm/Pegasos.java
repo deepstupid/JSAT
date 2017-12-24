@@ -247,7 +247,7 @@ public class Pegasos implements BinaryScoreClassifier, Parameterized, SingleWeig
         if(dataSet.getClassSize() != 2)
             throw new FailedToFitException("SVM only supports binary classificaiton problems");
         final int m = dataSet.getSampleSize();
-        w = new DenseVector(dataSet.getNumNumericalVars());
+        w = DenseVector.a(dataSet.getNumNumericalVars());
         if(projectionStep)
             w = new VecWithNorm(w, 0.0);
         w = new ScaledVector(w);

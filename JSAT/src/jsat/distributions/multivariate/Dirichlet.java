@@ -150,7 +150,7 @@ public class Dirichlet extends MultivariateDistributionSkeleton
             }
         };
         NelderMead optimize = new NelderMead();
-        Vec guess = new DenseVector(dataSet.get(0).length());
+        Vec guess = DenseVector.a(dataSet.get(0).length());
         List<Vec> guesses = new ArrayList<Vec>();
         guesses.add(guess.add(1.0));
         guesses.add(guess.add(0.1));
@@ -194,7 +194,7 @@ public class Dirichlet extends MultivariateDistributionSkeleton
             }
         };
         NelderMead optimize = new NelderMead();
-        Vec guess = new DenseVector(dataPoint.get(0).numNumericalValues());
+        Vec guess = DenseVector.a(dataPoint.get(0).numNumericalValues());
         List<Vec> guesses = new ArrayList<Vec>();
         guesses.add(guess.add(1.0));
         guesses.add(guess.add(0.1));
@@ -217,7 +217,7 @@ public class Dirichlet extends MultivariateDistributionSkeleton
         
         for(int i = 0; i < count; i++)
         {
-            Vec sample = new DenseVector(alphas.length());
+            Vec sample = DenseVector.a(alphas.length());
             for(int j = 0; j < alphas.length(); j++)
                 sample.set(j, gammaSamples[j][i]);
             sample.mutableDivide(sample.sum());

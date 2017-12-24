@@ -55,8 +55,8 @@ public class LinearSGDTest
     {
     }
 
-    static boolean[] useBiasOptions = new boolean[]{true, false};
-    static GradientUpdater[] updaters = new GradientUpdater[]{new SimpleSGD(), new AdaGrad(), new RMSProp()};
+    static boolean[] useBiasOptions = {true, false};
+    static GradientUpdater[] updaters = {new SimpleSGD(), new AdaGrad(), new RMSProp()};
     
     @Test
     public void testClassifyBinary()

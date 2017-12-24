@@ -165,7 +165,7 @@ public class BFGS implements Optimizer2
             return grad.pNorm(2);
         double max = 0;
         for(IndexValue iv : grad)
-            max = Math.max(max, Math.abs(iv.getValue()));
+            max = Math.max(max, Math.abs(iv.value));
         return max;
     }
 

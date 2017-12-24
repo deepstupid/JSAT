@@ -141,7 +141,7 @@ public class LSSVMTest
         }
     }
     
-    @Test()
+    @Test
     public void testTrainWarmC()
     {
         ClassificationDataSet train = FixedProblems.getHalfCircles(100, RandomUtil.getRandom(), 0.1, 0.2);
@@ -178,7 +178,7 @@ public class LSSVMTest
         
     }
     
-    @Test()
+    @Test
     public void testTrainWarmR()
     {
         RegressionDataSet train = FixedProblems.getSimpleRegression1(75, RandomUtil.getRandom());

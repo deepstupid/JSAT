@@ -81,8 +81,8 @@ public class ShiftedVecTest
         b_sparse.mutableAdd(shift_b);
         
         Random rand = RandomUtil.getRandom();
-        rand_x = new DenseVector(a_base.length());
-        rand_y = new DenseVector(a_base.length());
+        rand_x = DenseVector.a(a_base.length());
+        rand_y = DenseVector.a(a_base.length());
         
         for(int i =0 ; i < rand_x.length(); i++)
         {
@@ -470,9 +470,9 @@ public class ShiftedVecTest
             {
                 IndexValue expIV = expIter.next();
                 IndexValue actIV = actIter.next();
-                
-                assertEquals(expIV.getIndex(), actIV.getIndex());
-                assertEquals(expIV.getValue(), actIV.getValue(), 1e-10);
+
+                assertEquals(expIV.index, actIV.index);
+                assertEquals(expIV.value, actIV.value, 1e-10);
             }
             
             assertTrue(expIter.hasNext() == actIter.hasNext());
@@ -487,9 +487,9 @@ public class ShiftedVecTest
             {
                 IndexValue expIV = expIter.next();
                 IndexValue actIV = actIter.next();
-                
-                assertEquals(expIV.getIndex(), actIV.getIndex());
-                assertEquals(expIV.getValue(), actIV.getValue(), 1e-10);
+
+                assertEquals(expIV.index, actIV.index);
+                assertEquals(expIV.value, actIV.value, 1e-10);
                 
                 assertTrue(expIter.hasNext() == actIter.hasNext());
             }
@@ -507,9 +507,9 @@ public class ShiftedVecTest
             {
                 IndexValue expIV = expIter.next();
                 IndexValue actIV = actIter.next();
-                
-                assertEquals(expIV.getIndex(), actIV.getIndex());
-                assertEquals(expIV.getValue(), actIV.getValue(), 1e-10);
+
+                assertEquals(expIV.index, actIV.index);
+                assertEquals(expIV.value, actIV.value, 1e-10);
                 
                 assertTrue(expIter.hasNext() == actIter.hasNext());
             }

@@ -34,8 +34,7 @@ public class CLARATest
     static private ExecutorService ex;
 
     @BeforeClass
-    public static void setUpClass() throws Exception
-    {
+    public static void setUpClass() {
         algo = new CLARA();
         GridDataGenerator gdg = new GridDataGenerator(new Uniform(-0.05, 0.05), new XORWOW(12), 2, 5);
         easyData10 = gdg.generateData(40);
@@ -45,8 +44,7 @@ public class CLARATest
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception
-    {
+    public static void tearDownClass() {
         ex.shutdown();
     }
     

@@ -29,7 +29,7 @@ public class MatrixStatistics
         if(dataSet.isEmpty())
             throw new ArithmeticException("Can not compute the mean of zero data points");
         
-        Vec mean = new DenseVector(dataSet.get(0).length());
+        Vec mean = DenseVector.a(dataSet.get(0).length());
         meanVector(mean, dataSet);
         return mean;
     }
@@ -42,7 +42,7 @@ public class MatrixStatistics
      */
     public static Vec meanVector(DataSet dataSet)
     {
-        DenseVector dv = new DenseVector(dataSet.getNumNumericalVars());
+        DenseVector dv = DenseVector.a(dataSet.getNumNumericalVars());
         meanVector(dv, dataSet);
         return dv;
     }
@@ -114,7 +114,7 @@ public class MatrixStatistics
          * i = 1
          * 
          */
-        Vec scratch = new DenseVector(mean.length());
+        Vec scratch = DenseVector.a(mean.length());
         for (Vec x : dataSet)
         {
             x.copyTo(scratch);
@@ -189,7 +189,7 @@ public class MatrixStatistics
          * \i = 1   /    i = 1
          */
 
-        Vec scratch = new DenseVector(mean.length());
+        Vec scratch = DenseVector.a(mean.length());
 
         for (int i = 0; i < dataSet.size(); i++)
         {
@@ -275,7 +275,7 @@ public class MatrixStatistics
          * \i = 1   /    i = 1
          */
 
-        Vec scratch = new DenseVector(mean.length());
+        Vec scratch = DenseVector.a(mean.length());
 
         for (int i = 0; i < dataSet.getSampleSize(); i++)
         {
@@ -312,9 +312,9 @@ public class MatrixStatistics
             Vec x = dataset.getDataPoint(i).getNumericalValues();
             for(IndexValue iv : x)
             {
-                int indx = iv.getIndex();
+                int indx = iv.index;
                 nnzCounts[indx]++;
-                diag.increment(indx, w*pow(iv.getValue()-means.get(indx), 2));
+                diag.increment(indx, w*pow(iv.value -means.get(indx), 2));
             }
         }
         
@@ -334,7 +334,7 @@ public class MatrixStatistics
      */
     public static Vec covarianceDiag(Vec means, DataSet dataset)
     {
-        DenseVector diag = new DenseVector(dataset.getNumNumericalVars());
+        DenseVector diag = DenseVector.a(dataset.getNumNumericalVars());
         covarianceDiag(means, diag, dataset);
         return diag;
     }
@@ -360,9 +360,9 @@ public class MatrixStatistics
             Vec x = dataset.get(i);
             for(IndexValue iv : x)
             {
-                int indx = iv.getIndex();
+                int indx = iv.index;
                 nnzCounts[indx]++;
-                diag.increment(indx, pow(iv.getValue()-means.get(indx), 2));
+                diag.increment(indx, pow(iv.value -means.get(indx), 2));
             }
         }
         
@@ -384,7 +384,7 @@ public class MatrixStatistics
     public static <V extends Vec> Vec covarianceDiag(Vec means, List<V> dataset)
     {
         final int d = dataset.get(0).length();
-        DenseVector diag = new DenseVector(d);
+        DenseVector diag = DenseVector.a(d);
         covarianceDiag(means, diag, dataset);;
         return diag;
     }

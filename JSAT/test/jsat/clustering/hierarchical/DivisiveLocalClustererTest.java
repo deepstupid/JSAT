@@ -33,8 +33,7 @@ public class DivisiveLocalClustererTest
     }
 
     @BeforeClass
-    public static void setUpClass() throws Exception 
-    {
+    public static void setUpClass() {
         DistanceMetric dm = new EuclideanDistance();
         dlc = new DivisiveLocalClusterer(new ElkanKMeans(dm), new DaviesBouldinIndex(dm));
         GridDataGenerator gdg = new GridDataGenerator(new Uniform(-0.15, 0.15), new Random(12), 2, 2);
@@ -43,7 +42,7 @@ public class DivisiveLocalClustererTest
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception {
+    public static void tearDownClass() {
     }
 
     @Before

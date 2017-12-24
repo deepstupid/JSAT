@@ -59,9 +59,9 @@ public class IterativelyReweightedLeastSquares implements Optimizer
                 coefficentMatrix.set(i, j, x_i.get(j-1));
         }
         
-        derivatives = new DenseVector(inputs.size());
-        errors = new DenseVector(outputs.length());
-        gradiant = new DenseVector(vars.length());
+        derivatives = DenseVector.a(inputs.size());
+        errors = DenseVector.a(outputs.length());
+        gradiant = DenseVector.a(vars.length());
         
         double maxChange = Double.MAX_VALUE;
         //No reason to do the if check in a tightish loop 

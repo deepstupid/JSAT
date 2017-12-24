@@ -409,7 +409,7 @@ public class ModifiedOWLQN implements Optimizer2
             return 0;
         double pen = 0;
         for(IndexValue iv : w)
-            pen += lambda*lambdaMul.get(iv.getIndex())*abs(iv.getValue());
+            pen += lambda*lambdaMul.get(iv.index)*abs(iv.value);
         return pen;
     }
     

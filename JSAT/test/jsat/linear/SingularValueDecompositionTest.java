@@ -47,6 +47,7 @@ public class SingularValueDecompositionTest
         
     static ExecutorService threadpool = Executors.newFixedThreadPool(SystemInfo.LogicalCores+1, new ThreadFactory() {
 
+        @Override
         public Thread newThread(Runnable r)
         {
             Thread thread = new Thread(r);
@@ -86,13 +87,11 @@ public class SingularValueDecompositionTest
     }
 
     @BeforeClass
-    public static void setUpClass() throws Exception
-    {
+    public static void setUpClass() {
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception
-    {
+    public static void tearDownClass() {
     }
     
     @Before
@@ -154,9 +153,9 @@ public class SingularValueDecompositionTest
     public void testGetSingularValues()
     {
         System.out.println("getSingularValues");
-        double[] sValsATrue = new double[] {25.615015549269760,   9.967372402268001 ,  4.046901102951370 ,  2.356215314072247,   1.262262517005518};
-        double[] sValsDTrue = new double[] {10.866928472828468,   4.351234464538032,   3.997076957108316,                   0,                   0};
-        double[] sValsCTrue = new double[] {29.846912916029009,  11.902860295602228,   9.905493706861000,   6.102122989264148,   1.768896722137177};
+        double[] sValsATrue = {25.615015549269760,   9.967372402268001 ,  4.046901102951370 ,  2.356215314072247,   1.262262517005518};
+        double[] sValsDTrue = {10.866928472828468,   4.351234464538032,   3.997076957108316,                   0,                   0};
+        double[] sValsCTrue = {29.846912916029009,  11.902860295602228,   9.905493706861000,   6.102122989264148,   1.768896722137177};
         
         double[] sValsA = new SingularValueDecomposition(A).getSingularValues();
         double[] sValsD = new SingularValueDecomposition(D).getSingularValues();
@@ -242,9 +241,9 @@ public class SingularValueDecompositionTest
     public void testGetInverseSingularValues_0args()
     {
         System.out.println("getInverseSingularValues");
-        double[] sValsATrue = new double[] {1.0/25.615015549269760,   1.0/9.967372402268001 ,  1.0/4.046901102951370 ,  1.0/2.356215314072247,   1.0/1.262262517005518};
-        double[] sValsDTrue = new double[] {1.0/10.866928472828468,   1.0/4.351234464538032,   1.0/3.997076957108316,                   0,                   0};
-        double[] sValsCTrue = new double[] {1.0/29.846912916029009,  1.0/11.902860295602228,   1.0/9.905493706861000,   1.0/6.102122989264148,   1.0/1.768896722137177};
+        double[] sValsATrue = {1.0/25.615015549269760,   1.0/9.967372402268001 ,  1.0/4.046901102951370 ,  1.0/2.356215314072247,   1.0/1.262262517005518};
+        double[] sValsDTrue = {1.0/10.866928472828468,   1.0/4.351234464538032,   1.0/3.997076957108316,                   0,                   0};
+        double[] sValsCTrue = {1.0/29.846912916029009,  1.0/11.902860295602228,   1.0/9.905493706861000,   1.0/6.102122989264148,   1.0/1.768896722137177};
         
         double[] sValsA = new SingularValueDecomposition(A).getInverseSingularValues();
         double[] sValsD = new SingularValueDecomposition(D).getInverseSingularValues();
@@ -266,9 +265,9 @@ public class SingularValueDecompositionTest
     {
         System.out.println("getInverseSingularValues");
         double tol = 5.0;
-        double[] sValsATrue = new double[] {1.0/25.615015549269760,   1.0/9.967372402268001 ,  0 ,  0,   0};
-        double[] sValsDTrue = new double[] {1.0/10.866928472828468,   0,   0,                   0,                   0};
-        double[] sValsCTrue = new double[] {1.0/29.846912916029009,  1.0/11.902860295602228,   1.0/9.905493706861000,   1.0/6.102122989264148,   0};
+        double[] sValsATrue = {1.0/25.615015549269760,   1.0/9.967372402268001 ,  0 ,  0,   0};
+        double[] sValsDTrue = {1.0/10.866928472828468,   0,   0,                   0,                   0};
+        double[] sValsCTrue = {1.0/29.846912916029009,  1.0/11.902860295602228,   1.0/9.905493706861000,   1.0/6.102122989264148,   0};
         
         double[] sValsA = new SingularValueDecomposition(A).getInverseSingularValues(tol);
         double[] sValsD = new SingularValueDecomposition(D).getInverseSingularValues(tol);

@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
+
 import jsat.DataSet;
 import jsat.classifiers.*;
 import jsat.classifiers.calibration.BinaryScoreClassifier;
@@ -29,9 +29,7 @@ import jsat.distributions.LogUniform;
 import jsat.distributions.Uniform;
 import jsat.exceptions.FailedToFitException;
 import jsat.linear.*;
-import jsat.parameters.Parameter;
 import jsat.parameters.Parameterized;
-import jsat.utils.FakeExecutor;
 import jsat.utils.IntList;
 import jsat.utils.ListUtils;
 
@@ -422,7 +420,7 @@ public class CPM implements BinaryScoreClassifier, Classifier, Parameterized
         int[] assignments = new int[D.getSampleSize()];//who owns each data point
         Arrays.fill(assignments, -1);//Starts out that no one is assigned! 
         
-        Vec dots = new DenseVector(W.rows());
+        Vec dots = DenseVector.a(W.rows());
         
         long t = 0;
         for(int epoch = 0; epoch < epochs; epoch++)
@@ -489,12 +487,12 @@ public class CPM implements BinaryScoreClassifier, Classifier, Parameterized
         final int d = dataSet.getNumNumericalVars();
         List<Vec> Wv_p = new ArrayList<Vec>(K);
         List<Vec> Wv_n = new ArrayList<Vec>(K);
-        bp = new DenseVector(K);
-        bn = new DenseVector(K);
+        bp = DenseVector.a(K);
+        bn = DenseVector.a(K);
         for(int i = 0; i < K; i++)
         {
-            Wv_p.add(new ScaledVector(new DenseVector(d)));
-            Wv_n.add(new ScaledVector(new DenseVector(d)));
+            Wv_p.add(new ScaledVector(DenseVector.a(d)));
+            Wv_n.add(new ScaledVector(DenseVector.a(d)));
         }
         MatrixOfVecs W_p = new MatrixOfVecs(Wv_p);
         MatrixOfVecs W_n = new MatrixOfVecs(Wv_n);

@@ -39,6 +39,7 @@ public class MatrixOfVecsTest
      */
     static ExecutorService threadpool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors()+1, new ThreadFactory() {
 
+        @Override
         public Thread newThread(Runnable r)
         {
             Thread thread = new Thread(r);
@@ -54,59 +55,41 @@ public class MatrixOfVecsTest
     @BeforeClass
     public static void setUpClass()
     {
-        A = new MatrixOfVecs(new Vec[] 
-        {
-            DenseVector.toDenseVec(1, 5, 4, 8, 9),
-            DenseVector.toDenseVec(1, 5, 7, 3, 7),
-            DenseVector.toDenseVec(0, 3, 8, 5, 6),
-            DenseVector.toDenseVec(3, 8, 0, 7, 0),
-            DenseVector.toDenseVec(1, 9, 2, 9, 6)
-        } );
+        A = new MatrixOfVecs(DenseVector.toDenseVec(1, 5, 4, 8, 9),
+                DenseVector.toDenseVec(1, 5, 7, 3, 7),
+                DenseVector.toDenseVec(0, 3, 8, 5, 6),
+                DenseVector.toDenseVec(3, 8, 0, 7, 0),
+                DenseVector.toDenseVec(1, 9, 2, 9, 6));
         
-        B = new MatrixOfVecs(new Vec[] 
-        {
-            DenseVector.toDenseVec(5, 3, 2, 8, 8),
-            DenseVector.toDenseVec(1, 8, 3, 6, 8),
-            DenseVector.toDenseVec(1, 2, 6, 5, 4),
-            DenseVector.toDenseVec(3, 9, 5, 9, 6),
-            DenseVector.toDenseVec(8, 3, 4, 3, 1)
-        } );
+        B = new MatrixOfVecs(DenseVector.toDenseVec(5, 3, 2, 8, 8),
+                DenseVector.toDenseVec(1, 8, 3, 6, 8),
+                DenseVector.toDenseVec(1, 2, 6, 5, 4),
+                DenseVector.toDenseVec(3, 9, 5, 9, 6),
+                DenseVector.toDenseVec(8, 3, 4, 3, 1));
         
-        C = new MatrixOfVecs(new Vec[] 
-        {
-            DenseVector.toDenseVec(1, 6, 8, 3, 1, 5, 10),
-            DenseVector.toDenseVec(5, 5, 3, 7, 2, 10, 0),
-            DenseVector.toDenseVec(8, 0, 5, 7, 9, 1, 8),
-            DenseVector.toDenseVec(9, 3, 2, 7, 2, 4, 8),
-            DenseVector.toDenseVec(1, 2, 6, 5, 8, 1, 9)
-        } );
+        C = new MatrixOfVecs(DenseVector.toDenseVec(1, 6, 8, 3, 1, 5, 10),
+                DenseVector.toDenseVec(5, 5, 3, 7, 2, 10, 0),
+                DenseVector.toDenseVec(8, 0, 5, 7, 9, 1, 8),
+                DenseVector.toDenseVec(9, 3, 2, 7, 2, 4, 8),
+                DenseVector.toDenseVec(1, 2, 6, 5, 8, 1, 9));
         
-        AB = new MatrixOfVecs(new Vec[] 
-        {
-            DenseVector.toDenseVec(110,   150,   117,   157,   121),
-            DenseVector.toDenseVec(82,   105,   102,   121,   101),
-            DenseVector.toDenseVec(74,   103,   106,   121,    92),
-            DenseVector.toDenseVec(44,   136,    65,   135,   130),
-            DenseVector.toDenseVec(91,   178,   110,   171,   148)
-        } );
+        AB = new MatrixOfVecs(DenseVector.toDenseVec(110,   150,   117,   157,   121),
+                DenseVector.toDenseVec(82,   105,   102,   121,   101),
+                DenseVector.toDenseVec(74,   103,   106,   121,    92),
+                DenseVector.toDenseVec(44,   136,    65,   135,   130),
+                DenseVector.toDenseVec(91,   178,   110,   171,   148));
         
-        BA = new MatrixOfVecs(new Vec[] 
-        {
-            DenseVector.toDenseVec(40,   182,    73,   187,   126),
-            DenseVector.toDenseVec(35,   174,   100,   161,   131),
-            DenseVector.toDenseVec(22,   109,    74,   115,    83),
-            DenseVector.toDenseVec(45,   201,   127,   193,   156),
-            DenseVector.toDenseVec(21,   100,    87,   123,   123)
-        } );
+        BA = new MatrixOfVecs(DenseVector.toDenseVec(40,   182,    73,   187,   126),
+                DenseVector.toDenseVec(35,   174,   100,   161,   131),
+                DenseVector.toDenseVec(22,   109,    74,   115,    83),
+                DenseVector.toDenseVec(45,   201,   127,   193,   156),
+                DenseVector.toDenseVec(21,   100,    87,   123,   123));
         
-        AC = new MatrixOfVecs(new Vec[] 
-        {
-            DenseVector.toDenseVec(139,    73,   113,   167,   135,   100,   187),
-            DenseVector.toDenseVec(116,    54,   106,   143,   136,    81,   153),
-            DenseVector.toDenseVec(130,    42,    95,   142,   136,    64,   158),
-            DenseVector.toDenseVec(106,    79,    62,   114,    33,   123,    86),
-            DenseVector.toDenseVec(149,    90,    99,   173,   103,   139,   152)
-        } );
+        AC = new MatrixOfVecs(DenseVector.toDenseVec(139,    73,   113,   167,   135,   100,   187),
+                DenseVector.toDenseVec(116,    54,   106,   143,   136,    81,   153),
+                DenseVector.toDenseVec(130,    42,    95,   142,   136,    64,   158),
+                DenseVector.toDenseVec(106,    79,    62,   114,    33,   123,    86),
+                DenseVector.toDenseVec(149,    90,    99,   173,   103,   139,   152));
     }
     
     @AfterClass
@@ -397,7 +380,7 @@ public class MatrixOfVecsTest
         DenseVector store = b.deepCopy();
         
         A.multiply(b, 3.0, store);
-        assertEquals(new DenseVector(new double[]{ 448, 335, 311, 288, 454}), store);
+        assertEquals(DenseVector.a(new double[]{ 448, 335, 311, 288, 454}), store);
         
         DenseVector Cz = new DenseVector(Arrays.asList(62.0, 100.0, 88.0, 74.0, 68.0));
         
@@ -837,21 +820,21 @@ public class MatrixOfVecsTest
         
         qr = A.clone().qr();
         assertTrue(A.equals(qr[0].multiply(qr[1]), 1e-14));
-        assertTrue(DenseMatrix.eye(A.rows()).equals(qr[0].multiply(qr[0].transpose()), 1e-14));
+        assertTrue(Matrix.eye(A.rows()).equals(qr[0].multiply(qr[0].transpose()), 1e-14));
         
         
         qr = B.clone().qr();
         assertTrue(B.equals(qr[0].multiply(qr[1]), 1e-14));
-        assertTrue(DenseMatrix.eye(B.rows()).equals(qr[0].multiply(qr[0].transpose()), 1e-14));
+        assertTrue(Matrix.eye(B.rows()).equals(qr[0].multiply(qr[0].transpose()), 1e-14));
         
         
         qr = C.clone().qr();
         assertTrue(C.equals(qr[0].multiply(qr[1]), 1e-14));
-        assertTrue(DenseMatrix.eye(C.rows()).equals(qr[0].multiply(qr[0].transpose()), 1e-14));
+        assertTrue(Matrix.eye(C.rows()).equals(qr[0].multiply(qr[0].transpose()), 1e-14));
         
         qr = C.transpose().qr();
         assertTrue(C.transpose().equals(qr[0].multiply(qr[1]), 1e-14));
-        assertTrue(DenseMatrix.eye(C.transpose().rows()).equals(qr[0].multiply(qr[0].transpose()), 1e-14));
+        assertTrue(Matrix.eye(C.transpose().rows()).equals(qr[0].multiply(qr[0].transpose()), 1e-14));
     }
 
     /**
@@ -871,21 +854,21 @@ public class MatrixOfVecsTest
         
         qr = A.clone().qr(threadpool);
         assertTrue(A.equals(qr[0].multiply(qr[1]), 1e-14));
-        assertTrue(DenseMatrix.eye(A.rows()).equals(qr[0].multiply(qr[0].transpose()), 1e-14));
+        assertTrue(Matrix.eye(A.rows()).equals(qr[0].multiply(qr[0].transpose()), 1e-14));
         
         
         qr = B.clone().qr(threadpool);
         assertTrue(B.equals(qr[0].multiply(qr[1]), 1e-14));
-        assertTrue(DenseMatrix.eye(B.rows()).equals(qr[0].multiply(qr[0].transpose()), 1e-14));
+        assertTrue(Matrix.eye(B.rows()).equals(qr[0].multiply(qr[0].transpose()), 1e-14));
         
         
         qr = C.clone().qr(threadpool);
         assertTrue(C.equals(qr[0].multiply(qr[1]), 1e-14));
-        assertTrue(DenseMatrix.eye(C.rows()).equals(qr[0].multiply(qr[0].transpose()), 1e-14));
+        assertTrue(Matrix.eye(C.rows()).equals(qr[0].multiply(qr[0].transpose()), 1e-14));
         
         qr = C.transpose().qr(threadpool);
         assertTrue(C.transpose().equals(qr[0].multiply(qr[1]), 1e-14));
-        assertTrue(DenseMatrix.eye(C.transpose().rows()).equals(qr[0].multiply(qr[0].transpose()), 1e-14));
+        assertTrue(Matrix.eye(C.transpose().rows()).equals(qr[0].multiply(qr[0].transpose()), 1e-14));
     }
     
     

@@ -194,7 +194,7 @@ public class NumericalToHistogram implements DataTransform
         }
         System.arraycopy(dp.getCategoricalValues(), 0, newCatVals, conversionArray.length, dp.numCategoricalValues());
         
-        return new DataPoint(new DenseVector(0), newCatVals, newDataArray);
+        return new DataPoint(DenseVector.a(0), newCatVals, newDataArray);
     }
 
     @Override

@@ -77,9 +77,9 @@ public class ManhattanDistance implements DenseSparseMetric
         double takeOut = 0.0;
         for(IndexValue iv : target)
         {
-            int i = iv.getIndex();
+            int i = iv.index;
             double mainVal = main.get(i);
-            takeOut += mainVal-Math.abs(mainVal-iv.getValue());
+            takeOut += mainVal-Math.abs(mainVal- iv.value);
         }
         return summaryConst-takeOut;
     }

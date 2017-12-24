@@ -27,7 +27,6 @@ import jsat.linear.Vec;
 import jsat.regression.RegressionDataSet;
 import jsat.text.GreekLetters;
 import jsat.utils.random.RandomUtil;
-import jsat.utils.random.XORWOW;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -85,7 +84,7 @@ public class JSATDataTest
                 numeric[rand.nextInt(numeric.length)] = rand.nextDouble();
             }
             
-            simpleData.add(new DataPoint(new DenseVector(numeric), catVals, categories, rand.nextDouble()));
+            simpleData.add(new DataPoint(DenseVector.a(numeric), catVals, categories, rand.nextDouble()));
         }
         
         
@@ -105,7 +104,7 @@ public class JSATDataTest
                 numeric[rand.nextInt(numeric.length)] = rand.nextInt(Byte.MAX_VALUE);
             }
             
-            byteIntegerData.add(new DataPoint(new DenseVector(numeric), catVals, categories, rand.nextInt(Byte.MAX_VALUE)));
+            byteIntegerData.add(new DataPoint(DenseVector.a(numeric), catVals, categories, rand.nextInt(Byte.MAX_VALUE)));
         }
     }
     

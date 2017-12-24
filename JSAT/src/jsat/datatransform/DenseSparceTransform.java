@@ -62,12 +62,12 @@ public class DenseSparceTransform implements DataTransform
         {
             if(!orig.isSparse())//already dense, just return
                 return dp;
-            DenseVector dv = new DenseVector(orig.length());
+            DenseVector dv = DenseVector.a(orig.length());
             Iterator<IndexValue> iter = orig.getNonZeroIterator();
             while (iter.hasNext())
             {
                 IndexValue indexValue = iter.next();
-                dv.set(indexValue.getIndex(), indexValue.getValue());
+                dv.set(indexValue.index, indexValue.value);
             }
             return new DataPoint(dv, dp.getCategoricalValues(), dp.getCategoricalData(), dp.getWeight());
         }

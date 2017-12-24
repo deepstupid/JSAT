@@ -2,14 +2,12 @@ package jsat.distributions.kernels;
 
 import static java.lang.Math.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import jsat.classifiers.linear.kernelized.Projectron;
 import jsat.linear.*;
 import jsat.math.FastMath;
-import jsat.math.Function;
 import jsat.math.Function1D;
 import jsat.math.optimization.GoldenSearch;
 import jsat.regression.KernelRLS;
@@ -439,7 +437,7 @@ public class KernelPoint
                 }
 
                 //Normal case
-                DenseVector kxt = new DenseVector(K.rows());
+                DenseVector kxt = DenseVector.a(K.rows());
 
                 for (int i = 0; i < kxt.length(); i++)
                     kxt.set(i, k.eval(i, x_t, qi, vecs, kernelAccel));

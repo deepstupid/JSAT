@@ -4,7 +4,7 @@ package jsat.classifiers.boosting;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
+
 import jsat.classifiers.*;
 import jsat.classifiers.linear.LinearBatch;
 import jsat.linear.DenseVector;
@@ -163,7 +163,7 @@ public class UpdatableStacking implements UpdateableClassifier, UpdateableRegres
      */
     private DataPoint getPredVecC(DataPoint data, double weight)
     {
-        Vec w = new DenseVector(weightsPerModel*baseClassifiers.size());
+        Vec w = DenseVector.a(weightsPerModel*baseClassifiers.size());
         if(weightsPerModel == 1)
             for(int i = 0; i < baseClassifiers.size(); i++)
                 w.set(i, baseClassifiers.get(i).classify(data).getProb(0)*2-1);
@@ -189,7 +189,7 @@ public class UpdatableStacking implements UpdateableClassifier, UpdateableRegres
      */
     private DataPoint getPredVecR(DataPoint data, double weight)
     {
-        Vec w = new DenseVector(baseRegressors.size());
+        Vec w = DenseVector.a(baseRegressors.size());
         for (int i = 0; i < baseRegressors.size(); i++)
             w.set(i, baseRegressors.get(i).regress(data));
         return new DataPoint(w, weight);

@@ -346,7 +346,7 @@ public class SOM implements Classifier, Parameterized
         
         Random rand = RandomUtil.getRandom();
         
-        Vec scratch = new DenseVector(D);
+        Vec scratch = DenseVector.a(D);
         /**
          * this array is used to access the data in a random order to improve convergence
          */
@@ -371,8 +371,8 @@ public class SOM implements Classifier, Parameterized
                 }
             }
             
-            localScratch1 = ThreadLocal.withInitial(() -> new DenseVector(D));
-            localScratch2 = ThreadLocal.withInitial(() -> new DenseVector(D));
+            localScratch1 = ThreadLocal.withInitial(() -> DenseVector.a(D));
+            localScratch2 = ThreadLocal.withInitial(() -> DenseVector.a(D));
         }
         else
             localScratch2 = localScratch1 = null;

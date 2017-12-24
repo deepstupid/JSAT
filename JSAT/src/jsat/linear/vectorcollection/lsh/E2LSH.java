@@ -17,7 +17,6 @@ import jsat.linear.distancemetrics.ManhattanDistance;
 import jsat.utils.IntList;
 import jsat.utils.IntSet;
 import jsat.utils.random.RandomUtil;
-import jsat.utils.random.XORWOW;
 
 /**
  * This is an implementation of Locality Sensitive Hashing for the 
@@ -290,7 +289,7 @@ public class E2LSH<V extends Vec>
         for(int l = 0; l < L; l++)
             for(int i = 0; i < k; i++)
             {
-                DenseVector dv = new DenseVector(D);
+                DenseVector dv = DenseVector.a(D);
                 for(int j = 0; j < D; j++)
                     dv.set(j, rand.nextGaussian());
                 h[l][i] = dv;

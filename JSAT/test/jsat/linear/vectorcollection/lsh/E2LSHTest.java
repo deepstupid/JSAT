@@ -59,7 +59,7 @@ public class E2LSHTest
         List<Vec> mainVecs = new ArrayList<Vec>(dim);
         for(int i = 0; i < dim; i++)
         {
-            DenseVector dv = new DenseVector(dim);
+            DenseVector dv = DenseVector.a(dim);
             dv.set(i, dim*dim);
             mainVecs.add(dv);
         }
@@ -70,7 +70,7 @@ public class E2LSHTest
         {
             for(int j = 0; j < mainVecs.size(); j++)
             {
-                DenseVector newVec = new DenseVector(dim);
+                DenseVector newVec = DenseVector.a(dim);
                 newVec.set(i, dim*dim);
                 for(int k = 0; k < newVec.length(); k++)
                     newVec.increment(k, rand.nextDouble());

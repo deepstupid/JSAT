@@ -9,7 +9,6 @@ import jsat.linear.Matrix;
 import jsat.linear.Vec;
 import jsat.regression.RegressionDataSet;
 import jsat.utils.random.RandomUtil;
-import jsat.utils.random.XORWOW;
 
 /**
  * Contains pre determined code for generating specific data sets. 
@@ -21,8 +20,8 @@ import jsat.utils.random.XORWOW;
  */
 public class FixedProblems
 {
-    private static final Vec c2l_m0 = new DenseVector(new double[]{12, 14, 25, 31, 10, 9, 1});
-    private static final Vec c2l_m1 = new DenseVector(new double[]{-9, -7, -13, -6, -11, -9, -1});
+    private static final Vec c2l_m0 = DenseVector.a(new double[]{12, 14, 25, 31, 10, 9, 1});
+    private static final Vec c2l_m1 = DenseVector.a(new double[]{-9, -7, -13, -6, -11, -9, -1});
     private static final NormalM c2l_c0 = new NormalM(c2l_m0, Matrix.eye(c2l_m0.length()));
     private static final NormalM c2l_c1 = new NormalM(c2l_m1, Matrix.eye(c2l_m0.length()));
     
@@ -112,7 +111,7 @@ public class FixedProblems
         {
             for(int i = 0; i <dataSetSize; i++)
             {
-                Vec dv = DenseVector.random(K, rand);
+                Vec dv = Vec.random(K, rand);
                 dv.set(k, 10+rand.nextGaussian());
                 train.addDataPoint(dv, new int[0], k);
             }
@@ -144,7 +143,7 @@ public class FixedProblems
         
         for(int i = 0; i < dataSetSize; i++)
         {
-            Vec s = new DenseVector(coef.length());
+            Vec s = DenseVector.a(coef.length());
             for(int j = 0; j < s.length(); j++)
                 s.set(j, rand.nextDouble());
             rds.addDataPoint(s, new int[0], s.dot(coef));
@@ -167,7 +166,7 @@ public class FixedProblems
         RegressionDataSet rds = new RegressionDataSet(2, new CategoricalData[0]);
         for(int i = 0; i < dataSetSize; i++)
         {
-            Vec s = new DenseVector(new double[]{rand.nextDouble()*4, rand.nextDouble()*4});
+            Vec s = DenseVector.a(new double[]{rand.nextDouble()*4, rand.nextDouble()*4});
             rds.addDataPoint(s, new int[0], s.get(0)+4*Math.cos(s.get(1)));
         }
         return rds;

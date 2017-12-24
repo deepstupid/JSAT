@@ -45,8 +45,7 @@ public class HDBSCANTest
     }
 
     @BeforeClass
-    public static void setUpClass() throws Exception
-    {
+    public static void setUpClass() {
         hdbscan = new HDBSCAN();
         GridDataGenerator gdg = new GridDataGenerator(new Uniform(-0.15, 0.15), RandomUtil.getRandom(), 2, 5);
         easyData10 = gdg.generateData(40);
@@ -54,8 +53,7 @@ public class HDBSCANTest
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception
-    {
+    public static void tearDownClass() {
         ex.shutdown();
     }
     

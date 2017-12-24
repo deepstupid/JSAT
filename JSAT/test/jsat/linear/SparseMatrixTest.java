@@ -109,18 +109,15 @@ public class SparseMatrixTest
     {
         System.out.println("mutableAdd");
 
-        int[] r = new int[]
-        {
+        int[] r = {
             1, 2, 5, 3, 4, 6, 3, 4, 2, 6, 1, 3, 6, 3, 4, 5
         };
 
-        int[] c = new int[]
-        {
+        int[] c = {
             1, 1, 1, 2, 2, 2, 3, 3, 4, 4, 5, 5, 5, 6, 6, 6
         };
 
-        double[] v = new double[]
-        {
+        double[] v = {
             1, 6, 4, 2, 1, -4, -7, 6, 7, 2, 8, 10, 3, 2, 8, 1
         };
 
@@ -145,18 +142,15 @@ public class SparseMatrixTest
     public void testMutableAdd_3args()
     {
         System.out.println("mutableAdd");
-        int[] r = new int[]
-        {
+        int[] r = {
             1, 2, 5, 3, 4, 6, 3, 4, 2, 6, 1, 3, 6, 3, 4, 5
         };
 
-        int[] c = new int[]
-        {
+        int[] c = {
             1, 1, 1, 2, 2, 2, 3, 3, 4, 4, 5, 5, 5, 6, 6, 6
         };
 
-        double[] v = new double[]
-        {
+        double[] v = {
             1, 6, 4, 2, 1, -4, -7, 6, 7, 2, 8, 10, 3, 2, 8, 1
         };
 
@@ -227,25 +221,25 @@ public class SparseMatrixTest
     public void testMultiply_3args_1()
     {
         System.out.println("multiply");
-        Vec b = new DenseVector(new double[]
+        Vec b = DenseVector.a(new double[]
         {
             5, 3, 3, 5, 4, 6
         });
 
-        Vec A2b = new DenseVector(new double[]
+        Vec A2b = DenseVector.a(new double[]
         {
             42, 30, -30, 6, 12, 24
         });
-        Vec B2b = new DenseVector(new double[]
+        Vec B2b = DenseVector.a(new double[]
         {
             16, 50, 52, 66, 20, -2
         });
-        Vec Ct2b = new DenseVector(new double[]
+        Vec Ct2b = DenseVector.a(new double[]
         {
             6, 12, 20, 10, 10, 6, 8, 16
         });
         
-        DenseVector c = new DenseVector(6);
+        DenseVector c = DenseVector.a(6);
         
         c.zeroOut();
         A.multiply(b, 2, c);
@@ -277,7 +271,7 @@ public class SparseMatrixTest
             
         }
         
-        c = new DenseVector(8);
+        c = DenseVector.a(8);
         c.zeroOut();
         Ct.multiply(b, 2, c);
         assertTrue(c.equals(Ct2b, 1e-20));
@@ -294,18 +288,15 @@ public class SparseMatrixTest
 
         SparseMatrix tmp;
 
-        int[] rAB = new int[]
-        {
+        int[] rAB = {
             1, 3, 4, 6, 5, 2, 3, 4, 5, 1, 3, 2, 3
         };
 
-        int[] cAB = new int[]
-        {
+        int[] cAB = {
             1, 1, 1, 1, 2, 3, 4, 4, 4, 5, 5, 6, 6
         };
 
-        double[] vAB = new double[]
-        {
+        double[] vAB = {
             8, 6, 3, 6, -2, 9, 4, 2, 1, 2, -35, 12, -7
         };
 
@@ -315,18 +306,15 @@ public class SparseMatrixTest
 
 
 
-        int[] rBA = new int[]
-        {
+        int[] rBA = {
             2, 5, 2, 4, 6, 4, 6, 2, 3, 4, 5, 1, 3
         };
 
-        int[] cBA = new int[]
-        {
+        int[] cBA = {
             1, 1, 2, 2, 2, 3, 4, 5, 5, 5, 5, 6, 6
         };
 
-        double[] vBA = new double[]
-        {
+        double[] vBA = {
             3, 2, 2, 6, 1, -21, -6, 12, 3, 12, 8, 2, 5
         };
 
@@ -334,18 +322,15 @@ public class SparseMatrixTest
         B.multiply(A, tmp);
         checkAgainstRCV(tmp, vBA, rBA, cBA);
 
-        int[] rAC = new int[]
-        {
+        int[] rAC = {
             3, 5, 1, 2, 2, 2, 3, 4, 1, 6, 1, 3
         };
 
-        int[] cAC = new int[]
-        {
+        int[] cAC = {
             1, 2, 3, 3, 4, 5, 6, 6, 7, 7, 8, 8
         };
 
-        double[] vAC = new double[]
-        {
+        double[] vAC = {
             -7, 1, 1, 3, 3, 3, 2, 1, 4, 3, 1, -7
         };
 
@@ -353,18 +338,15 @@ public class SparseMatrixTest
         A.multiply(C, tmp);
         checkAgainstRCV(tmp, vAC, rAC, cAC);
 
-        int[] rCtB = new int[]
-        {
+        int[] rCtB = {
             6, 7, 2, 3, 4, 5, 2, 6, 1, 3, 8, 1, 3, 4, 5, 8
         };
 
-        int[] cCtB = new int[]
-        {
+        int[] cCtB = {
             1, 1, 2, 3, 3, 3, 4, 4, 5, 5, 5, 6, 6, 6, 6, 6
         };
 
-        double[] vCtB = new double[]
-        {
+        double[] vCtB = {
             3, 2, -2, 3, 3, 3, 1, 2, 5, 2, 7, 1, 4, 4, 4, 1
         };
 
@@ -392,18 +374,15 @@ public class SparseMatrixTest
         System.out.println("multiply");
         SparseMatrix tmp;
 
-        int[] rAB = new int[]
-        {
+        int[] rAB = {
             1, 3, 4, 6, 5, 2, 3, 4, 5, 1, 3, 2, 3
         };
 
-        int[] cAB = new int[]
-        {
+        int[] cAB = {
             1, 1, 1, 1, 2, 3, 4, 4, 4, 5, 5, 6, 6
         };
 
-        double[] vAB = new double[]
-        {
+        double[] vAB = {
             8, 6, 3, 6, -2, 9, 4, 2, 1, 2, -35, 12, -7
         };
 
@@ -413,18 +392,15 @@ public class SparseMatrixTest
 
 
 
-        int[] rBA = new int[]
-        {
+        int[] rBA = {
             2, 5, 2, 4, 6, 4, 6, 2, 3, 4, 5, 1, 3
         };
 
-        int[] cBA = new int[]
-        {
+        int[] cBA = {
             1, 1, 2, 2, 2, 3, 4, 5, 5, 5, 5, 6, 6
         };
 
-        double[] vBA = new double[]
-        {
+        double[] vBA = {
             3, 2, 2, 6, 1, -21, -6, 12, 3, 12, 8, 2, 5
         };
 
@@ -432,18 +408,15 @@ public class SparseMatrixTest
         B.multiply(A, tmp, ex);
         checkAgainstRCV(tmp, vBA, rBA, cBA);
 
-        int[] rAC = new int[]
-        {
+        int[] rAC = {
             3, 5, 1, 2, 2, 2, 3, 4, 1, 6, 1, 3
         };
 
-        int[] cAC = new int[]
-        {
+        int[] cAC = {
             1, 2, 3, 3, 4, 5, 6, 6, 7, 7, 8, 8
         };
 
-        double[] vAC = new double[]
-        {
+        double[] vAC = {
             -7, 1, 1, 3, 3, 3, 2, 1, 4, 3, 1, -7
         };
 
@@ -451,18 +424,15 @@ public class SparseMatrixTest
         A.multiply(C, tmp, ex);
         checkAgainstRCV(tmp, vAC, rAC, cAC);
 
-        int[] rCtB = new int[]
-        {
+        int[] rCtB = {
             6, 7, 2, 3, 4, 5, 2, 6, 1, 3, 8, 1, 3, 4, 5, 8
         };
 
-        int[] cCtB = new int[]
-        {
+        int[] cCtB = {
             1, 1, 2, 3, 3, 3, 4, 4, 5, 5, 5, 6, 6, 6, 6, 6
         };
 
-        double[] vCtB = new double[]
-        {
+        double[] vCtB = {
             3, 2, -2, 3, 3, 3, 1, 2, 5, 2, 7, 1, 4, 4, 4, 1
         };
 
@@ -485,18 +455,15 @@ public class SparseMatrixTest
     public void testMultiplyTranspose()
     {
         System.out.println("multiplyTranspose");
-        int[] rAC = new int[]
-        {
+        int[] rAC = {
             3, 5, 1, 2, 2, 2, 3, 4, 1, 6, 1, 3
         };
 
-        int[] cAC = new int[]
-        {
+        int[] cAC = {
             1, 2, 3, 3, 4, 5, 6, 6, 7, 7, 8, 8
         };
 
-        double[] vAC = new double[]
-        {
+        double[] vAC = {
             -7, 1, 1, 3, 3, 3, 2, 1, 4, 3, 1, -7
         };
 
@@ -509,18 +476,15 @@ public class SparseMatrixTest
     public void testMultiplyTranspose_Executor()
     {
         System.out.println("multiplyTranspose_Executor");
-        int[] rAC = new int[]
-        {
+        int[] rAC = {
             3, 5, 1, 2, 2, 2, 3, 4, 1, 6, 1, 3
         };
 
-        int[] cAC = new int[]
-        {
+        int[] cAC = {
             1, 2, 3, 3, 4, 5, 6, 6, 7, 7, 8, 8
         };
 
-        double[] vAC = new double[]
-        {
+        double[] vAC = {
             -7, 1, 1, 3, 3, 3, 2, 1, 4, 3, 1, -7
         };
 
@@ -536,18 +500,15 @@ public class SparseMatrixTest
     public void testMutableMultiply_double()
     {
         System.out.println("mutableMultiply");
-        int[] r = new int[]
-        {
+        int[] r = {
             1, 3, 4, 3, 2, 1, 6, 5
         };
 
-        int[] c = new int[]
-        {
+        int[] c = {
             1, 2, 2, 3, 4, 5, 5, 6
         };
 
-        double[] v = new double[]
-        {
+        double[] v = {
             3, 6, 3, -21, 9, 12, 9, 3
         };
 
@@ -563,18 +524,15 @@ public class SparseMatrixTest
     public void testMutableMultiply_double_ExecutorService()
     {
         System.out.println("mutableMultiply");
-        int[] r = new int[]
-        {
+        int[] r = {
             1, 3, 4, 3, 2, 1, 6, 5
         };
 
-        int[] c = new int[]
-        {
+        int[] c = {
             1, 2, 2, 3, 4, 5, 5, 6
         };
 
-        double[] v = new double[]
-        {
+        double[] v = {
             3, 6, 3, -21, 9, 12, 9, 3
         };
 
@@ -590,18 +548,15 @@ public class SparseMatrixTest
     public void testMutableTranspose()
     {
         System.out.println("mutableTranspose");
-        int[] r = new int[]
-        {
+        int[] r = {
             1, 5, 4, 2, 3, 2, 6, 5
         };
 
-        int[] c = new int[]
-        {
+        int[] c = {
             1, 1, 2, 3, 3, 4, 5, 6
         };
 
-        double[] v = new double[]
-        {
+        double[] v = {
             1, 4, 3, 2, -7, 1, 1, 3
         };
         
@@ -628,18 +583,15 @@ public class SparseMatrixTest
     public void testTranspose()
     {
         System.out.println("transpose");
-        int[] rAt = new int[]
-        {
+        int[] rAt = {
             1, 5, 4, 2, 3, 2, 6, 5
         };
 
-        int[] cAt = new int[]
-        {
+        int[] cAt = {
             1, 1, 2, 3, 3, 4, 5, 6
         };
 
-        double[] vAt = new double[]
-        {
+        double[] vAt = {
             1, 4, 3, 2, -7, 1, 1, 3
         };
         
@@ -662,18 +614,15 @@ public class SparseMatrixTest
         System.out.println("transposeMultiply");
         SparseMatrix tmp;
 
-        int[] rAtB = new int[]
-        {
+        int[] rAtB = {
             4, 6, 5, 2, 4, 5, 1, 2, 3, 5, 2, 3
         };
 
-        int[] cAtB = new int[]
-        {
+        int[] cAtB = {
             1, 1, 2, 3, 4, 4, 5, 5, 5, 5, 6, 6
         };
 
-        double[] vAtB = new double[]
-        {
+        double[] vAtB = {
             9, 2, -6, 3, 6, 3, 2, 10, -35, 8, 6, -7
         };
 
@@ -683,18 +632,15 @@ public class SparseMatrixTest
 
 
 
-        int[] rBtA = new int[]
-        {
+        int[] rBtA = {
             5, 3, 5, 6, 5, 6, 1, 4, 2, 4, 5, 1
         };
 
-        int[] cBtA = new int[]
-        {
+        int[] cBtA = {
             1, 2, 2, 2, 3, 3, 4, 4, 5, 5, 5, 6
         };
 
-        double[] vBtA = new double[]
-        {
+        double[] vBtA = {
             2, 3, 10, 6, -35, -7, 9, 6, -6, 3, 8, 2
         };
 
@@ -702,18 +648,15 @@ public class SparseMatrixTest
         B.transposeMultiply(A, tmp);
         checkAgainstRCV(tmp, vBtA, rBtA, cBtA);
 
-        int[] rAtC = new int[]
-        {
+        int[] rAtC = {
             2, 3, 5, 1, 2, 5, 2, 2, 4, 6, 1, 2, 3, 5
         };
 
-        int[] cAtC = new int[]
-        {
+        int[] cAtC = {
             1, 1, 2, 3, 3, 3, 4, 5, 6, 7, 8, 8, 8, 8
         };
 
-        double[] vAtC = new double[]
-        {
+        double[] vAtC = {
             2, -7, 3, 1, 1, 4, 1, 1, 3, 1, 1, 2, -7, 4
         };
 
@@ -721,18 +664,15 @@ public class SparseMatrixTest
         A.transposeMultiply(C, tmp);
         checkAgainstRCV(tmp, vAtC, rAtC, cAtC);
 
-        int[] rCtB = new int[]
-        {
+        int[] rCtB = {
             6, 7, 2, 3, 4, 5, 2, 6, 1, 3, 8, 1, 3, 4, 5, 8
         };
 
-        int[] cCtB = new int[]
-        {
+        int[] cCtB = {
             1, 1, 2, 3, 3, 3, 4, 4, 5, 5, 5, 6, 6, 6, 6, 6
         };
 
-        double[] vCtB = new double[]
-        {
+        double[] vCtB = {
             3, 2, -2, 3, 3, 3, 1, 2, 5, 2, 7, 1, 4, 4, 4, 1
         };
 
@@ -761,18 +701,15 @@ public class SparseMatrixTest
          
         SparseMatrix tmp;
 
-        int[] rAtB = new int[]
-        {
+        int[] rAtB = {
             4, 6, 5, 2, 4, 5, 1, 2, 3, 5, 2, 3
         };
 
-        int[] cAtB = new int[]
-        {
+        int[] cAtB = {
             1, 1, 2, 3, 4, 4, 5, 5, 5, 5, 6, 6
         };
 
-        double[] vAtB = new double[]
-        {
+        double[] vAtB = {
             9, 2, -6, 3, 6, 3, 2, 10, -35, 8, 6, -7
         };
 
@@ -782,18 +719,15 @@ public class SparseMatrixTest
 
 
 
-        int[] rBtA = new int[]
-        {
+        int[] rBtA = {
             5, 3, 5, 6, 5, 6, 1, 4, 2, 4, 5, 1
         };
 
-        int[] cBtA = new int[]
-        {
+        int[] cBtA = {
             1, 2, 2, 2, 3, 3, 4, 4, 5, 5, 5, 6
         };
 
-        double[] vBtA = new double[]
-        {
+        double[] vBtA = {
             2, 3, 10, 6, -35, -7, 9, 6, -6, 3, 8, 2
         };
 
@@ -801,18 +735,15 @@ public class SparseMatrixTest
         B.transposeMultiply(A, tmp, ex);
         checkAgainstRCV(tmp, vBtA, rBtA, cBtA);
 
-        int[] rAtC = new int[]
-        {
+        int[] rAtC = {
             2, 3, 5, 1, 2, 5, 2, 2, 4, 6, 1, 2, 3, 5
         };
 
-        int[] cAtC = new int[]
-        {
+        int[] cAtC = {
             1, 1, 2, 3, 3, 3, 4, 5, 6, 7, 8, 8, 8, 8
         };
 
-        double[] vAtC = new double[]
-        {
+        double[] vAtC = {
             2, -7, 3, 1, 1, 4, 1, 1, 3, 1, 1, 2, -7, 4
         };
 
@@ -820,18 +751,15 @@ public class SparseMatrixTest
         A.transposeMultiply(C, tmp, ex);
         checkAgainstRCV(tmp, vAtC, rAtC, cAtC);
 
-        int[] rCtB = new int[]
-        {
+        int[] rCtB = {
             6, 7, 2, 3, 4, 5, 2, 6, 1, 3, 8, 1, 3, 4, 5, 8
         };
 
-        int[] cCtB = new int[]
-        {
+        int[] cCtB = {
             1, 1, 2, 3, 3, 3, 4, 4, 5, 5, 5, 6, 6, 6, 6, 6
         };
 
-        double[] vCtB = new double[]
-        {
+        double[] vCtB = {
             3, 2, -2, 3, 3, 3, 1, 2, 5, 2, 7, 1, 4, 4, 4, 1
         };
 
@@ -857,25 +785,25 @@ public class SparseMatrixTest
     public void testTransposeMultiply_3args_2()
     {
         System.out.println("transposeMultiply");
-        Vec b = new DenseVector(new double[]
+        Vec b = DenseVector.a(new double[]
         {
             5, 3, 3, 5, 4, 6
         });
 
-        Vec A2b = new DenseVector(new double[]
+        Vec A2b = DenseVector.a(new double[]
         {
             10, 22, -42, 18, 76, 8
         });
-        Vec B2b = new DenseVector(new double[]
+        Vec B2b = DenseVector.a(new double[]
         {
             34, -24, 30, 24, 50, 46
         });
-        Vec Ct2b = new DenseVector(new double[]
+        Vec Ct2b = DenseVector.a(new double[]
         {
             6, 12, 20, 10, 10, 6, 8, 16
         });
         
-        DenseVector c = new DenseVector(6);
+        DenseVector c = DenseVector.a(6);
         
         c.zeroOut();
         A.transposeMultiply(2, b, c);
@@ -907,7 +835,7 @@ public class SparseMatrixTest
             
         }
         
-        c = new DenseVector(8);
+        c = DenseVector.a(8);
         c.zeroOut();
         C.transposeMultiply(2, b, c);
         assertTrue(c.equals(Ct2b, 1e-20));
@@ -1030,18 +958,15 @@ public class SparseMatrixTest
     public void testSwapRows()
     {
         System.out.println("swapRows");
-        int[] r = new int[]
-        {
+        int[] r = {
             6, 3, 4, 3, 2, 1, 6, 5
         };
 
-        int[] c = new int[]
-        {
+        int[] c = {
             1, 2, 2, 3, 4, 5, 5, 6
         };
 
-        double[] v = new double[]
-        {
+        double[] v = {
             1, 2, 1, -7, 3, 3, 4, 1
         };
         

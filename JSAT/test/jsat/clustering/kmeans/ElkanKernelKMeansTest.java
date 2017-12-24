@@ -72,7 +72,7 @@ public class ElkanKernelKMeansTest
         System.out.println("cluster");
         ElkanKernelKMeans kmeans = new ElkanKernelKMeans(new RBFKernel(0.1));
         ClassificationDataSet toCluster = FixedProblems.getCircles(1000, RandomUtil.getRandom(), 1e-3, 1.0);
-        int[] result = kmeans.cluster(toCluster, 2, ex, (int[])null);
+        int[] result = kmeans.cluster(toCluster, 2, ex, null);
         //make sure each cluster has points from only 1 class. If true then everyone is good
         Map<Integer, Set<Integer>> tmp = new HashMap<Integer, Set<Integer>>();
         for(int c = 0; c< toCluster.getClassSize(); c++)
@@ -132,7 +132,7 @@ public class ElkanKernelKMeansTest
             assertEquals(1, set.size());
         assertEquals(2, allSeen.size());//make sure we saw both clusters!
         
-        result = kmeans.cluster(toCluster, 2, ex, (int[])null);
+        result = kmeans.cluster(toCluster, 2, ex, null);
         //make sure each cluster has points from only 1 class. If true then everyone is good
         tmp = new HashMap<Integer, Set<Integer>>();
         allSeen = new IntSet();
